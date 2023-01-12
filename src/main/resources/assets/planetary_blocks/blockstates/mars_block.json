@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "planetary_blocks:block/mars_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "planetary_blocks:block/mars"
+    },
+    "axis=z": {
+      "model": "planetary_blocks:block/mars_horizontal",
+      "x": 90
+    }
+  }
+}
