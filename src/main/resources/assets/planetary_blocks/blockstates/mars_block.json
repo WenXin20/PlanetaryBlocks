@@ -1,15 +1,27 @@
 {
   "variants": {
-    "axis=x": {
+    "axis=x,rotation=false": {
       "model": "planetary_blocks:block/mars_horizontal",
       "x": 90,
       "y": 90
     },
-    "axis=y": {
+    "axis=y,rotation=false": {
       "model": "planetary_blocks:block/mars"
     },
-    "axis=z": {
+    "axis=z,rotation=false": {
       "model": "planetary_blocks:block/mars_horizontal",
+      "x": 90
+    },
+    "axis=x,rotation=true": {
+      "model": "planetary_blocks:block/mars_horizontal_rotation",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=true": {
+      "model": "planetary_blocks:block/mars_rotation"
+    },
+    "axis=z,rotation=true": {
+      "model": "planetary_blocks:block/mars_horizontal_rotation",
       "x": 90
     }
   }

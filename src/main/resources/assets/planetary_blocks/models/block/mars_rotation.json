@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "planetary_blocks:block/mars_top_rotation",
+    "side": "planetary_blocks:block/mars_rotation"
+  }
+}

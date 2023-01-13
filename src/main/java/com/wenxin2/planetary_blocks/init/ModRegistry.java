@@ -1,12 +1,13 @@
 package com.wenxin2.planetary_blocks.init;
 
 import com.wenxin2.planetary_blocks.PlanetaryBlocks;
+import com.wenxin2.planetary_blocks.blocks.PlanetBlock;
 import java.util.function.Supplier;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -22,8 +23,9 @@ public class ModRegistry {
     static
     {
         MARS = registerBlock("mars_block",
-                () -> new RotatedPillarBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_RED)
-                        .sound(SoundType.STONE).strength(1.5F, 6.0F).requiresCorrectToolForDrops()), PlanetaryBlocks.CREATIVE_TAB);
+                () -> new PlanetBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_RED)
+                        .sound(SoundType.STONE).strength(1.5F, 6.0F)
+                        .requiresCorrectToolForDrops(), Direction.Axis.Y, 30), PlanetaryBlocks.CREATIVE_TAB);
     }
 
     public static RegistryObject<Block> registerBlock(String name, Supplier<? extends Block> block, CreativeModeTab tab)
