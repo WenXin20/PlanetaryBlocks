@@ -135,14 +135,14 @@ public class PlanetBlock extends RotatedPillarBlock
             Direction.Axis axis = world.getBlockState(pos).getValue(AXIS);
             Direction.Axis axisAbove = world.getBlockState(pos).getValue(AXIS);
             boolean flag = state.getValue(POWERED);
-            if (world.getBlockState(pos).getValue(ROTATION) && world.getBlockState(pos.above()).getBlock() instanceof PlanetBlock)
-            {
-                world.setBlock(pos.above(), state.cycle(ROTATION).setValue(AXIS, axisAbove), 3);
-            }
-            else if (world.getBlockState(pos.above()).getBlock() instanceof PlanetBlock)
-            {
-                world.setBlock(pos.above(), state.cycle(ROTATION).setValue(AXIS, axisAbove), 3);
-            }
+//            if (world.getBlockState(pos).getValue(ROTATION) && world.getBlockState(pos.above()).getBlock() instanceof PlanetBlock)
+//            {
+//                world.setBlock(pos.above(), state.cycle(ROTATION).setValue(AXIS, axisAbove), 3);
+//            }
+//            else if (world.getBlockState(pos.above()).getBlock() instanceof PlanetBlock)
+//            {
+//                world.setBlock(pos.above(), state.cycle(ROTATION).setValue(AXIS, axisAbove), 3);
+//            }
 
             if (flag != world.hasNeighborSignal(pos))
             {
