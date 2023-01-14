@@ -24,7 +24,7 @@ public class ModRegistry {
     {
         MARS = registerBlock("mars_block",
                 () -> new PlanetBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_RED)
-                        .sound(SoundType.STONE).strength(1.5F, 6.0F)
+                        .sound(SoundType.STONE).strength(1.5F, 6.0F).randomTicks()
                         .requiresCorrectToolForDrops(), Direction.Axis.Y, 30), PlanetaryBlocks.CREATIVE_TAB);
     }
 
