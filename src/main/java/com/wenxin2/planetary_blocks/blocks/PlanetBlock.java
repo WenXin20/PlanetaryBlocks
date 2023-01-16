@@ -1,19 +1,15 @@
 package com.wenxin2.planetary_blocks.blocks;
 
-import javax.annotation.Nullable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -42,13 +38,13 @@ public class PlanetBlock extends RotatedPillarBlock
     }
 
     @Override
-    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack)
+    public void setPlacedBy(@NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState state, LivingEntity entity, @NotNull ItemStack stack)
     {
         this.updateRedstone(state, world, pos);
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighborBlock, BlockPos pos2, boolean rotation)
+    public void neighborChanged(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull Block neighborBlock, @NotNull BlockPos pos2, boolean rotation)
     {
         this.updateRedstone(state, world, pos);
         super.neighborChanged(state, world, pos, neighborBlock, pos, rotation);
@@ -75,7 +71,7 @@ public class PlanetBlock extends RotatedPillarBlock
             {
                 world.scheduleTick(pos, this, 4);
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE).setValue(POWERED, Mth.clamp(power, 0, 15)), 1 | 2 | 4);
-                world.playSound(null, pos, SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.BLOCKS, 0.25F, 8.5F);
+                world.playSound(null, pos, SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.BLOCKS, 8.25F, 0.05F);
 
             }
             else {
@@ -84,17 +80,12 @@ public class PlanetBlock extends RotatedPillarBlock
         }
     }
 
-    @Override
-    public boolean isSignalSource(BlockState state) {
-        return true;
-    }
-
     public BlockState getStateForPlacement(BlockPlaceContext pos) {
         return this.defaultBlockState().setValue(AXIS, pos.getClickedFace().getAxis())
                 .setValue(ROTATION, pos.getLevel().hasNeighborSignal(pos.getClickedPos()));
     }
 
-    public int getSignal(BlockState state, @NotNull BlockGetter block, BlockPos pos, Direction side) {
+    public int getSignal(BlockState state, @NotNull BlockGetter block, @NotNull BlockPos pos, @NotNull Direction side) {
         return Math.max(0, state.getValue(POWERED) - 1);
     }
 }
