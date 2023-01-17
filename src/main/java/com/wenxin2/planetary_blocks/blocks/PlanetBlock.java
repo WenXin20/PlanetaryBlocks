@@ -56,11 +56,12 @@ public class PlanetBlock extends RotatedPillarBlock
         {
             int power = world.getBestNeighborSignal(pos);
             world.setBlock(pos, state.setValue(POWERED, Mth.clamp(power, 0, 15)), 1 | 2 | 4);
-            this.resetPower(state, world, pos);
+            world.playSound(null, pos, SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.BLOCKS, 5.25F, 0.05F);
+            this.updateRotation(state, world, pos);
         }
     }
 
-    public void resetPower(BlockState state, Level world, BlockPos pos)
+    public void updateRotation(BlockState state, Level world, BlockPos pos)
     {
         if (!world.isClientSide)
         {
@@ -71,7 +72,6 @@ public class PlanetBlock extends RotatedPillarBlock
             {
                 world.scheduleTick(pos, this, 4);
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE).setValue(POWERED, Mth.clamp(power, 0, 15)), 1 | 2 | 4);
-                world.playSound(null, pos, SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.BLOCKS, 8.25F, 0.05F);
 
             }
             else {
