@@ -1,27 +1,102 @@
 {
   "variants": {
-    "axis=x,rotation=false": {
+    "axis=x,rotation=false,column=none": {
       "model": "planetary_blocks:block/mars_horizontal",
       "x": 90,
       "y": 90
     },
-    "axis=y,rotation=false": {
+    "axis=y,rotation=false,column=none": {
       "model": "planetary_blocks:block/mars"
     },
-    "axis=z,rotation=false": {
+    "axis=z,rotation=false,column=none": {
       "model": "planetary_blocks:block/mars_horizontal",
       "x": 90
     },
-    "axis=x,rotation=true": {
+    "axis=x,rotation=true,column=none": {
       "model": "planetary_blocks:block/mars_horizontal_rotation",
       "x": 90,
       "y": 90
     },
-    "axis=y,rotation=true": {
+    "axis=y,rotation=true,column=none": {
       "model": "planetary_blocks:block/mars_rotation"
     },
-    "axis=z,rotation=true": {
+    "axis=z,rotation=true,column=none": {
       "model": "planetary_blocks:block/mars_horizontal_rotation",
+      "x": 90
+    },
+
+    "axis=x,rotation=false,column=top": {
+      "model": "planetary_blocks:block/mars_horizontal_top",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=false,column=top": {
+      "model": "planetary_blocks:block/mars_top"
+    },
+    "axis=z,rotation=false,column=top": {
+      "model": "planetary_blocks:block/mars_horizontal_top",
+      "x": 90
+    },
+    "axis=x,rotation=true,column=top": {
+      "model": "planetary_blocks:block/mars_horizontal_top_rotation",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=true,column=top": {
+      "model": "planetary_blocks:block/mars_top_rotation"
+    },
+    "axis=z,rotation=true,column=top": {
+      "model": "planetary_blocks:block/mars_horizontal_top_rotation",
+      "x": 90
+    },
+
+    "axis=x,rotation=false,column=middle": {
+      "model": "planetary_blocks:block/mars_horizontal_middle",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=false,column=middle": {
+      "model": "planetary_blocks:block/mars_middle"
+    },
+    "axis=z,rotation=false,column=middle": {
+      "model": "planetary_blocks:block/mars_horizontal_middle",
+      "x": 90
+    },
+    "axis=x,rotation=true,column=middle": {
+      "model": "planetary_blocks:block/mars_horizontal_middle_rotation",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=true,column=middle": {
+      "model": "planetary_blocks:block/mars_middle_rotation"
+    },
+    "axis=z,rotation=true,column=middle": {
+      "model": "planetary_blocks:block/mars_horizontal_middle_rotation",
+      "x": 90
+    },
+
+    "axis=x,rotation=false,column=bottom": {
+      "model": "planetary_blocks:block/mars_horizontal_bottom",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=false,column=bottom": {
+      "model": "planetary_blocks:block/mars_bottom"
+    },
+    "axis=z,rotation=false,column=bottom": {
+      "model": "planetary_blocks:block/mars_horizontal_bottom",
+      "x": 90
+    },
+    "axis=x,rotation=true,column=bottom": {
+      "model": "planetary_blocks:block/mars_horizontal_bottom_rotation",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=true,column=bottom": {
+      "model": "planetary_blocks:block/mars_bottom_rotation"
+    },
+    "axis=z,rotation=true,column=bottom": {
+      "model": "planetary_blocks:block/mars_horizontal_bottom_rotation",
       "x": 90
     }
   }

@@ -1,0 +1,8 @@
+{
+  "parent": "planetary_blocks:block/cube_bottom_top_horizontal",
+  "textures": {
+    "bottom": "planetary_blocks:block/mars_top",
+    "side": "planetary_blocks:block/mars_side",
+    "top": "planetary_blocks:block/mars_top_snow"
+  }
+}

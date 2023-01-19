@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column_horizontal",
   "textures": {
-    "end": "planetary_blocks:block/mars_top_snow",
+    "end": "planetary_blocks:block/mars_top",
     "side": "planetary_blocks:block/mars_side"
   }
 }
