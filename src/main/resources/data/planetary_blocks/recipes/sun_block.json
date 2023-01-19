@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "mars",
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone"
+    },
+    "L": {
+      "item": "minecraft:lava_bucket"
+    }
+  },
+  "pattern": [
+    "GGG",
+    "GLG",
+    "GGG"
+  ],
+  "result": {
+    "count": 8,
+    "item": "planetary_blocks:sun_block"
+  }
+}

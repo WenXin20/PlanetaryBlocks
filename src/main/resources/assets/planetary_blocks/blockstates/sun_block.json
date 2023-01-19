@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "rotation=false": {
+      "model": "planetary_blocks:block/sun"
+    },
+    "rotation=true": {
+      "model": "planetary_blocks:block/sun_rotation"
+    }
+  }
+}
