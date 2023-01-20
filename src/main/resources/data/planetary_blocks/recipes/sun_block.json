@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "mars",
+  "group": "sun",
   "key": {
-    "G": {
+    "X": {
       "item": "minecraft:glowstone"
     },
-    "L": {
+    "O": {
       "item": "minecraft:lava_bucket"
     }
   },
   "pattern": [
-    "GGG",
-    "GLG",
-    "GGG"
+    "XXX",
+    "XOX",
+    "XXX"
   ],
   "result": {
     "count": 8,

@@ -1,18 +1,18 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "mars",
+  "group": "sun",
   "key": {
-    "Y": {
+    "X": {
       "item": "minecraft:yellow_terracotta"
     },
-    "L": {
+    "O": {
       "item": "minecraft:lava_bucket"
     }
   },
   "pattern": [
-    "YYY",
-    "YLY",
-    "YYY"
+    "XXX",
+    "XOX",
+    "XXX"
   ],
   "result": {
     "count": 8,

@@ -61,7 +61,7 @@ public class SunBlock extends PlanetBlock
                 }
             }
         }
-        
+
         if (source.nextInt(100) == 0)
         {
             double posXDouble = (double)pos.getX() + source.nextDouble();
