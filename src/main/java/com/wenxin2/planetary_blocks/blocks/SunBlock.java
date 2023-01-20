@@ -12,15 +12,14 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.FluidState;
 
 public class SunBlock extends PlanetBlock
 {
-    private final boolean spawnParticles;
+    public final boolean spawnParticles;
 
     public SunBlock(Properties properties, Direction.Axis direction, boolean spawnParticles)
     {
-        super(properties, direction);
+        super(properties, direction, spawnParticles);
         this.spawnParticles = spawnParticles;
         this.registerDefaultState(this.getStateDefinition().any().setValue(POWERED, 0)
                 .setValue(ROTATION, Boolean.FALSE).setValue(COLUMN, ColumnBlockStates.NONE));

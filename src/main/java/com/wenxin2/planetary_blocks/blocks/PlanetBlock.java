@@ -26,9 +26,12 @@ public class PlanetBlock extends RotatedPillarBlock
     public static final IntegerProperty POWERED = BlockStateProperties.POWER;
     public static final BooleanProperty ROTATION = BooleanProperty.create("rotation");
 
-    public PlanetBlock(BlockBehaviour.Properties properties, Direction.Axis direction)
+    public final boolean spawnParticles;
+
+    public PlanetBlock(BlockBehaviour.Properties properties, Direction.Axis direction, boolean spawnParticles)
     {
         super(properties);
+        this.spawnParticles = spawnParticles;
         this.registerDefaultState(this.getStateDefinition().any().setValue(AXIS, direction)
                 .setValue(POWERED, 0).setValue(ROTATION, Boolean.FALSE).setValue(COLUMN, ColumnBlockStates.NONE));
     }
