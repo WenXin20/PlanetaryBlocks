@@ -25,6 +25,7 @@ public class ModRegistry {
 
     public static final RegistryObject<Block> MARS;
     public static final RegistryObject<Block> SUN;
+    public static final RegistryObject<Block> CLASSIC_SUN;
 
     static
     {
@@ -36,6 +37,10 @@ public class ModRegistry {
                 () -> new SunBlock(BlockBehaviour.Properties.of(Material.LAVA, MaterialColor.COLOR_YELLOW)
                         .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
                         .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always), Direction.Axis.Y, Boolean.TRUE), PlanetaryBlocks.CREATIVE_TAB);
+        CLASSIC_SUN = registerBlock("classic_sun",
+                () -> new SunBlock(BlockBehaviour.Properties.of(Material.LAVA, MaterialColor.COLOR_YELLOW)
+                        .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
+                        .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always), Direction.Axis.Y, Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
     }
 
     public static RegistryObject<Block> registerBlock(String name, Supplier<? extends Block> block, CreativeModeTab tab)
