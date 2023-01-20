@@ -1,10 +1,28 @@
 {
   "variants": {
-    "rotation=false": {
+    "axis=x,rotation=false": {
+      "model": "planetary_blocks:block/sun_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=false": {
       "model": "planetary_blocks:block/sun"
     },
-    "rotation=true": {
+    "axis=z,rotation=false": {
+      "model": "planetary_blocks:block/sun_horizontal",
+      "x": 90
+    },
+    "axis=x,rotation=true": {
+      "model": "planetary_blocks:block/sun_horizontal_rotation",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=true": {
       "model": "planetary_blocks:block/sun_rotation"
+    },
+    "axis=z,rotation=true": {
+      "model": "planetary_blocks:block/sun_horizontal_rotation",
+      "x": 90
     }
   }
 }
