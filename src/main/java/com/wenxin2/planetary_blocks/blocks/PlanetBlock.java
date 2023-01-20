@@ -115,13 +115,13 @@ public class PlanetBlock extends RotatedPillarBlock
     {
         if (!world.isClientSide)
         {
-            int power = world.getBestNeighborSignal(pos);
-            int flag = world.getBlockState(pos).getValue(POWERED);
+            int bestSignal = world.getBestNeighborSignal(pos);
+            int power = world.getBlockState(pos).getValue(POWERED);
 
-            if (flag > 0)
+            if (power > 0)
             {
                 world.scheduleTick(pos, this, 4);
-                world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE).setValue(POWERED, Mth.clamp(power, 0, 15)), 4);
+                world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE).setValue(POWERED, Mth.clamp(bestSignal, 0, 15)), 4);
             }
             else {
                 world.scheduleTick(pos, this, 4);
