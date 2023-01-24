@@ -29,18 +29,18 @@ public class ModRegistry {
 
     static
     {
+        CLASSIC_SUN = registerBlock("classic_sun",
+                () -> new SunBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
+                        .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
+                        .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always), Direction.Axis.Y, Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
+        SUN = registerBlock("sun_block",
+                () -> new SunBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
+                        .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
+                        .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always), Direction.Axis.Y, Boolean.TRUE), PlanetaryBlocks.CREATIVE_TAB);
         MARS = registerBlock("mars_block",
                 () -> new PlanetBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_ORANGE)
                         .sound(SoundType.STONE).strength(1.5F, 6.0F)
                         .requiresCorrectToolForDrops(), Direction.Axis.Y, Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
-        SUN = registerBlock("sun_block",
-                () -> new SunBlock(BlockBehaviour.Properties.of(Material.LAVA, MaterialColor.COLOR_YELLOW)
-                        .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
-                        .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always), Direction.Axis.Y, Boolean.TRUE), PlanetaryBlocks.CREATIVE_TAB);
-        CLASSIC_SUN = registerBlock("classic_sun",
-                () -> new SunBlock(BlockBehaviour.Properties.of(Material.LAVA, MaterialColor.COLOR_YELLOW)
-                        .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
-                        .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always), Direction.Axis.Y, Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
     }
 
     public static RegistryObject<Block> registerBlock(String name, Supplier<? extends Block> block, CreativeModeTab tab)
