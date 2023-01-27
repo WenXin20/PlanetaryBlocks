@@ -21,7 +21,7 @@ public class SunBlock extends PlanetBlock
     {
         super(properties, direction, spawnParticles);
         this.spawnParticles = spawnParticles;
-        this.registerDefaultState(this.getStateDefinition().any().setValue(POWERED, 0)
+        this.registerDefaultState(this.getStateDefinition().any().setValue(POWERED, Boolean.FALSE)
                 .setValue(ROTATION, Boolean.FALSE).setValue(COLUMN, ColumnBlockStates.NONE));
     }
 
@@ -48,7 +48,7 @@ public class SunBlock extends PlanetBlock
         double posY = (double)pos.getY() + 1.0D;
         double posZ = (double)pos.getZ() + 0.5D;
 
-        if (world.getBlockState(pos).getValue(POWERED) > 0)
+        if (world.getBlockState(pos).getValue(POWERED))
         {
             if (this.spawnParticles && source.nextInt(2) == 0)
             {
