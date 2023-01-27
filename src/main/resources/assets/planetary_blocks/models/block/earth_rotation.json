@@ -3,10 +3,10 @@
   "textures": {
     "up": "planetary_blocks:block/earth_top",
     "down": "planetary_blocks:block/earth_bottom",
-    "north": "planetary_blocks:block/earth_side_north",
-    "east": "planetary_blocks:block/earth_side_east",
-    "south": "planetary_blocks:block/earth_side_south",
-    "west": "planetary_blocks:block/earth_side_west",
-    "particle": "planetary_blocks:block/earth_side_north"
+    "north": "planetary_blocks:block/earth_side_north_rotation",
+    "east": "planetary_blocks:block/earth_side_east_rotation",
+    "south": "planetary_blocks:block/earth_side_south_rotation",
+    "west": "planetary_blocks:block/earth_side_west_rotation",
+    "particle": "planetary_blocks:block/earth_side_north_rotation"
   }
 }
