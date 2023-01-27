@@ -2,6 +2,8 @@ package com.wenxin2.planetary_blocks;
 
 import com.mojang.logging.LogUtils;
 import com.wenxin2.planetary_blocks.init.ModRegistry;
+import com.wenxin2.planetary_blocks.paintings.PaintingsInit;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,17 +24,17 @@ public class PlanetaryBlocks
     public static final String MODID = "planetary_blocks";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "planetary_blocks" namespace
+    // Create a Deferred Register to hold blocks/items which will all be registered under the "planetary_blocks" namespace
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
-    // Create a Deferred Register to hold Items which will all be registered under the "planetary_blocks" namespace
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
+    public static final DeferredRegister<PaintingVariant> PAINTINGS = DeferredRegister.create(ForgeRegistries.PAINTING_VARIANTS, MODID);
 
     public static CreativeModeTab CREATIVE_TAB = new CreativeModeTab("planetary_blocks")
     {
         @Override
         public ItemStack makeIcon()
         {
-            return ModRegistry.MARS.get().asItem().getDefaultInstance();
+            return ModRegistry.EARTH.get().asItem().getDefaultInstance();
         }
     };
 
@@ -40,10 +42,13 @@ public class PlanetaryBlocks
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        // Register the Deferred Register to the mod event bus so blocks get registered
+        // Register the Deferred Register to the mod event bus so blocks/items get registered
         BLOCKS.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
+        PAINTINGS.register(modEventBus);
+
+        // Register paintings
+        PaintingsInit.init();
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
