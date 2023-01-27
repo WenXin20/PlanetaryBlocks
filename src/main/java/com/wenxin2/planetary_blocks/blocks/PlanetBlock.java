@@ -2,9 +2,11 @@ package com.wenxin2.planetary_blocks.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -15,12 +17,13 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 
 public class PlanetBlock extends RotatedPillarBlock
 {
     public static final EnumProperty<ColumnBlockStates> COLUMN = EnumProperty.create("column", ColumnBlockStates.class);
-    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    public static final IntegerProperty POWERED = BlockStateProperties.POWER;
     public static final BooleanProperty ROTATION = BooleanProperty.create("rotation");
 
     public final boolean spawnParticles;
@@ -30,7 +33,7 @@ public class PlanetBlock extends RotatedPillarBlock
         super(properties);
         this.spawnParticles = spawnParticles;
         this.registerDefaultState(this.getStateDefinition().any().setValue(AXIS, direction)
-                .setValue(POWERED, Boolean.FALSE).setValue(ROTATION, Boolean.FALSE).setValue(COLUMN, ColumnBlockStates.NONE));
+                .setValue(POWERED, 0).setValue(ROTATION, Boolean.FALSE).setValue(COLUMN, ColumnBlockStates.NONE));
     }
 
     @Override
@@ -54,8 +57,6 @@ public class PlanetBlock extends RotatedPillarBlock
         boolean axisX = state.getValue(AXIS) == Direction.Axis.X;
         boolean axisY = state.getValue(AXIS) == Direction.Axis.Y;
         boolean axisZ = state.getValue(AXIS) == Direction.Axis.Z;
-
-        int power = 14;
 
         if (blockEast == this && axisX)
         {
@@ -86,134 +87,27 @@ public class PlanetBlock extends RotatedPillarBlock
 
         return state.setValue(COLUMN, ColumnBlockStates.NONE);
 
-//        if (power >= 14) {
-//            return state.setValue(POWERED, Boolean.FALSE);
-//        }
-
-    }
-
-    protected boolean findPlanetSignal(Level world, BlockPos pos, BlockState state, boolean axisState, int power)
-    {
-        if (power >= 14) {
-            return false;
-        } else {
-            int posX = pos.getX();
-            int posY = pos.getY();
-            int posZ = pos.getZ();
-//            boolean flag = true;
-            Direction.Axis axis = state.getValue(AXIS);
-            switch (axis) {
-                case X:
-                    if (axisState) {
-                        ++posX;
-                    } else {
-                        --posX;
-                    }
-                    break;
-                case Y:
-                    if (axisState) {
-                        --posY;
-                    } else {
-                        ++posY;
-                    }
-                    break;
-                case Z:
-                    if (axisState) {
-                        --posZ;
-                    } else {
-                        ++posZ;
-                    }
-                    break;
-            }
-            if (world.getBlockState(pos.south()).getBlock() == this)
-                ++posY;
-            if (world.getBlockState(pos.north()).getBlock() == this)
-                ++posY;
-
-            if (this.isSamePlanetAxis(world, new BlockPos(posX, posY, posZ), axisState, power, axis))
-            {
-                return true;
-            }
-//            else {
-//                return flag && this.isSamePlanetAxis(world, new BlockPos(posX, posY, posZ), axisState, power, axis);
-//            }
-            return false;
-        }
-    }
-
-    protected boolean isSamePlanetAxis(Level world, BlockPos pos, boolean axisState, int power, Direction.Axis axis)
-    {
-        BlockState state = world.getBlockState(pos);
-        if (!(state.getBlock() instanceof PlanetBlock other))
-        {
-            return false;
-        } else {
-            if (axis != Direction.Axis.X && axis != Direction.Axis.Z)
-                return world.hasNeighborSignal(pos) || other.findPlanetSignal(world, pos, state, axisState, power + 1);
-            if (axis == Direction.Axis.X)
-                return world.hasNeighborSignal(pos) || other.findPlanetSignal(world, pos, state, axisState, power + 1);
-            return false;
-        }
-    }
-
-    protected void updateState(BlockState state, Level world, BlockPos pos, Block block)
-    {
-        boolean powered = state.getValue(POWERED);
-        boolean neighborPowered = world.hasNeighborSignal(pos) || this.findPlanetSignal(world, pos, state, true, 0) || this.findPlanetSignal(world, pos, state, false, 0);
-        if (neighborPowered != powered) {
-            world.setBlock(pos, state.setValue(POWERED, Boolean.valueOf(neighborPowered)), 3);
-            world.updateNeighborsAt(pos.below(), this);
-//            if (state.getValue(POWERED))
-//            {
-//                world.updateNeighborsAt(pos.above(), this);
-//            }
-        }
-
     }
 
     @Override
     public void setPlacedBy(@NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState state, LivingEntity entity, @NotNull ItemStack stack)
     {
-//        Block neighborBlock = this;
-//        if (!world.isClientSide && world.getBlockState(pos).is(this))
-//        {
-////        this.updateRedstone(state, world, pos);
-//            this.updateState(state, world, pos, neighborBlock);
-//        }
-//        this.updateRedstone(state, world, pos);
-    }
-
-    @Override
-    public void onPlace(BlockState state, Level world, BlockPos pos, BlockState state1, boolean b) {
-        if (!state1.is(state.getBlock())) {
-            this.updateState(state, world, pos, b);
-        }
-    }
-
-    protected BlockState updateState(BlockState state, Level world, BlockPos pos, boolean b) {
-        world.neighborChanged(state, pos, this, pos, b);
-        return state;
+        this.updateRedstone(state, world, pos);
     }
 
     @Override
     public void neighborChanged(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull Block neighborBlock, @NotNull BlockPos pos2, boolean rotation)
     {
-        if (!world.isClientSide && world.getBlockState(pos).is(this))
-        {
-//        this.updateRedstone(state, world, pos);
-            this.updateState(state, world, pos, neighborBlock);
-            this.updateRotation(state, world, pos);
-        }
+        this.updateRedstone(state, world, pos);
         super.neighborChanged(state, world, pos, neighborBlock, pos, rotation);
     }
 
     public void updateRedstone(BlockState state, Level world, BlockPos pos)
     {
-        boolean powered = state.getValue(POWERED);
         if (!world.isClientSide)
         {
             int power = world.getBestNeighborSignal(pos);
-            world.setBlock(pos, state.setValue(POWERED, Boolean.TRUE), 1 | 2 | 4);
+            world.setBlock(pos, state.setValue(POWERED, Mth.clamp(power, 0, 15)), 1 | 2 | 4);
 //            world.playSound(null, pos, SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.BLOCKS, 5.25F, 0.05F);
             world.scheduleTick(pos, this, 4);
             this.updateRotation(state, world, pos);
@@ -225,16 +119,16 @@ public class PlanetBlock extends RotatedPillarBlock
         if (!world.isClientSide)
         {
             int bestSignal = world.getBestNeighborSignal(pos);
-            boolean powered = world.getBlockState(pos).getValue(POWERED);
+            int power = world.getBlockState(pos).getValue(POWERED);
 
-            if (powered)
+            if (power > 0)
             {
                 world.scheduleTick(pos, this, 4);
-                world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE).setValue(POWERED, Boolean.TRUE), 4);
+                world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE).setValue(POWERED, Mth.clamp(bestSignal, 0, 15)), 4);
             }
             else {
                 world.scheduleTick(pos, this, 4);
-                world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(POWERED, Boolean.FALSE), 4);
+                world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(POWERED, 0), 4);
             }
         }
     }
@@ -247,7 +141,7 @@ public class PlanetBlock extends RotatedPillarBlock
                 .setValue(COLUMN, ColumnBlockStates.NONE);
     }
 
-//    public int getSignal(BlockState state, @NotNull BlockGetter block, @NotNull BlockPos pos, @NotNull Direction side) {
-//        return Math.max(0, state.getValue(POWERED) - 1);
-//    }
+    public int getSignal(BlockState state, @NotNull BlockGetter block, @NotNull BlockPos pos, @NotNull Direction side) {
+        return Math.max(0, state.getValue(POWERED) - 1);
+    }
 }
