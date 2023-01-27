@@ -2,6 +2,7 @@
   "itemGroup.planetary_blocks": "Planetary Blocks",
 
   "block.planetary_blocks.classic_sun": "Classic Sun",
+  "block.planetary_blocks.earth_block": "Earth",
   "block.planetary_blocks.mars_block": "Mars",
   "block.planetary_blocks.sun_block": "Sun"
 }

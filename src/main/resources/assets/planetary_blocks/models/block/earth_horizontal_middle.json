@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "up": "planetary_blocks:block/earth_side_middle_north",
+    "down": "planetary_blocks:block/earth_side_middle_south",
+    "north": "planetary_blocks:block/earth_top",
+    "east": "planetary_blocks:block/earth_side_middle_east",
+    "south": "planetary_blocks:block/earth_bottom",
+    "west": "planetary_blocks:block/earth_side_middle_west",
+    "particle": "planetary_blocks:block/earth_side_middle_north"
+  }
+}
