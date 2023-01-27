@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "mars",
+  "key": {
+    "G": {
+      "item": "minecraft:grass_block"
+    },
+    "S": {
+      "tag": "forge:stone"
+    },
+    "A": {
+      "tag": "minecraft:sand"
+    },
+    "N": {
+      "item": "minecraft:snow_block"
+    },
+    "I": {
+      "tag": "minecraft:ice"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "pattern": [
+    "GWA",
+    "SSS",
+    "NIN"
+  ],
+  "result": {
+    "count": 9,
+    "item": "planetary_blocks:earth_block"
+  }
+}
