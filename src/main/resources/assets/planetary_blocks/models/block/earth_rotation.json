@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube",
   "textures": {
-    "up": "planetary_blocks:block/earth_top",
-    "down": "planetary_blocks:block/earth_bottom",
+    "up": "planetary_blocks:block/earth_top_rotation",
+    "down": "planetary_blocks:block/earth_bottom_rotation",
     "north": "planetary_blocks:block/earth_side_north_rotation",
     "east": "planetary_blocks:block/earth_side_east_rotation",
     "south": "planetary_blocks:block/earth_side_south_rotation",
