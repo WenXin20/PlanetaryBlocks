@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cube_bottom_top",
+  "parent": "planetary_blocks:block/cube_bottom_mirrored_top",
   "textures": {
     "bottom": "planetary_blocks:block/mars_top_snow_rotation",
     "side": "planetary_blocks:block/mars_side_rotation",

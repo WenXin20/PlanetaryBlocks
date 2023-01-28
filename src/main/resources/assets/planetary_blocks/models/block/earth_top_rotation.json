@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "planetary_blocks:block/cube_bottom_mirrored",
   "textures": {
     "up": "planetary_blocks:block/earth_top_rotation",
     "down": "planetary_blocks:block/earth_bottom_rotation",
