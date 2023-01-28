@@ -34,7 +34,7 @@ public class PlanetaryBlocks
         @Override
         public ItemStack makeIcon()
         {
-            return ModRegistry.EARTH.get().asItem().getDefaultInstance();
+            return ModRegistry.MARS.get().asItem().getDefaultInstance();
         }
     };
 
