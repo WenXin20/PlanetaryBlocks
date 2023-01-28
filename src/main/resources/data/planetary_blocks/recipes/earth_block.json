@@ -15,7 +15,7 @@
       "item": "minecraft:snow_block"
     },
     "I": {
-      "tag": "minecraft:ice"
+      "item": "minecraft:ice"
     },
     "W": {
       "item": "minecraft:water_bucket"
