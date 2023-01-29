@@ -1,0 +1,19 @@
+{
+  "parent": "planetary_blocks:block/cube_overlay",
+  "render_type": "cutout",
+  "textures": {
+    "particle": "planetary_blocks:block/earth_side_north_night",
+    "up": "planetary_blocks:block/earth_top_night",
+    "down": "planetary_blocks:block/earth_bottom_night",
+    "north": "planetary_blocks:block/earth_side_north_night",
+    "east": "planetary_blocks:block/earth_side_east_night",
+    "south": "planetary_blocks:block/earth_side_south_night",
+    "west": "planetary_blocks:block/earth_side_west_night",
+    "north_overlay": "planetary_blocks:block/earth_side_north_night_glow",
+    "east_overlay": "planetary_blocks:block/earth_side_east_night_glow",
+    "south_overlay": "planetary_blocks:block/earth_side_south_night_glow",
+    "west_overlay": "planetary_blocks:block/earth_side_west_night_glow",
+    "up_overlay": "planetary_blocks:block/empty",
+    "down_overlay": "planetary_blocks:block/empty"
+  }
+}
