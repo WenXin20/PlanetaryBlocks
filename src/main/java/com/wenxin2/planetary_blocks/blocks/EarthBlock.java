@@ -131,7 +131,7 @@ public class EarthBlock extends HorizontalDirectionalBlock
 
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(ROTATION, context.getLevel().hasNeighborSignal(context.getClickedPos()))
-                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(NIGHT, Boolean.FALSE);
+                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(NIGHT, context.getLevel().isNight());
     }
 
     @NotNull
