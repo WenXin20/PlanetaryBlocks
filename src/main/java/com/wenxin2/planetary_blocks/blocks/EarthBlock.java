@@ -1,5 +1,6 @@
 package com.wenxin2.planetary_blocks.blocks;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -46,6 +47,7 @@ public class EarthBlock extends HorizontalDirectionalBlock
 
     @NotNull
     @Override
+    @ParametersAreNonnullByDefault
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos)
     {
         super.updateShape(state, direction, neighborState, world, pos, neighborPos);
@@ -67,6 +69,7 @@ public class EarthBlock extends HorizontalDirectionalBlock
 
     @NotNull
     @Override
+    @ParametersAreNonnullByDefault
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack)
     {
         this.updateRedstone(state, world, pos);
@@ -74,13 +77,16 @@ public class EarthBlock extends HorizontalDirectionalBlock
 
     @NotNull
     @Override
+    @ParametersAreNonnullByDefault
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighborBlock, BlockPos pos2, boolean rotation)
     {
         this.updateRedstone(state, world, pos);
         super.neighborChanged(state, world, pos, neighborBlock, pos, rotation);
     }
 
+    @NotNull
     @Override
+    @ParametersAreNonnullByDefault
     public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource source)
     {
         world.setBlock(pos, state.setValue(NIGHT, world.isNight()), 3);
@@ -128,6 +134,7 @@ public class EarthBlock extends HorizontalDirectionalBlock
 
     @NotNull
     @Override
+    @ParametersAreNonnullByDefault
     public int getSignal(BlockState state, BlockGetter block, BlockPos pos, Direction side)
     {
         return Math.max(0, state.getValue(POWERED) - 1);

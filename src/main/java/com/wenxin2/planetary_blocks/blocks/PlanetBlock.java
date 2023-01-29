@@ -1,5 +1,6 @@
 package com.wenxin2.planetary_blocks.blocks;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -44,6 +45,7 @@ public class PlanetBlock extends RotatedPillarBlock
 
     @NotNull
     @Override
+    @ParametersAreNonnullByDefault
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos)
     {
         super.updateShape(state, direction, neighborState, world, pos, neighborPos);
@@ -99,6 +101,7 @@ public class PlanetBlock extends RotatedPillarBlock
 
     @NotNull
     @Override
+    @ParametersAreNonnullByDefault
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighborBlock, BlockPos pos2, boolean rotation)
     {
         this.updateRedstone(state, world, pos);
@@ -147,6 +150,7 @@ public class PlanetBlock extends RotatedPillarBlock
 
     @NotNull
     @Override
+    @ParametersAreNonnullByDefault
     public int getSignal(BlockState state, BlockGetter block, BlockPos pos, Direction side)
     {
         return Math.max(0, state.getValue(POWERED) - 1);

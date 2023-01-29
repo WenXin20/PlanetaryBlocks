@@ -1,5 +1,6 @@
 package com.wenxin2.planetary_blocks.blocks;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 
 public class SunBlock extends PlanetBlock
 {
@@ -25,7 +27,9 @@ public class SunBlock extends PlanetBlock
                 .setValue(ROTATION, Boolean.FALSE).setValue(COLUMN, ColumnBlockStates.NONE));
     }
 
+    @NotNull
     @Override
+    @ParametersAreNonnullByDefault
     public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity)
     {
         if (entity instanceof LivingEntity && !entity.fireImmune() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity))
@@ -41,7 +45,9 @@ public class SunBlock extends PlanetBlock
         super.stepOn(world, pos, state, entity);
     }
 
+    @NotNull
     @Override
+    @ParametersAreNonnullByDefault
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource source)
     {
         double posX = (double)pos.getX() + 0.5D;
