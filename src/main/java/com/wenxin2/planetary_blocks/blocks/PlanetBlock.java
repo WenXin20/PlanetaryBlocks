@@ -37,7 +37,8 @@ public class PlanetBlock extends RotatedPillarBlock
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder)
+    {
         stateBuilder.add(AXIS, COLUMN, POWERED, ROTATION);
     }
 
@@ -134,14 +135,16 @@ public class PlanetBlock extends RotatedPillarBlock
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context)
+    {
 
         return this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis())
                 .setValue(ROTATION, context.getLevel().hasNeighborSignal(context.getClickedPos()))
                 .setValue(COLUMN, ColumnBlockStates.NONE);
     }
 
-    public int getSignal(BlockState state, @NotNull BlockGetter block, @NotNull BlockPos pos, @NotNull Direction side) {
+    public int getSignal(BlockState state, @NotNull BlockGetter block, @NotNull BlockPos pos, @NotNull Direction side)
+    {
         return Math.max(0, state.getValue(POWERED) - 1);
     }
 }
