@@ -42,7 +42,7 @@ public class ModRegistry {
                         .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always), Direction.Axis.Y, Boolean.TRUE), PlanetaryBlocks.CREATIVE_TAB);
         EARTH = registerBlock("earth_block",
                 () -> new EarthBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_BLUE)
-                        .sound(SoundType.STONE).strength(1.5F, 6.0F)
+                        .sound(SoundType.STONE).strength(1.5F, 6.0F).randomTicks()
                         .requiresCorrectToolForDrops(), Rotation.NONE, Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
         MARS = registerBlock("mars_block",
                 () -> new PlanetBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_ORANGE)

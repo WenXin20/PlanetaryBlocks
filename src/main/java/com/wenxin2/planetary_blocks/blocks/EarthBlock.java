@@ -2,14 +2,18 @@ package com.wenxin2.planetary_blocks.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,6 +29,7 @@ public class EarthBlock extends HorizontalDirectionalBlock
     public static final EnumProperty<ColumnBlockStates> COLUMN = EnumProperty.create("column", ColumnBlockStates.class);
     public static final IntegerProperty POWERED = BlockStateProperties.POWER;
     public static final BooleanProperty ROTATION = BooleanProperty.create("rotation");
+    public static final BooleanProperty NIGHT = BooleanProperty.create("night");
 
     public final boolean spawnParticles;
 
@@ -32,18 +37,18 @@ public class EarthBlock extends HorizontalDirectionalBlock
     {
         super(properties);
         this.spawnParticles = spawnParticles;
-        this.registerDefaultState(this.getStateDefinition().any()
+        this.registerDefaultState(this.getStateDefinition().any().setValue(NIGHT, Boolean.FALSE)
                 .setValue(POWERED, 0).setValue(ROTATION, Boolean.FALSE).setValue(COLUMN, ColumnBlockStates.NONE));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(FACING, COLUMN, POWERED, ROTATION);
+        stateBuilder.add(COLUMN, FACING, NIGHT, POWERED, ROTATION);
     }
 
     @NotNull
     @Override
-    public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor world, @NotNull BlockPos pos, @NotNull BlockPos neighborPos)
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos)
     {
         super.updateShape(state, direction, neighborState, world, pos, neighborPos);
 
@@ -60,20 +65,27 @@ public class EarthBlock extends HorizontalDirectionalBlock
             return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
         return state.setValue(COLUMN, ColumnBlockStates.NONE);
-
     }
 
+    @NotNull
     @Override
-    public void setPlacedBy(@NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState state, LivingEntity entity, @NotNull ItemStack stack)
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack)
     {
         this.updateRedstone(state, world, pos);
     }
 
+    @NotNull
     @Override
-    public void neighborChanged(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull Block neighborBlock, @NotNull BlockPos pos2, boolean rotation)
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighborBlock, BlockPos pos2, boolean rotation)
     {
         this.updateRedstone(state, world, pos);
+        this.isNight(state, world, pos);
         super.neighborChanged(state, world, pos, neighborBlock, pos, rotation);
+    }
+
+    @Override
+    public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource source) {
+        this.isNight(state, world, pos);
     }
 
     public void updateRedstone(BlockState state, Level world, BlockPos pos)
@@ -85,6 +97,7 @@ public class EarthBlock extends HorizontalDirectionalBlock
 //            world.playSound(null, pos, SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.BLOCKS, 5.25F, 0.05F);
             world.scheduleTick(pos, this, 4);
             this.updateRotation(state, world, pos);
+            this.isNight(state, world, pos);
         }
     }
 
@@ -107,12 +120,20 @@ public class EarthBlock extends HorizontalDirectionalBlock
         }
     }
 
+    public void isNight(BlockState state, Level world, BlockPos pos)
+    {
+        if (world.isNight())
+            world.setBlock(pos, state.setValue(NIGHT, Boolean.TRUE), 3);
+        else
+            world.setBlock(pos, state.setValue(NIGHT, Boolean.FALSE), 3);
+    }
+
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
 
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(ROTATION, context.getLevel().hasNeighborSignal(context.getClickedPos()))
-                .setValue(COLUMN, ColumnBlockStates.NONE);
+                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(NIGHT, Boolean.FALSE);
     }
 
     public int getSignal(BlockState state, @NotNull BlockGetter block, @NotNull BlockPos pos, @NotNull Direction side) {
