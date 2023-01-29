@@ -13,7 +13,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
-import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -31,7 +30,7 @@ public class EarthBlock extends HorizontalDirectionalBlock
 
     public final boolean spawnParticles;
 
-    public EarthBlock(Properties properties, Rotation facing, boolean spawnParticles)
+    public EarthBlock(Properties properties, boolean spawnParticles)
     {
         super(properties);
         this.spawnParticles = spawnParticles;
@@ -135,7 +134,9 @@ public class EarthBlock extends HorizontalDirectionalBlock
                 .setValue(COLUMN, ColumnBlockStates.NONE).setValue(NIGHT, Boolean.FALSE);
     }
 
-    public int getSignal(BlockState state, @NotNull BlockGetter block, @NotNull BlockPos pos, @NotNull Direction side)
+    @NotNull
+    @Override
+    public int getSignal(BlockState state, BlockGetter block, BlockPos pos, Direction side)
     {
         return Math.max(0, state.getValue(POWERED) - 1);
     }

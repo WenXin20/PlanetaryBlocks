@@ -44,7 +44,7 @@ public class PlanetBlock extends RotatedPillarBlock
 
     @NotNull
     @Override
-    public BlockState updateShape(@NotNull BlockState state, @NotNull Direction direction, @NotNull BlockState neighborState, @NotNull LevelAccessor world, @NotNull BlockPos pos, @NotNull BlockPos neighborPos)
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos)
     {
         super.updateShape(state, direction, neighborState, world, pos, neighborPos);
 
@@ -90,14 +90,16 @@ public class PlanetBlock extends RotatedPillarBlock
 
     }
 
+    @NotNull
     @Override
-    public void setPlacedBy(@NotNull Level world, @NotNull BlockPos pos, @NotNull BlockState state, LivingEntity entity, @NotNull ItemStack stack)
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack)
     {
         this.updateRedstone(state, world, pos);
     }
 
+    @NotNull
     @Override
-    public void neighborChanged(@NotNull BlockState state, @NotNull Level world, @NotNull BlockPos pos, @NotNull Block neighborBlock, @NotNull BlockPos pos2, boolean rotation)
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighborBlock, BlockPos pos2, boolean rotation)
     {
         this.updateRedstone(state, world, pos);
         super.neighborChanged(state, world, pos, neighborBlock, pos, rotation);
@@ -143,7 +145,9 @@ public class PlanetBlock extends RotatedPillarBlock
                 .setValue(COLUMN, ColumnBlockStates.NONE);
     }
 
-    public int getSignal(BlockState state, @NotNull BlockGetter block, @NotNull BlockPos pos, @NotNull Direction side)
+    @NotNull
+    @Override
+    public int getSignal(BlockState state, BlockGetter block, BlockPos pos, Direction side)
     {
         return Math.max(0, state.getValue(POWERED) - 1);
     }
