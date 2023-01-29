@@ -83,7 +83,7 @@ public class EarthBlock extends HorizontalDirectionalBlock
     @Override
     public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource source)
     {
-        this.isNight(state, world, pos);
+        world.setBlock(pos, state.setValue(NIGHT, world.isNight()), 3);
     }
 
     public void updateRedstone(BlockState state, Level world, BlockPos pos)
@@ -115,14 +115,6 @@ public class EarthBlock extends HorizontalDirectionalBlock
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(POWERED, 0), 4);
             }
         }
-    }
-
-    public void isNight(BlockState state, Level world, BlockPos pos)
-    {
-        if (world.isNight())
-            world.setBlock(pos, state.setValue(NIGHT, Boolean.TRUE), 3);
-        else
-            world.setBlock(pos, state.setValue(NIGHT, Boolean.FALSE), 3);
     }
 
     @Override
