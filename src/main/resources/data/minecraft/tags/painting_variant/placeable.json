@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    {"id": "planetary_blocks:earth_map", "required": false}
+    {"id": "planetary_blocks:earth_map", "required": false},
+    {"id": "planetary_blocks:earth_night_map", "required": false}
   ]
 }

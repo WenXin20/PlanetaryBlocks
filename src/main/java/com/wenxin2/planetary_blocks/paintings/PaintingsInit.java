@@ -14,5 +14,6 @@ public class PaintingsInit
     public static void init()
     {
         PlanetaryBlocks.PAINTINGS.register("earth_map", () -> createPainting("earth_map", 64, 32));
+        PlanetaryBlocks.PAINTINGS.register("earth_night_map", () -> createPainting("earth_night_map", 64, 32));
     }
 }
