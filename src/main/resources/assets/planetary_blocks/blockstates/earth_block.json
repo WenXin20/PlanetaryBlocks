@@ -131,22 +131,22 @@
       "model": "planetary_blocks:block/earth_night_rotation"
     },
     "facing=north,rotation=false,column=top,night=true": {
-      "model": "planetary_blocks:block/earth_top"
+      "model": "planetary_blocks:block/earth_top_night"
     },
     "facing=north,rotation=true,column=top,night=true": {
-      "model": "planetary_blocks:block/earth_top_rotation"
+      "model": "planetary_blocks:block/earth_top_night_rotation"
     },
     "facing=north,rotation=false,column=middle,night=true": {
-      "model": "planetary_blocks:block/earth_middle"
+      "model": "planetary_blocks:block/earth_middle_night"
     },
     "facing=north,rotation=true,column=middle,night=true": {
-      "model": "planetary_blocks:block/earth_middle_rotation"
+      "model": "planetary_blocks:block/earth_middle_night_rotation"
     },
     "facing=north,rotation=false,column=bottom,night=true": {
-      "model": "planetary_blocks:block/earth_bottom"
+      "model": "planetary_blocks:block/earth_bottom_night"
     },
     "facing=north,rotation=true,column=bottom,night=true": {
-      "model": "planetary_blocks:block/earth_bottom_rotation"
+      "model": "planetary_blocks:block/earth_bottom_night_rotation"
     },
 
     "facing=east,rotation=false,column=none,night=true": {
@@ -158,27 +158,27 @@
       "y": 90
     },
     "facing=east,rotation=false,column=top,night=true": {
-      "model": "planetary_blocks:block/earth_top",
+      "model": "planetary_blocks:block/earth_top_night",
       "y": 90
     },
     "facing=east,rotation=true,column=top,night=true": {
-      "model": "planetary_blocks:block/earth_top_rotation",
+      "model": "planetary_blocks:block/earth_top_night_rotation",
       "y": 90
     },
     "facing=east,rotation=false,column=middle,night=true": {
-      "model": "planetary_blocks:block/earth_middle",
+      "model": "planetary_blocks:block/earth_middle_night",
       "y": 90
     },
     "facing=east,rotation=true,column=middle,night=true": {
-      "model": "planetary_blocks:block/earth_middle_rotation",
+      "model": "planetary_blocks:block/earth_middle_night_rotation",
       "y": 90
     },
     "facing=east,rotation=false,column=bottom,night=true": {
-      "model": "planetary_blocks:block/earth_bottom",
+      "model": "planetary_blocks:block/earth_bottom_night",
       "y": 90
     },
     "facing=east,rotation=true,column=bottom,night=true": {
-      "model": "planetary_blocks:block/earth_bottom_rotation",
+      "model": "planetary_blocks:block/earth_bottom_night_rotation",
       "y": 90
     },
 
@@ -191,27 +191,27 @@
       "y": 180
     },
     "facing=south,rotation=false,column=top,night=true": {
-      "model": "planetary_blocks:block/earth_top",
+      "model": "planetary_blocks:block/earth_top_night",
       "y": 180
     },
     "facing=south,rotation=true,column=top,night=true": {
-      "model": "planetary_blocks:block/earth_top_rotation",
+      "model": "planetary_blocks:block/earth_top_night_rotation",
       "y": 180
     },
     "facing=south,rotation=false,column=middle,night=true": {
-      "model": "planetary_blocks:block/earth_middle",
+      "model": "planetary_blocks:block/earth_middle_night",
       "y": 180
     },
     "facing=south,rotation=true,column=middle,night=true": {
-      "model": "planetary_blocks:block/earth_middle_rotation",
+      "model": "planetary_blocks:block/earth_middle_night_rotation",
       "y": 180
     },
     "facing=south,rotation=false,column=bottom,night=true": {
-      "model": "planetary_blocks:block/earth_bottom",
+      "model": "planetary_blocks:block/earth_bottom_night",
       "y": 180
     },
     "facing=south,rotation=true,column=bottom,night=true": {
-      "model": "planetary_blocks:block/earth_bottom_rotation",
+      "model": "planetary_blocks:block/earth_bottom_night_rotation",
       "y": 180
     },
 
@@ -224,27 +224,27 @@
       "y": 270
     },
     "facing=west,rotation=false,column=top,night=true": {
-      "model": "planetary_blocks:block/earth_top",
+      "model": "planetary_blocks:block/earth_top_night",
       "y": 270
     },
     "facing=west,rotation=true,column=top,night=true": {
-      "model": "planetary_blocks:block/earth_top_rotation",
+      "model": "planetary_blocks:block/earth_top_night_rotation",
       "y": 270
     },
     "facing=west,rotation=false,column=middle,night=true": {
-      "model": "planetary_blocks:block/earth_middle",
+      "model": "planetary_blocks:block/earth_middle_night",
       "y": 270
     },
     "facing=west,rotation=true,column=middle,night=true": {
-      "model": "planetary_blocks:block/earth_middle_rotation",
+      "model": "planetary_blocks:block/earth_middle_night_rotation",
       "y": 270
     },
     "facing=west,rotation=false,column=bottom,night=true": {
-      "model": "planetary_blocks:block/earth_bottom",
+      "model": "planetary_blocks:block/earth_bottom_night",
       "y": 270
     },
     "facing=west,rotation=true,column=bottom,night=true": {
-      "model": "planetary_blocks:block/earth_bottom_rotation",
+      "model": "planetary_blocks:block/earth_bottom_night_rotation",
       "y": 270
     }
   }
