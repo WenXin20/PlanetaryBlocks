@@ -1,11 +1,6 @@
 package com.wenxin2.planetary_blocks.init;
 
-import com.electronwill.nightconfig.core.file.CommentedFileConfig;
-import com.electronwill.nightconfig.core.io.WritingMode;
-import com.wenxin2.planetary_blocks.PlanetaryBlocks;
-import java.nio.file.Path;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.config.ModConfig;
 
 public class Config
 {
@@ -13,28 +8,32 @@ public class Config
     public static ForgeConfigSpec CONFIG;
 
     public static final String CATEGORY_CLIENT = "Client";
+    public static final String CATEGORY_COMMON = "Common";
 
-    public static ForgeConfigSpec.BooleanValue sunParticles;
-    public static ForgeConfigSpec.BooleanValue classicSunParticles;
+    public static ForgeConfigSpec.BooleanValue classic_sun_burning;
+    public static ForgeConfigSpec.BooleanValue classic_sun_particles;
+    public static ForgeConfigSpec.BooleanValue sun_burning;
+    public static ForgeConfigSpec.BooleanValue sun_particles;
 
-    static {
+    static
+    {
         initializeConfig();
-
         CONFIG = BUILDER.build();
     }
 
-    public static void initializeConfig() {
-
+    public static void initializeConfig()
+    {
         BUILDER.comment("Planetary Blocks").push(CATEGORY_CLIENT);
-        classicSunParticles = BUILDER.comment("Enable particles for the Classic Sun block. " + "[Default: false]")
-                .define("classicSunParticles", false);
-        sunParticles = BUILDER.comment("Enable particles for the Sun block. " + "[Default: true]")
-                .define("sunParticles", true);
-    }
+        classic_sun_particles = BUILDER.comment("Enable particles for the Classic Sun block. " + "[Default: false]")
+                .define("classic_sun_particles", false);
+        sun_particles = BUILDER.comment("Enable particles for the Sun block. " + "[Default: true]")
+                .define("sun_particles", true);
+        BUILDER.pop();
 
-//    public static void loadConfig(ForgeConfigSpec spec, Path path) {
-//        final CommentedFileConfig configData = CommentedFileConfig.builder(path).sync().autosave().writingMode(WritingMode.REPLACE).build();
-//        configData.load();
-//        spec.setConfig(configData);
-//    }
+        BUILDER.comment("Planetary Blocks").push(CATEGORY_COMMON);
+        classic_sun_burning = BUILDER.comment("Enable fire damage for the Classic Sun block. " + "[Default: true]")
+                .define("classic_sun_burning", true);
+        sun_burning = BUILDER.comment("Enable fire damage for the Sun block. " + "[Default: true]")
+                .define("sun_burning", true);
+    }
 }

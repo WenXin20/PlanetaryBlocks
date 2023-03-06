@@ -3,7 +3,6 @@ package com.wenxin2.planetary_blocks.blocks;
 import com.wenxin2.planetary_blocks.init.Config;
 import javax.annotation.ParametersAreNonnullByDefault;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -32,12 +31,12 @@ public class ClassicSunBlock extends Block
     @ParametersAreNonnullByDefault
     public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity)
     {
-        if (entity instanceof LivingEntity && !entity.fireImmune() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity))
+        if (entity instanceof LivingEntity && !entity.fireImmune() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity) && Config.classic_sun_burning.get())
         {
             entity.hurt(DamageSource.LAVA, 2.0F);
             entity.setSecondsOnFire(25);
         }
-        else if (!entity.fireImmune() && !(entity instanceof LivingEntity))
+        else if (!entity.fireImmune() && !(entity instanceof LivingEntity) && Config.classic_sun_burning.get())
         {
             entity.hurt(DamageSource.LAVA, 2.0F);
             entity.setSecondsOnFire(16);
@@ -54,7 +53,7 @@ public class ClassicSunBlock extends Block
         double posY = (double)pos.getY() + 1.0D;
         double posZ = (double)pos.getZ() + 0.5D;
 
-        if (Config.classicSunParticles.get())
+        if (Config.classic_sun_particles.get())
         {
             if (this.spawnParticles && source.nextInt(2) == 0)
             {
