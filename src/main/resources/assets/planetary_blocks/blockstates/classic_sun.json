@@ -1,5 +1,7 @@
 {
   "variants": {
+    "": {
       "model": "planetary_blocks:block/classic_sun"
+    }
   }
 }
