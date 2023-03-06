@@ -1,5 +1,6 @@
 package com.wenxin2.planetary_blocks.blocks;
 
+import com.wenxin2.planetary_blocks.init.Config;
 import javax.annotation.ParametersAreNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -89,7 +90,16 @@ public class EarthBlock extends HorizontalDirectionalBlock
     @ParametersAreNonnullByDefault
     public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource source)
     {
-        world.setBlock(pos, state.setValue(NIGHT, world.isNight()), 3);
+        if (Config.earth_night.get() && !Config.forever_earth_night.get())
+            world.setBlock(pos, state.setValue(NIGHT, world.isNight()), 3);
+        if (!Config.earth_night.get() && !Config.forever_earth_night.get() && world.getBlockState(pos).getValue(NIGHT) == Boolean.TRUE)
+        {
+            world.setBlock(pos, state.setValue(NIGHT, Boolean.FALSE), 3);
+        }
+        if (Config.forever_earth_night.get() && world.getBlockState(pos).getValue(NIGHT) == Boolean.FALSE)
+        {
+            world.setBlock(pos, state.setValue(NIGHT, Boolean.TRUE), 3);
+        }
     }
 
     public void updateRedstone(BlockState state, Level world, BlockPos pos)
@@ -127,9 +137,17 @@ public class EarthBlock extends HorizontalDirectionalBlock
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
 
+        boolean night = false;
+        if (Config.forever_earth_night.get())
+        {
+            night = Config.forever_earth_night.get();
+        }
+        else if (Config.earth_night.get())
+            context.getLevel().isNight();
+
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(ROTATION, context.getLevel().hasNeighborSignal(context.getClickedPos()))
-                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(NIGHT, context.getLevel().isNight());
+                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(NIGHT, night);
     }
 
     @NotNull
