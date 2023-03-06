@@ -1,10 +1,5 @@
 {
   "variants": {
-    "rotation=false": {
       "model": "planetary_blocks:block/classic_sun"
-    },
-    "rotation=true": {
-      "model": "planetary_blocks:block/classic_sun_rotation"
-    }
   }
 }

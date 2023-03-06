@@ -1,7 +1,6 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "end": "planetary_blocks:block/classic_sun_side",
-    "side": "planetary_blocks:block/classic_sun_side"
+    "all": "planetary_blocks:block/classic_sun"
   }
 }

@@ -33,9 +33,9 @@ public class ModRegistry {
     static
     {
         CLASSIC_SUN = registerBlock("classic_sun",
-                () -> new SunBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
+                () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
                         .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
-                        .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always), Direction.Axis.Y, Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
+                        .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always)), PlanetaryBlocks.CREATIVE_TAB);
         SUN = registerBlock("sun_block",
                 () -> new SunBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
                         .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
