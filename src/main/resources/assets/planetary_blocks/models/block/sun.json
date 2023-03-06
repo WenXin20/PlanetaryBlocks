@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "end": "planetary_blocks:block/sun_side",
+    "end": "planetary_blocks:block/sun_top",
     "side": "planetary_blocks:block/sun_side"
   }
 }
