@@ -13,19 +13,18 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class SunBlock extends PlanetBlock
+public class ClassicSunBlock extends Block
 {
     public final boolean spawnParticles;
 
-    public SunBlock(Properties properties, Direction.Axis direction, boolean spawnParticles)
+    public ClassicSunBlock(Properties properties, boolean spawnParticles)
     {
-        super(properties, direction, spawnParticles);
+        super(properties);
         this.spawnParticles = spawnParticles;
-        this.registerDefaultState(this.getStateDefinition().any().setValue(POWERED, 0)
-                .setValue(ROTATION, Boolean.FALSE).setValue(COLUMN, ColumnBlockStates.NONE));
     }
 
     @NotNull
@@ -55,7 +54,7 @@ public class SunBlock extends PlanetBlock
         double posY = (double)pos.getY() + 1.0D;
         double posZ = (double)pos.getZ() + 0.5D;
 
-        if (world.getBlockState(pos).getValue(POWERED) > 0 && Config.sunParticles.get())
+        if (Config.classicSunParticles.get())
         {
             if (this.spawnParticles && source.nextInt(2) == 0)
             {

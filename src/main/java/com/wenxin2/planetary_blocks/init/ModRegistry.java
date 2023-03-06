@@ -1,6 +1,7 @@
 package com.wenxin2.planetary_blocks.init;
 
 import com.wenxin2.planetary_blocks.PlanetaryBlocks;
+import com.wenxin2.planetary_blocks.blocks.ClassicSunBlock;
 import com.wenxin2.planetary_blocks.blocks.EarthBlock;
 import com.wenxin2.planetary_blocks.blocks.PlanetBlock;
 import com.wenxin2.planetary_blocks.blocks.SunBlock;
@@ -33,9 +34,9 @@ public class ModRegistry {
     static
     {
         CLASSIC_SUN = registerBlock("classic_sun",
-                () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
+                () -> new ClassicSunBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
                         .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
-                        .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always)), PlanetaryBlocks.CREATIVE_TAB);
+                        .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always), Boolean.TRUE), PlanetaryBlocks.CREATIVE_TAB);
         SUN = registerBlock("sun_block",
                 () -> new SunBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
                         .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)

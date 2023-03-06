@@ -1,6 +1,7 @@
 package com.wenxin2.planetary_blocks;
 
 import com.mojang.logging.LogUtils;
+import com.wenxin2.planetary_blocks.init.Config;
 import com.wenxin2.planetary_blocks.init.ModRegistry;
 import com.wenxin2.planetary_blocks.paintings.PaintingsInit;
 import net.minecraft.world.entity.decoration.PaintingVariant;
@@ -10,7 +11,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -49,6 +52,8 @@ public class PlanetaryBlocks
 
         // Register paintings
         PaintingsInit.init();
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.CONFIG);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
