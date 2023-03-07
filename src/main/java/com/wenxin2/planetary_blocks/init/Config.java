@@ -26,15 +26,14 @@ public class Config
 
     public static void initializeConfig()
     {
-        BUILDER.comment("Planetary Blocks");
-        BUILDER.comment("Client Config").push(CATEGORY_CLIENT);
+        BUILDER.comment("Planetary Blocks").push(CATEGORY_CLIENT);
         classic_sun_particles = BUILDER.comment("Enable particles for the Classic Sun block. " + "[Default: false]")
                 .define("classic_sun_particles", false);
         sun_particles = BUILDER.comment("Enable particles for the Sun block. " + "[Default: true]")
                 .define("sun_particles", true);
         BUILDER.pop();
 
-        BUILDER.comment("Common Config").push(CATEGORY_COMMON);
+        BUILDER.push(CATEGORY_COMMON);
         classic_sun_burning = BUILDER.comment("Enable fire damage for the Classic Sun block. " + "[Default: true]")
                 .define("classic_sun_burning", true);
         earth_night = BUILDER.comment("Enable night mode for the Earth block. " + "[Default: true]")
