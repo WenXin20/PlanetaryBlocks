@@ -26,7 +26,7 @@ public class Config
 
     public static void initializeConfig()
     {
-        BUILDER.comment("Planetary Blocks").push(CATEGORY_CLIENT);
+        BUILDER.comment("Planetary Blocks Configuration File").push(CATEGORY_CLIENT);
         classic_sun_particles = BUILDER.comment("Enable particles for the Classic Sun block. " + "[Default: false]")
                 .define("classic_sun_particles", false);
         sun_particles = BUILDER.comment("Enable particles for the Sun block. " + "[Default: true]")
