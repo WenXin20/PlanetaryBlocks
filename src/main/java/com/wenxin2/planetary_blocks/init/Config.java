@@ -13,6 +13,7 @@ public class Config
     public static ForgeConfigSpec.BooleanValue forever_earth_night;
     public static ForgeConfigSpec.BooleanValue classic_sun_burning;
     public static ForgeConfigSpec.BooleanValue classic_sun_particles;
+    public static ForgeConfigSpec.BooleanValue enable_rotation;
     public static ForgeConfigSpec.BooleanValue earth_night;
     public static ForgeConfigSpec.BooleanValue sun_burning;
     public static ForgeConfigSpec.BooleanValue sun_particles;
@@ -38,6 +39,8 @@ public class Config
                 .define("classic_sun_burning", true);
         earth_night = BUILDER.comment("Enable night mode for the Earth block. " + "[Default: true]")
                 .define("earth_night", true);
+        enable_rotation = BUILDER.comment("Enable rotation for planetary blocks. " + "[Default: true]")
+                .define("enable_rotation", true);
         forever_earth_night = BUILDER.comment("Night mode for the Earth block is always enabled. " + "[Default: false]")
                 .define("forever_earth_night", false);
         sun_burning = BUILDER.comment("Enable fire damage for the Sun block. " + "[Default: true]")

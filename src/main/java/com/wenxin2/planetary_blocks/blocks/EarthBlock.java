@@ -108,9 +108,9 @@ public class EarthBlock extends HorizontalDirectionalBlock
         {
             int power = world.getBestNeighborSignal(pos);
             world.setBlock(pos, state.setValue(POWERED, Mth.clamp(power, 0, 15)), 1 | 2 | 4);
-//            world.playSound(null, pos, SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.BLOCKS, 5.25F, 0.05F);
             world.scheduleTick(pos, this, 4);
             this.updateRotation(state, world, pos);
+//            world.playSound(null, pos, SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.BLOCKS, 5.25F, 0.05F);
         }
     }
 
@@ -124,10 +124,14 @@ public class EarthBlock extends HorizontalDirectionalBlock
             if (power > 0)
             {
                 world.scheduleTick(pos, this, 4);
-                world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE).setValue(POWERED, Mth.clamp(bestSignal, 0, 15)), 4);
+                world.setBlock(pos, state.setValue(ROTATION, Config.enable_rotation.get()).setValue(POWERED, Mth.clamp(bestSignal, 0, 15)), 4);
             }
             else {
                 world.scheduleTick(pos, this, 4);
+                world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(POWERED, 0), 4);
+            }
+            if (!Config.enable_rotation.get() && world.getBlockState(pos).getValue(ROTATION) == Boolean.TRUE)
+            {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(POWERED, 0), 4);
             }
         }
@@ -136,18 +140,25 @@ public class EarthBlock extends HorizontalDirectionalBlock
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
-
         boolean night = false;
-        if (Config.forever_earth_night.get())
+        boolean rotation = false;
+        if (Config.forever_earth_night.get() || Config.earth_night.get())
         {
             night = Config.forever_earth_night.get();
+            rotation = Config.enable_rotation.get();
         }
         else if (Config.earth_night.get())
             context.getLevel().isNight();
+        else context.getLevel().hasNeighborSignal(context.getClickedPos());
+
+//        if (!Config.enable_rotation.get())
+//        {
+//            rotation = Config.enable_rotation.get();
+//        }
 
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
-                .setValue(ROTATION, context.getLevel().hasNeighborSignal(context.getClickedPos()))
-                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(NIGHT, night);
+                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(NIGHT, night)
+                .setValue(ROTATION, rotation);
     }
 
     @NotNull

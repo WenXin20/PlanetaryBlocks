@@ -1,5 +1,6 @@
 package com.wenxin2.planetary_blocks.blocks;
 
+import com.wenxin2.planetary_blocks.init.Config;
 import javax.annotation.ParametersAreNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -114,9 +115,9 @@ public class PlanetBlock extends RotatedPillarBlock
         {
             int power = world.getBestNeighborSignal(pos);
             world.setBlock(pos, state.setValue(POWERED, Mth.clamp(power, 0, 15)), 1 | 2 | 4);
-//            world.playSound(null, pos, SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.BLOCKS, 5.25F, 0.05F);
             world.scheduleTick(pos, this, 4);
             this.updateRotation(state, world, pos);
+//            world.playSound(null, pos, SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.BLOCKS, 5.25F, 0.05F);
         }
     }
 
@@ -130,10 +131,14 @@ public class PlanetBlock extends RotatedPillarBlock
             if (power > 0)
             {
                 world.scheduleTick(pos, this, 4);
-                world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE).setValue(POWERED, Mth.clamp(bestSignal, 0, 15)), 4);
+                world.setBlock(pos, state.setValue(ROTATION, Config.enable_rotation.get()).setValue(POWERED, Mth.clamp(bestSignal, 0, 15)), 4);
             }
             else {
                 world.scheduleTick(pos, this, 4);
+                world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(POWERED, 0), 4);
+            }
+            if (!Config.enable_rotation.get() && world.getBlockState(pos).getValue(ROTATION) == Boolean.TRUE)
+            {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(POWERED, 0), 4);
             }
         }
@@ -142,10 +147,16 @@ public class PlanetBlock extends RotatedPillarBlock
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
+        boolean rotation = false;
+        if (!Config.enable_rotation.get())
+        {
+            rotation = Config.enable_rotation.get();
+        }
+        else context.getLevel().hasNeighborSignal(context.getClickedPos());
 
         return this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis())
-                .setValue(ROTATION, context.getLevel().hasNeighborSignal(context.getClickedPos()))
-                .setValue(COLUMN, ColumnBlockStates.NONE);
+                .setValue(COLUMN, ColumnBlockStates.NONE)
+                .setValue(ROTATION, rotation);
     }
 
     @NotNull
