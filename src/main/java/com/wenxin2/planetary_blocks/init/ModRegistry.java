@@ -28,6 +28,7 @@ public class ModRegistry {
 
     public static final RegistryObject<Block> CLASSIC_SUN;
     public static final RegistryObject<Block> EARTH;
+    public static final RegistryObject<Block> MERCURY;
     public static final RegistryObject<Block> MARS;
     public static final RegistryObject<Block> SUN;
 
@@ -41,6 +42,10 @@ public class ModRegistry {
                 () -> new SunBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
                         .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
                         .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always), Direction.Axis.Y, Boolean.TRUE), PlanetaryBlocks.CREATIVE_TAB);
+        MERCURY = registerBlock("mercury_block",
+                () -> new PlanetBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)
+                        .sound(SoundType.STONE).strength(1.5F, 6.0F)
+                        .requiresCorrectToolForDrops(), Direction.Axis.Y, Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
         EARTH = registerBlock("earth_block",
                 () -> new EarthBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_BLUE)
                         .sound(SoundType.STONE).strength(1.5F, 6.0F).randomTicks()
