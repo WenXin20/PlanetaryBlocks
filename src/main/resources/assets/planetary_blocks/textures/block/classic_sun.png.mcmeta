@@ -1,5 +1,16 @@
 {
   "shimmer": {
     "bloom": true
+  },
+  "ctm":{
+    "ctm_version": 1,
+    "type":"CTM",
+    "textures":[
+      "minecraft:block/classic_sun_ctm"
+    ],
+    "extra":{
+      "ignore_states":true,
+      "connect_inside":true
+    }
   }
 }
