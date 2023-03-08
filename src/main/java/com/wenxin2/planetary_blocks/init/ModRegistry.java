@@ -28,8 +28,8 @@ public class ModRegistry {
 
     public static final RegistryObject<Block> CLASSIC_SUN;
     public static final RegistryObject<Block> EARTH;
-    public static final RegistryObject<Block> MERCURY;
     public static final RegistryObject<Block> MARS;
+    public static final RegistryObject<Block> MERCURY;
     public static final RegistryObject<Block> SUN;
 
     static

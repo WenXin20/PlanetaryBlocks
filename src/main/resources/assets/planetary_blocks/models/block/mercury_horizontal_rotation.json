@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column_horizontal",
   "textures": {
-    "end": "planetary_blocks:block/mercury_top",
-    "side": "planetary_blocks:block/mercury_side"
+    "end": "planetary_blocks:block/mercury_top_rotation",
+    "side": "planetary_blocks:block/mercury_side_rotation"
   }
 }
