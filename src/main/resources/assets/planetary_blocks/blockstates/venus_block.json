@@ -1,0 +1,103 @@
+{
+  "variants": {
+    "axis=x,rotation=false,column=none": {
+      "model": "planetary_blocks:block/venus_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=false,column=none": {
+      "model": "planetary_blocks:block/venus"
+    },
+    "axis=z,rotation=false,column=none": {
+      "model": "planetary_blocks:block/venus_horizontal",
+      "x": 90
+    },
+    "axis=x,rotation=true,column=none": {
+      "model": "planetary_blocks:block/venus_horizontal_rotation",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=true,column=none": {
+      "model": "planetary_blocks:block/venus_rotation"
+    },
+    "axis=z,rotation=true,column=none": {
+      "model": "planetary_blocks:block/venus_horizontal_rotation",
+      "x": 90
+    },
+
+    "axis=x,rotation=false,column=top": {
+      "model": "planetary_blocks:block/venus_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=false,column=top": {
+      "model": "planetary_blocks:block/venus"
+    },
+    "axis=z,rotation=false,column=top": {
+      "model": "planetary_blocks:block/venus_horizontal",
+      "x": 90
+    },
+    "axis=x,rotation=true,column=top": {
+      "model": "planetary_blocks:block/venus_horizontal_rotation",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=true,column=top": {
+      "model": "planetary_blocks:block/venus_rotation"
+    },
+    "axis=z,rotation=true,column=top": {
+      "model": "planetary_blocks:block/venus_horizontal_rotation",
+      "x": 90
+    },
+
+    "axis=x,rotation=false,column=middle": {
+      "model": "planetary_blocks:block/venus_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=false,column=middle": {
+      "model": "planetary_blocks:block/venus"
+    },
+    "axis=z,rotation=false,column=middle": {
+      "model": "planetary_blocks:block/venus_horizontal",
+      "x": 90
+    },
+    "axis=x,rotation=true,column=middle": {
+      "model": "planetary_blocks:block/venus_horizontal_rotation",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=true,column=middle": {
+      "model": "planetary_blocks:block/venus_rotation"
+    },
+    "axis=z,rotation=true,column=middle": {
+      "model": "planetary_blocks:block/venus_horizontal_rotation",
+      "x": 90
+    },
+
+    "axis=x,rotation=false,column=bottom": {
+      "model": "planetary_blocks:block/venus_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=false,column=bottom": {
+      "model": "planetary_blocks:block/venus"
+    },
+    "axis=z,rotation=false,column=bottom": {
+      "model": "planetary_blocks:block/venus_horizontal",
+      "x": 90
+    },
+    "axis=x,rotation=true,column=bottom": {
+      "model": "planetary_blocks:block/venus_horizontal_rotation",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,rotation=true,column=bottom": {
+      "model": "planetary_blocks:block/venus_rotation"
+    },
+    "axis=z,rotation=true,column=bottom": {
+      "model": "planetary_blocks:block/venus_horizontal_rotation",
+      "x": 90
+    }
+  }
+}

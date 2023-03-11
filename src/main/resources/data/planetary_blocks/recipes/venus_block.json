@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "mars",
+  "key": {
+    "X": {
+      "item": "minecraft:magma_block"
+    },
+    "O": {
+      "item": "minecraft:red_sand"
+    }
+  },
+  "pattern": [
+    "XO",
+    "OX"
+  ],
+  "result": {
+    "count": 4,
+    "item": "planetary_blocks:venus_block"
+  }
+}

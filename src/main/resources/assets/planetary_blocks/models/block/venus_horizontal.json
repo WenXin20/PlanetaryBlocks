@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "planetary_blocks:block/venus_top",
+    "side": "planetary_blocks:block/venus_side"
+  }
+}

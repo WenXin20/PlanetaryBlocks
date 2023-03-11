@@ -1,0 +1,7 @@
+{
+  "parent": "planetary_blocks:block/cube_column_bottom_mirrored",
+  "textures": {
+    "end": "planetary_blocks:block/venus_top",
+    "side": "planetary_blocks:block/venus_side"
+  }
+}
