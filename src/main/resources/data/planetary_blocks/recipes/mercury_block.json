@@ -7,14 +7,18 @@
     },
     "O": {
       "item": "minecraft:diorite"
+    },
+    "I": {
+      "item": "minecraft:gunpowder"
     }
   },
   "pattern": [
-    "XO",
-    "OX"
+    "XOX",
+    "OIO",
+    "XOX"
   ],
   "result": {
-    "count": 4,
+    "count": 8,
     "item": "planetary_blocks:mercury_block"
   }
 }

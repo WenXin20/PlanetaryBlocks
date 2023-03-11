@@ -6,15 +6,19 @@
       "item": "minecraft:magma_block"
     },
     "O": {
-      "item": "minecraft:red_sand"
+      "item": "minecraft:yellow_terracotta"
+    },
+    "I": {
+      "item": "minecraft:raw_iron"
     }
   },
   "pattern": [
-    "XO",
-    "OX"
+    "XOX",
+    "OIO",
+    "XOX"
   ],
   "result": {
-    "count": 4,
+    "count": 8,
     "item": "planetary_blocks:venus_block"
   }
 }

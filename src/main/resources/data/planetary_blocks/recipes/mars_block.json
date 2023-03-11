@@ -7,14 +7,18 @@
     },
     "O": {
       "item": "minecraft:red_sandstone"
+    },
+    "I": {
+      "item": "minecraft:raw_copper"
     }
   },
   "pattern": [
-    "XO",
-    "OX"
+    "XOX",
+    "OIO",
+    "XOX"
   ],
   "result": {
-    "count": 4,
+    "count": 8,
     "item": "planetary_blocks:mars_block"
   }
 }
