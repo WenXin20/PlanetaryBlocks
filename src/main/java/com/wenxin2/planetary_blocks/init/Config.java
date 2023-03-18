@@ -10,14 +10,14 @@ public class Config
     public static final String CATEGORY_CLIENT = "Client";
     public static final String CATEGORY_COMMON = "Common";
 
-    public static ForgeConfigSpec.BooleanValue forever_earth_night;
-    public static ForgeConfigSpec.IntValue classic_moon_phase;
-    public static ForgeConfigSpec.BooleanValue classic_sun_burning;
-    public static ForgeConfigSpec.BooleanValue classic_sun_particles;
-    public static ForgeConfigSpec.BooleanValue enable_rotation;
-    public static ForgeConfigSpec.BooleanValue earth_night;
-    public static ForgeConfigSpec.BooleanValue sun_burning;
-    public static ForgeConfigSpec.BooleanValue sun_particles;
+    public static ForgeConfigSpec.BooleanValue FOREVER_EARTH_NIGHT;
+    public static ForgeConfigSpec.BooleanValue CLASSIC_SUN_BURNING;
+    public static ForgeConfigSpec.BooleanValue CLASSIC_SUN_PARTICLES;
+    public static ForgeConfigSpec.BooleanValue ENABLE_ROTATION;
+    public static ForgeConfigSpec.BooleanValue EARTH_NIGHT;
+    public static ForgeConfigSpec.BooleanValue SUN_BURNING;
+    public static ForgeConfigSpec.BooleanValue SUN_PARTICLES;
+    public static ForgeConfigSpec.IntValue CLASSIC_MOON_PHASE;
 
     static
     {
@@ -28,24 +28,24 @@ public class Config
     public static void initializeConfig()
     {
         BUILDER.comment("Planetary Blocks Configuration File").push(CATEGORY_CLIENT);
-        classic_sun_particles = BUILDER.comment("Enable particles for the Classic Sun block. " + "[Default: false]")
+        CLASSIC_SUN_PARTICLES = BUILDER.comment("Enable particles for the Classic Sun block. " + "[Default: false]")
                 .define("classic_sun_particles", false);
-        sun_particles = BUILDER.comment("Enable particles for the Sun block. " + "[Default: true]")
+        SUN_PARTICLES = BUILDER.comment("Enable particles for the Sun block. " + "[Default: true]")
                 .define("sun_particles", true);
         BUILDER.pop();
 
         BUILDER.push(CATEGORY_COMMON);
-        classic_sun_burning = BUILDER.comment("Enable fire damage for the Classic Sun block. " + "[Default: true]")
+        CLASSIC_SUN_BURNING = BUILDER.comment("Enable fire damage for the Classic Sun block. " + "[Default: true]")
                 .define("classic_sun_burning", true);
-        classic_moon_phase = BUILDER.comment("Preferred moon phase for the Classic Moon block. Set to -1 for the moon phases to sync with the in-game moon. " + "[Default: -1]")
+        CLASSIC_MOON_PHASE = BUILDER.comment("Preferred moon phase for the Classic Moon block. Set to -1 for the moon phases to sync with the in-game moon. " + "[Default: -1]")
                 .defineInRange("classic_moon_phase", -1, -1, 7);
-        earth_night = BUILDER.comment("Enable night mode for the Earth block. " + "[Default: true]")
+        EARTH_NIGHT = BUILDER.comment("Enable night mode for the Earth block. " + "[Default: true]")
                 .define("earth_night", true);
-        enable_rotation = BUILDER.comment("Enable rotation for planetary blocks. " + "[Default: true]")
+        ENABLE_ROTATION = BUILDER.comment("Enable rotation for planetary blocks. " + "[Default: true]")
                 .define("enable_rotation", true);
-        forever_earth_night = BUILDER.comment("Night mode for the Earth block is always enabled. " + "[Default: false]")
+        FOREVER_EARTH_NIGHT = BUILDER.comment("Night mode for the Earth block is always enabled. " + "[Default: false]")
                 .define("forever_earth_night", false);
-        sun_burning = BUILDER.comment("Enable fire damage for the Sun block. " + "[Default: true]")
+        SUN_BURNING = BUILDER.comment("Enable fire damage for the Sun block. " + "[Default: true]")
                 .define("sun_burning", true);
     }
 }

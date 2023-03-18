@@ -31,12 +31,12 @@ public class ClassicSunBlock extends Block
     @ParametersAreNonnullByDefault
     public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity)
     {
-        if (entity instanceof LivingEntity && !entity.fireImmune() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity) && Config.classic_sun_burning.get())
+        if (entity instanceof LivingEntity && !entity.fireImmune() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity) && Config.CLASSIC_SUN_BURNING.get())
         {
             entity.hurt(DamageSource.LAVA, 2.0F);
             entity.setSecondsOnFire(25);
         }
-        else if (!entity.fireImmune() && !(entity instanceof LivingEntity) && Config.classic_sun_burning.get())
+        else if (!entity.fireImmune() && !(entity instanceof LivingEntity) && Config.CLASSIC_SUN_BURNING.get())
         {
             entity.hurt(DamageSource.LAVA, 2.0F);
             entity.setSecondsOnFire(16);
@@ -53,7 +53,7 @@ public class ClassicSunBlock extends Block
         double posY = (double)pos.getY() + 1.0D;
         double posZ = (double)pos.getZ() + 0.5D;
 
-        if (Config.classic_sun_particles.get())
+        if (Config.CLASSIC_SUN_PARTICLES.get())
         {
             if (this.spawnParticles && source.nextInt(2) == 0)
             {

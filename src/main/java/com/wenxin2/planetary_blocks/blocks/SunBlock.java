@@ -33,12 +33,12 @@ public class SunBlock extends PlanetBlock
     @ParametersAreNonnullByDefault
     public void stepOn(Level world, BlockPos pos, BlockState state, Entity entity)
     {
-        if (entity instanceof LivingEntity && !entity.fireImmune() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity) && Config.sun_burning.get())
+        if (entity instanceof LivingEntity && !entity.fireImmune() && !EnchantmentHelper.hasFrostWalker((LivingEntity) entity) && Config.SUN_BURNING.get())
         {
             entity.hurt(DamageSource.LAVA, 2.0F);
             entity.setSecondsOnFire(25);
         }
-        else if (!entity.fireImmune() && !(entity instanceof LivingEntity) && Config.sun_burning.get())
+        else if (!entity.fireImmune() && !(entity instanceof LivingEntity) && Config.SUN_BURNING.get())
         {
             entity.hurt(DamageSource.LAVA, 2.0F);
             entity.setSecondsOnFire(16);
@@ -55,7 +55,7 @@ public class SunBlock extends PlanetBlock
         double posY = (double)pos.getY() + 1.0D;
         double posZ = (double)pos.getZ() + 0.5D;
 
-        if (world.getBlockState(pos).getValue(POWERED) > 0 && Config.sun_particles.get())
+        if (world.getBlockState(pos).getValue(POWERED) > 0 && Config.SUN_PARTICLES.get())
         {
             if (this.spawnParticles && source.nextInt(2) == 0)
             {

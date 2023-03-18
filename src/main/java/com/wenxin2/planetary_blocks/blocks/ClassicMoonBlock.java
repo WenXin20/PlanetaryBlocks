@@ -37,20 +37,20 @@ public class ClassicMoonBlock extends HorizontalDirectionalBlock
     @ParametersAreNonnullByDefault
     public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource source)
     {
-        if (Config.classic_moon_phase.get() == -1)
+        if (Config.CLASSIC_MOON_PHASE.get() == -1)
             world.setBlock(pos, state.setValue(PHASE, world.getMoonPhase()), 3);
-        if (Config.classic_moon_phase.get() >= 0)
-            world.setBlock(pos, state.setValue(PHASE, Config.classic_moon_phase.get()), 3);
+        if (Config.CLASSIC_MOON_PHASE.get() >= 0)
+            world.setBlock(pos, state.setValue(PHASE, Config.CLASSIC_MOON_PHASE.get()), 3);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
         int phase = 1;
-        if (Config.classic_moon_phase.get() == -1)
+        if (Config.CLASSIC_MOON_PHASE.get() == -1)
             phase = context.getLevel().getMoonPhase();
-        else if (Config.classic_moon_phase.get() >= 0)
-            phase = Config.classic_moon_phase.get();
+        else if (Config.CLASSIC_MOON_PHASE.get() >= 0)
+            phase = Config.CLASSIC_MOON_PHASE.get();
 
         return this.defaultBlockState().setValue(PHASE, phase).setValue(FACING, context.getHorizontalDirection().getOpposite());
     }

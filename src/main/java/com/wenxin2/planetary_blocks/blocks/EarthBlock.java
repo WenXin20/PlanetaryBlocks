@@ -90,13 +90,13 @@ public class EarthBlock extends HorizontalDirectionalBlock
     @ParametersAreNonnullByDefault
     public void randomTick(BlockState state, ServerLevel world, BlockPos pos, RandomSource source)
     {
-        if (Config.earth_night.get() && !Config.forever_earth_night.get())
+        if (Config.EARTH_NIGHT.get() && !Config.FOREVER_EARTH_NIGHT.get())
             world.setBlock(pos, state.setValue(NIGHT, world.isNight()), 3);
-        if (!Config.earth_night.get() && !Config.forever_earth_night.get() && world.getBlockState(pos).getValue(NIGHT) == Boolean.TRUE)
+        if (!Config.EARTH_NIGHT.get() && !Config.FOREVER_EARTH_NIGHT.get() && world.getBlockState(pos).getValue(NIGHT) == Boolean.TRUE)
         {
             world.setBlock(pos, state.setValue(NIGHT, Boolean.FALSE), 3);
         }
-        if (Config.forever_earth_night.get() && world.getBlockState(pos).getValue(NIGHT) == Boolean.FALSE)
+        if (Config.FOREVER_EARTH_NIGHT.get() && world.getBlockState(pos).getValue(NIGHT) == Boolean.FALSE)
         {
             world.setBlock(pos, state.setValue(NIGHT, Boolean.TRUE), 3);
         }
@@ -124,13 +124,13 @@ public class EarthBlock extends HorizontalDirectionalBlock
             if (power > 0)
             {
                 world.scheduleTick(pos, this, 4);
-                world.setBlock(pos, state.setValue(ROTATION, Config.enable_rotation.get()).setValue(POWERED, Mth.clamp(bestSignal, 0, 15)), 4);
+                world.setBlock(pos, state.setValue(ROTATION, Config.ENABLE_ROTATION.get()).setValue(POWERED, Mth.clamp(bestSignal, 0, 15)), 4);
             }
             else {
                 world.scheduleTick(pos, this, 4);
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(POWERED, 0), 4);
             }
-            if (!Config.enable_rotation.get() && world.getBlockState(pos).getValue(ROTATION) == Boolean.TRUE)
+            if (!Config.ENABLE_ROTATION.get() && world.getBlockState(pos).getValue(ROTATION) == Boolean.TRUE)
             {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(POWERED, 0), 4);
             }
@@ -142,12 +142,12 @@ public class EarthBlock extends HorizontalDirectionalBlock
     {
         boolean night = false;
         boolean rotation = false;
-        if (Config.forever_earth_night.get() || Config.earth_night.get())
+        if (Config.FOREVER_EARTH_NIGHT.get() || Config.EARTH_NIGHT.get())
         {
-            night = Config.forever_earth_night.get();
-            rotation = Config.enable_rotation.get();
+            night = Config.FOREVER_EARTH_NIGHT.get();
+            rotation = Config.ENABLE_ROTATION.get();
         }
-        else if (Config.earth_night.get())
+        else if (Config.EARTH_NIGHT.get())
             context.getLevel().isNight();
         else context.getLevel().hasNeighborSignal(context.getClickedPos());
 

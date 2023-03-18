@@ -131,13 +131,13 @@ public class PlanetBlock extends RotatedPillarBlock
             if (power > 0)
             {
                 world.scheduleTick(pos, this, 4);
-                world.setBlock(pos, state.setValue(ROTATION, Config.enable_rotation.get()).setValue(POWERED, Mth.clamp(bestSignal, 0, 15)), 4);
+                world.setBlock(pos, state.setValue(ROTATION, Config.ENABLE_ROTATION.get()).setValue(POWERED, Mth.clamp(bestSignal, 0, 15)), 4);
             }
             else {
                 world.scheduleTick(pos, this, 4);
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(POWERED, 0), 4);
             }
-            if (!Config.enable_rotation.get() && world.getBlockState(pos).getValue(ROTATION) == Boolean.TRUE)
+            if (!Config.ENABLE_ROTATION.get() && world.getBlockState(pos).getValue(ROTATION) == Boolean.TRUE)
             {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(POWERED, 0), 4);
             }
@@ -148,9 +148,9 @@ public class PlanetBlock extends RotatedPillarBlock
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
         boolean rotation = false;
-        if (!Config.enable_rotation.get())
+        if (!Config.ENABLE_ROTATION.get())
         {
-            rotation = Config.enable_rotation.get();
+            rotation = Config.ENABLE_ROTATION.get();
         }
         else context.getLevel().hasNeighborSignal(context.getClickedPos());
 
@@ -164,6 +164,5 @@ public class PlanetBlock extends RotatedPillarBlock
     @ParametersAreNonnullByDefault
     public int getSignal(BlockState state, BlockGetter block, BlockPos pos, Direction side)
     {
-        return Math.max(0, state.getValue(POWERED) - 1);
     }
 }
