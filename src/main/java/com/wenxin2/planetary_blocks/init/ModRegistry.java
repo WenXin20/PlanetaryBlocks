@@ -1,6 +1,7 @@
 package com.wenxin2.planetary_blocks.init;
 
 import com.wenxin2.planetary_blocks.PlanetaryBlocks;
+import com.wenxin2.planetary_blocks.blocks.ClassicMoonBlock;
 import com.wenxin2.planetary_blocks.blocks.ClassicSunBlock;
 import com.wenxin2.planetary_blocks.blocks.EarthBlock;
 import com.wenxin2.planetary_blocks.blocks.PlanetBlock;
@@ -26,6 +27,7 @@ import net.minecraftforge.registries.RegistryObject;
 @Mod.EventBusSubscriber(modid = PlanetaryBlocks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModRegistry {
 
+    public static final RegistryObject<Block> CLASSIC_MOON;
     public static final RegistryObject<Block> CLASSIC_SUN;
     public static final RegistryObject<Block> EARTH;
     public static final RegistryObject<Block> MARS;
@@ -39,6 +41,10 @@ public class ModRegistry {
                 () -> new ClassicSunBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
                         .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
                         .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always), Boolean.TRUE), PlanetaryBlocks.CREATIVE_TAB);
+        CLASSIC_MOON = registerBlock("classic_moon",
+                () -> new ClassicMoonBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SNOW)
+                        .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 3).randomTicks()
+                        .requiresCorrectToolForDrops(), Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
         SUN = registerBlock("sun_block",
                 () -> new SunBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
                         .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)

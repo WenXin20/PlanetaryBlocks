@@ -11,6 +11,7 @@ public class Config
     public static final String CATEGORY_COMMON = "Common";
 
     public static ForgeConfigSpec.BooleanValue forever_earth_night;
+    public static ForgeConfigSpec.IntValue classic_moon_phase;
     public static ForgeConfigSpec.BooleanValue classic_sun_burning;
     public static ForgeConfigSpec.BooleanValue classic_sun_particles;
     public static ForgeConfigSpec.BooleanValue enable_rotation;
@@ -36,6 +37,8 @@ public class Config
         BUILDER.push(CATEGORY_COMMON);
         classic_sun_burning = BUILDER.comment("Enable fire damage for the Classic Sun block. " + "[Default: true]")
                 .define("classic_sun_burning", true);
+        classic_moon_phase = BUILDER.comment("Preferred moon phase for the Classic Moon block. Set to -1 for the moon phases to sync with the in-game moon. " + "[Default: -1]")
+                .defineInRange("classic_moon_phase", -1, -1, 7);
         earth_night = BUILDER.comment("Enable night mode for the Earth block. " + "[Default: true]")
                 .define("earth_night", true);
         enable_rotation = BUILDER.comment("Enable rotation for planetary blocks. " + "[Default: true]")
