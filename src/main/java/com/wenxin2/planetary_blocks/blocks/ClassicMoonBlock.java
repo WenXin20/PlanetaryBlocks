@@ -7,12 +7,13 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import org.jetbrains.annotations.NotNull;
 
-public class ClassicMoonBlock extends Block
+public class ClassicMoonBlock extends HorizontalDirectionalBlock
 {
     public static final IntegerProperty PHASE = IntegerProperty.create("phase", 0, 7);
 
@@ -28,7 +29,7 @@ public class ClassicMoonBlock extends Block
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder)
     {
-        stateBuilder.add(PHASE);
+        stateBuilder.add(FACING, PHASE);
     }
 
     @NotNull
@@ -51,6 +52,6 @@ public class ClassicMoonBlock extends Block
         else if (Config.classic_moon_phase.get() >= 0)
             phase = Config.classic_moon_phase.get();
 
-        return this.defaultBlockState().setValue(PHASE, phase);
+        return this.defaultBlockState().setValue(PHASE, phase).setValue(FACING, context.getHorizontalDirection().getOpposite());
     }
 }
