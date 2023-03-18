@@ -151,11 +151,6 @@ public class EarthBlock extends HorizontalDirectionalBlock
             context.getLevel().isNight();
         else context.getLevel().hasNeighborSignal(context.getClickedPos());
 
-//        if (!Config.enable_rotation.get())
-//        {
-//            rotation = Config.enable_rotation.get();
-//        }
-
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
                 .setValue(COLUMN, ColumnBlockStates.NONE).setValue(NIGHT, night)
                 .setValue(ROTATION, rotation);
