@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "up": "planetary_blocks:block/classic_moon_phase_3",
+    "down": "planetary_blocks:block/classic_moon_phase_5",
+    "north": "planetary_blocks:block/classic_moon_phase_5",
+    "east": "planetary_blocks:block/classic_moon_phase_4",
+    "south": "planetary_blocks:block/classic_moon_phase_3",
+    "west": "planetary_blocks:block/classic_moon_phase_0",
+    "particle": "planetary_blocks:block/classic_moon_phase_5"
+  }
+}

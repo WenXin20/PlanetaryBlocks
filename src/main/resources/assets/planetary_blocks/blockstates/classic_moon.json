@@ -1,0 +1,139 @@
+{
+  "variants": {
+    "phase=0,facing=north": {
+      "model": "planetary_blocks:block/classic_moon_phase_0"
+    },
+    "phase=1,facing=north": {
+      "model": "planetary_blocks:block/classic_moon_phase_1"
+    },
+    "phase=2,facing=north": {
+      "model": "planetary_blocks:block/classic_moon_phase_2"
+    },
+    "phase=3,facing=north": {
+      "model": "planetary_blocks:block/classic_moon_phase_3"
+    },
+    "phase=4,facing=north": {
+      "model": "planetary_blocks:block/classic_moon_phase_4"
+    },
+    "phase=5,facing=north": {
+      "model": "planetary_blocks:block/classic_moon_phase_5"
+    },
+    "phase=6,facing=north": {
+      "model": "planetary_blocks:block/classic_moon_phase_6"
+    },
+    "phase=7,facing=north": {
+      "model": "planetary_blocks:block/classic_moon_phase_7"
+    },
+    "phase=8,facing=north": {
+      "model": "planetary_blocks:block/classic_moon_phase_8"
+    },
+    "phase=0,facing=east": {
+      "model": "planetary_blocks:block/classic_moon_phase_0",
+      "y": 90
+    },
+    "phase=1,facing=east": {
+      "model": "planetary_blocks:block/classic_moon_phase_1",
+      "y": 90
+    },
+    "phase=2,facing=east": {
+      "model": "planetary_blocks:block/classic_moon_phase_2",
+      "y": 90
+    },
+    "phase=3,facing=east": {
+      "model": "planetary_blocks:block/classic_moon_phase_3",
+      "y": 90
+    },
+    "phase=4,facing=east": {
+      "model": "planetary_blocks:block/classic_moon_phase_4",
+      "y": 90
+    },
+    "phase=5,facing=east": {
+      "model": "planetary_blocks:block/classic_moon_phase_5",
+      "y": 90
+    },
+    "phase=6,facing=east": {
+      "model": "planetary_blocks:block/classic_moon_phase_6",
+      "y": 90
+    },
+    "phase=7,facing=east": {
+      "model": "planetary_blocks:block/classic_moon_phase_7",
+      "y": 90
+    },
+    "phase=8,facing=east": {
+      "model": "planetary_blocks:block/classic_moon_phase_8",
+      "y": 90
+    },
+    "phase=0,facing=south": {
+      "model": "planetary_blocks:block/classic_moon_phase_0",
+      "y": 180
+    },
+    "phase=1,facing=south": {
+      "model": "planetary_blocks:block/classic_moon_phase_1",
+      "y": 180
+    },
+    "phase=2,facing=south": {
+      "model": "planetary_blocks:block/classic_moon_phase_2",
+      "y": 180
+    },
+    "phase=3,facing=south": {
+      "model": "planetary_blocks:block/classic_moon_phase_3",
+      "y": 180
+    },
+    "phase=4,facing=south": {
+      "model": "planetary_blocks:block/classic_moon_phase_4",
+      "y": 180
+    },
+    "phase=5,facing=south": {
+      "model": "planetary_blocks:block/classic_moon_phase_5",
+      "y": 180
+    },
+    "phase=6,facing=south": {
+      "model": "planetary_blocks:block/classic_moon_phase_6",
+      "y": 180
+    },
+    "phase=7,facing=south": {
+      "model": "planetary_blocks:block/classic_moon_phase_7",
+      "y": 180
+    },
+    "phase=8,facing=south": {
+      "model": "planetary_blocks:block/classic_moon_phase_8",
+      "y": 180
+    },
+    "phase=0,facing=west": {
+      "model": "planetary_blocks:block/classic_moon_phase_0",
+      "y": 270
+    },
+    "phase=1,facing=west": {
+      "model": "planetary_blocks:block/classic_moon_phase_1",
+      "y": 270
+    },
+    "phase=2,facing=west": {
+      "model": "planetary_blocks:block/classic_moon_phase_2",
+      "y": 270
+    },
+    "phase=3,facing=west": {
+      "model": "planetary_blocks:block/classic_moon_phase_3",
+      "y": 270
+    },
+    "phase=4,facing=west": {
+      "model": "planetary_blocks:block/classic_moon_phase_4",
+      "y": 270
+    },
+    "phase=5,facing=west": {
+      "model": "planetary_blocks:block/classic_moon_phase_5",
+      "y": 270
+    },
+    "phase=6,facing=west": {
+      "model": "planetary_blocks:block/classic_moon_phase_6",
+      "y": 270
+    },
+    "phase=7,facing=west": {
+      "model": "planetary_blocks:block/classic_moon_phase_7",
+      "y": 270
+    },
+    "phase=8,facing=west": {
+      "model": "planetary_blocks:block/classic_moon_phase_8",
+      "y": 270
+    }
+  }
+}
