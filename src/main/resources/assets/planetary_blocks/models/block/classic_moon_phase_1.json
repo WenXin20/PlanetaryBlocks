@@ -6,7 +6,7 @@
     "north": "planetary_blocks:block/classic_moon_phase_1",
     "east": "planetary_blocks:block/classic_moon_phase_0",
     "south": "planetary_blocks:block/classic_moon_phase_7",
-    "west": "planetary_blocks:block/classic_moon_phase_4",
+    "west": "planetary_blocks:block/classic_moon_shadow",
     "particle": "planetary_blocks:block/classic_moon_phase_1"
   }
 }
