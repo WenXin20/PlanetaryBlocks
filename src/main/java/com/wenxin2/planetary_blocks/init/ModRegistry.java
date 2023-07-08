@@ -82,8 +82,7 @@ public class ModRegistry {
 
     public static RegistryObject<Item> registerItem(String name, Supplier<? extends Item> item)
     {
-        RegistryObject<Item> items = PlanetaryBlocks.ITEMS.register(name, item);
-        return items;
+        return PlanetaryBlocks.ITEMS.register(name, item);
     }
 
     private static boolean always(BlockState state, BlockGetter block, BlockPos pos)
