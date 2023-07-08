@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "group": "mars",
+  "group": "mercury",
   "key": {
     "X": {
       "item": "minecraft:andesite"
