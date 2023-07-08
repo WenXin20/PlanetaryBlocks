@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "planetary_blocks:item/planet_rotator"
+  }
+}
