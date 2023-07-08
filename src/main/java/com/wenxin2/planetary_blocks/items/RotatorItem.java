@@ -1,5 +1,6 @@
 package com.wenxin2.planetary_blocks.items;
 
+import com.wenxin2.planetary_blocks.blocks.EarthBlock;
 import com.wenxin2.planetary_blocks.blocks.PlanetBlock;
 import com.wenxin2.planetary_blocks.init.Config;
 import java.util.List;
@@ -31,7 +32,7 @@ public class RotatorItem extends Item {
         BlockPos pos = context.getClickedPos();
         BlockState state = world.getBlockState(pos);
 
-        if (!world.isClientSide && player != null && state.getBlock() instanceof PlanetBlock) {
+        if (!world.isClientSide && player != null && (state.getBlock() instanceof PlanetBlock || state.getBlock() instanceof EarthBlock)) {
             if (state.hasProperty(PlanetBlock.ROTATION) && Config.ENABLE_ROTATION.get())
             {
                 world.setBlock(pos, state.cycle(PlanetBlock.ROTATION), 4);
