@@ -101,6 +101,7 @@ public class PlanetBlock extends RotatedPillarBlock
 
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState state2, LevelAccessor worldAccessor, BlockPos pos, BlockPos pos2) {
+        int distance = state.getValue(DISTANCE);
         int i = getDistance(state2) + 1;
         if (i != 1 || state.getValue(DISTANCE) != i) {
             worldAccessor.scheduleTick(pos, this, 1);
@@ -117,34 +118,67 @@ public class PlanetBlock extends RotatedPillarBlock
         boolean axisY = state.getValue(AXIS) == Direction.Axis.Y;
         boolean axisZ = state.getValue(AXIS) == Direction.Axis.Z;
 
-        if (blockEast == this && axisX)
+        if (blockEast == this && axisX && distance < Config.ROTATION_DISTANCE.get() + 1)
         {
             if (blockWest == this)
-                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE);
-            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM);
+                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.TRUE);
+            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.TRUE);
         }
-        if (blockWest == this && axisX)
-            return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
-        if (blockAbove == this && axisY)
+        if (blockEast == this && axisX && distance == Config.ROTATION_DISTANCE.get() + 1)
+        {
+            if (blockWest == this)
+                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
+            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
+        }
+        
+        if (blockWest == this && axisX && distance < Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.TRUE);
+
+        if (blockWest == this && axisX && distance == Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
+
+        if (blockAbove == this && axisY && distance < Config.ROTATION_DISTANCE.get() + 1)
         {
             if (blockBelow == this)
-                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE);
-            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM);
+                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.TRUE);
+            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.TRUE);
         }
-        if (blockBelow == this && axisY)
-            return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
-        if (blockNorth == this && axisZ)
+        if (blockAbove == this && axisY && distance == Config.ROTATION_DISTANCE.get() + 1)
+        {
+            if (blockBelow == this)
+                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
+            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
+        }
+        if (blockBelow == this && axisY && distance < Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.TRUE);
+
+        if (blockBelow == this && axisY && distance == Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
+
+        if (blockNorth == this && axisZ && distance < Config.ROTATION_DISTANCE.get() + 1)
         {
             if (blockSouth == this)
-                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE);
-            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM);
+                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.TRUE);
+            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.TRUE);
         }
-        if (blockSouth == this && axisZ)
-            return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
-        return state.setValue(COLUMN, ColumnBlockStates.NONE);
+        if (blockNorth == this && axisZ && distance == Config.ROTATION_DISTANCE.get() + 1)
+        {
+            if (blockSouth == this)
+                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
+            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
+        }
+        if (blockSouth == this && axisZ && distance < Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.TRUE);
+
+        if (blockSouth == this && axisZ && distance == Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
+
+        if (distance < Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Boolean.TRUE);
+        return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Boolean.FALSE);
     }
 
     private static BlockState updateDistance(BlockState state, LevelAccessor world, BlockPos pos) {
