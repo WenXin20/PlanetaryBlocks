@@ -1,6 +1,7 @@
 package com.wenxin2.planetary_blocks.items;
 
 import com.wenxin2.planetary_blocks.blocks.PlanetBlock;
+import com.wenxin2.planetary_blocks.init.Config;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -22,7 +23,7 @@ public class RotatorItem extends Item {
         BlockState state = world.getBlockState(pos);
 
         if (!world.isClientSide && player != null && state.getBlock() instanceof PlanetBlock) {
-            if (state.hasProperty(PlanetBlock.ROTATION))
+            if (state.hasProperty(PlanetBlock.ROTATION) && Config.ENABLE_ROTATION.get())
             {
                 world.setBlock(pos, state.cycle(PlanetBlock.ROTATION), 4);
                 return InteractionResult.SUCCESS;
