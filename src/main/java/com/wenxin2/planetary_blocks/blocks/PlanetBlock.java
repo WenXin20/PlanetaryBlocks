@@ -58,7 +58,7 @@ public class PlanetBlock extends RotatedPillarBlock
 
         if (distance == 7)
         {
-            world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE)/*.setValue(DISTANCE, 0)*/, 4);
+            world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
         }
         if (Config.ENABLE_ROTATION.get()) {
             if (distance < 7) {
@@ -100,7 +100,6 @@ public class PlanetBlock extends RotatedPillarBlock
             worldAccessor.scheduleTick(pos, this, 1);
         }
 
-        Block block = worldAccessor.getBlockState(pos).getBlock();
         Block blockAbove = worldAccessor.getBlockState(pos.above()).getBlock();
         Block blockBelow = worldAccessor.getBlockState(pos.below()).getBlock();
         Block blockNorth = worldAccessor.getBlockState(pos.north()).getBlock();

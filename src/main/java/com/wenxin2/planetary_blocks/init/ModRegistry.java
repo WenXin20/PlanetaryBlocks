@@ -6,6 +6,7 @@ import com.wenxin2.planetary_blocks.blocks.ClassicSunBlock;
 import com.wenxin2.planetary_blocks.blocks.EarthBlock;
 import com.wenxin2.planetary_blocks.blocks.PlanetBlock;
 import com.wenxin2.planetary_blocks.blocks.SunBlock;
+import com.wenxin2.planetary_blocks.items.RotatorItem;
 import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -34,6 +35,8 @@ public class ModRegistry {
     public static final RegistryObject<Block> MERCURY;
     public static final RegistryObject<Block> SUN;
     public static final RegistryObject<Block> VENUS;
+
+    public static final RegistryObject<Item> PLANET_ROTATOR;
 
     static
     {
@@ -65,6 +68,9 @@ public class ModRegistry {
                 () -> new PlanetBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_ORANGE)
                         .sound(SoundType.STONE).strength(1.5F, 6.0F)
                         .requiresCorrectToolForDrops(), Direction.Axis.Y, Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
+
+        PLANET_ROTATOR = registerItem("planet_rotator",
+                () -> new RotatorItem(new Item.Properties().tab(PlanetaryBlocks.CREATIVE_TAB)));
     }
 
     public static RegistryObject<Block> registerBlock(String name, Supplier<? extends Block> block, CreativeModeTab tab)
@@ -72,6 +78,12 @@ public class ModRegistry {
         RegistryObject<Block> blocks = PlanetaryBlocks.BLOCKS.register(name, block);
         PlanetaryBlocks.ITEMS.register(name, () -> new BlockItem(blocks.get(), new Item.Properties().tab(tab)));
         return blocks;
+    }
+
+    public static RegistryObject<Item> registerItem(String name, Supplier<? extends Item> item)
+    {
+        RegistryObject<Item> items = PlanetaryBlocks.ITEMS.register(name, item);
+        return items;
     }
 
     private static boolean always(BlockState state, BlockGetter block, BlockPos pos)
