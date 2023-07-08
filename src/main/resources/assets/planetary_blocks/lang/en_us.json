@@ -12,5 +12,6 @@
   "item.planetary_blocks.planet_rotator": "Planet Rotator",
 
   "tooltip.planetary_blocks.rotation": "Toggle Planet Rotation",
+  "tooltip.planetary_blocks.planet_rotator_disabled": "Planet Rotator Tool Disabled",
   "tooltip.planetary_blocks.rotation_disabled": "Planet Rotation Disabled"
 }

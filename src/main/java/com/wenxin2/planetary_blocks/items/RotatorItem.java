@@ -33,7 +33,7 @@ public class RotatorItem extends Item {
         BlockState state = world.getBlockState(pos);
 
         if (!world.isClientSide && player != null && (state.getBlock() instanceof PlanetBlock || state.getBlock() instanceof EarthBlock)) {
-            if (state.hasProperty(PlanetBlock.ROTATION) && Config.ENABLE_ROTATION.get())
+            if (state.hasProperty(PlanetBlock.ROTATION) && Config.ENABLE_ROTATION.get() && Config.ENABLE_PLANET_ROTATOR.get())
             {
                 world.setBlock(pos, state.cycle(PlanetBlock.ROTATION), 4);
                 return InteractionResult.SUCCESS;
@@ -47,8 +47,10 @@ public class RotatorItem extends Item {
     public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> list, TooltipFlag tooltip) {
         if (!Config.ENABLE_ROTATION.get()) {
             list.add(Component.translatable("tooltip.planetary_blocks.rotation_disabled").withStyle(ChatFormatting.RED).withStyle(ChatFormatting.ITALIC));
+        } else if (!Config.ENABLE_PLANET_ROTATOR.get()) {
+            list.add(Component.translatable("tooltip.planetary_blocks.planet_rotator_disabled").withStyle(ChatFormatting.RED).withStyle(ChatFormatting.ITALIC));
         } else {
-            list.add(Component.translatable("tooltip.planetary_blocks.rotation").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
+            list.add(Component.translatable("tooltip.planetary_blocks.rotation").withStyle(ChatFormatting.GREEN).withStyle(ChatFormatting.ITALIC));
         }
     }
 }
