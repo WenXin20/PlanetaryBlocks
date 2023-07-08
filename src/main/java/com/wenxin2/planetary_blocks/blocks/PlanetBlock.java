@@ -31,8 +31,7 @@ public class PlanetBlock extends RotatedPillarBlock
 
     public final boolean spawnParticles;
 
-    public PlanetBlock(BlockBehaviour.Properties properties, Direction.Axis direction, boolean spawnParticles)
-    {
+    public PlanetBlock(BlockBehaviour.Properties properties, Direction.Axis direction, boolean spawnParticles) {
         super(properties);
         this.spawnParticles = spawnParticles;
         this.registerDefaultState(this.getStateDefinition().any().setValue(AXIS, direction)
@@ -40,8 +39,7 @@ public class PlanetBlock extends RotatedPillarBlock
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder)
-    {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(AXIS, COLUMN, DISTANCE, ROTATION);
     }
 
@@ -52,12 +50,10 @@ public class PlanetBlock extends RotatedPillarBlock
 
     @NotNull
     @Override
-    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack)
-    {
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
         int distance = state.getValue(DISTANCE);
 
-        if (distance == Config.ROTATION_DISTANCE.get() + 1)
-        {
+        if (distance == Config.ROTATION_DISTANCE.get() + 1) {
             world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
         }
         if (Config.ENABLE_ROTATION.get()) {
@@ -68,20 +64,17 @@ public class PlanetBlock extends RotatedPillarBlock
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
             }
         }
-        if (!Config.ENABLE_ROTATION.get() && distance < 17)
-        {
+        if (!Config.ENABLE_ROTATION.get() && distance < 17) {
             world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(DISTANCE, 17), 4);
         }
     }
 
     @Override
     @ParametersAreNonnullByDefault
-    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighborBlock, BlockPos pos2, boolean rotation)
-    {
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighborBlock, BlockPos pos2, boolean rotation) {
         int distance = state.getValue(DISTANCE);
 
-        if (distance < Config.ROTATION_DISTANCE.get() + 1)
-        {
+        if (distance < Config.ROTATION_DISTANCE.get() + 1) {
             world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
         }
         if (Config.ENABLE_ROTATION.get()) {
@@ -92,8 +85,7 @@ public class PlanetBlock extends RotatedPillarBlock
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
             }
         }
-        if (!Config.ENABLE_ROTATION.get() && distance < 17)
-        {
+        if (!Config.ENABLE_ROTATION.get() && distance < 17) {
             world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(DISTANCE, 17), 4);
         }
         super.neighborChanged(state, world, pos, neighborBlock, pos, rotation);
@@ -118,14 +110,12 @@ public class PlanetBlock extends RotatedPillarBlock
         boolean axisY = state.getValue(AXIS) == Direction.Axis.Y;
         boolean axisZ = state.getValue(AXIS) == Direction.Axis.Z;
 
-        if (blockEast == this && axisX && distance < Config.ROTATION_DISTANCE.get() + 1)
-        {
+        if (blockEast == this && axisX && distance < Config.ROTATION_DISTANCE.get() + 1) {
             if (blockWest == this)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Config.ENABLE_ROTATION.get());
         }
-        if (blockEast == this && axisX && distance == Config.ROTATION_DISTANCE.get() + 1)
-        {
+        if (blockEast == this && axisX && distance == Config.ROTATION_DISTANCE.get() + 1) {
             if (blockWest == this)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
@@ -135,14 +125,12 @@ public class PlanetBlock extends RotatedPillarBlock
         if (blockWest == this && axisX && distance == Config.ROTATION_DISTANCE.get() + 1)
             return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
 
-        if (blockAbove == this && axisY && distance < Config.ROTATION_DISTANCE.get() + 1)
-        {
+        if (blockAbove == this && axisY && distance < Config.ROTATION_DISTANCE.get() + 1) {
             if (blockBelow == this)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Config.ENABLE_ROTATION.get());
         }
-        if (blockAbove == this && axisY && distance == Config.ROTATION_DISTANCE.get() + 1)
-        {
+        if (blockAbove == this && axisY && distance == Config.ROTATION_DISTANCE.get() + 1) {
             if (blockBelow == this)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
@@ -152,14 +140,12 @@ public class PlanetBlock extends RotatedPillarBlock
         if (blockBelow == this && axisY && distance == Config.ROTATION_DISTANCE.get() + 1)
             return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
 
-        if (blockNorth == this && axisZ && distance < Config.ROTATION_DISTANCE.get() + 1)
-        {
+        if (blockNorth == this && axisZ && distance < Config.ROTATION_DISTANCE.get() + 1) {
             if (blockSouth == this)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Config.ENABLE_ROTATION.get());
         }
-        if (blockNorth == this && axisZ && distance == Config.ROTATION_DISTANCE.get() + 1)
-        {
+        if (blockNorth == this && axisZ && distance == Config.ROTATION_DISTANCE.get() + 1) {
             if (blockSouth == this)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
