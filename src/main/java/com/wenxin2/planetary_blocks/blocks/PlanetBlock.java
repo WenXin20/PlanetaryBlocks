@@ -91,7 +91,7 @@ public class PlanetBlock extends RotatedPillarBlock
 
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState state2, LevelAccessor worldAccessor, BlockPos pos, BlockPos pos2) {
-        int i = getDistanceAt(state2) + 1;
+        int i = getDistance(state2) + 1;
         if (i != 1 || state.getValue(DISTANCE) != i) {
             worldAccessor.scheduleTick(pos, this, 1);
         }
@@ -143,7 +143,7 @@ public class PlanetBlock extends RotatedPillarBlock
 
         for(Direction direction : Direction.values()) {
             posMutable.setWithOffset(pos, direction);
-            i = Math.min(i, getDistanceAt(world.getBlockState(posMutable)) + 1);
+            i = Math.min(i, getDistance(world.getBlockState(posMutable)) + 1);
             if (i == 1) {
                 break;
             }
@@ -152,7 +152,7 @@ public class PlanetBlock extends RotatedPillarBlock
         return state.setValue(DISTANCE, i);
     }
 
-    private static int getDistanceAt(BlockState state) {
+    private static int getDistance(BlockState state) {
 
         if (state.is(Blocks.REDSTONE_LAMP) && state.getValue(BlockStateProperties.LIT)) {
             return 0;
@@ -161,6 +161,28 @@ public class PlanetBlock extends RotatedPillarBlock
             return state.getValue(DISTANCE);
         }
         return 7;
+    }
+
+    public BlockState updateRotation(BlockState state, Level world, BlockPos pos)
+    {
+        if (!world.isClientSide)
+        {
+            int bestSignal = world.getBestNeighborSignal(pos);
+            int distance = world.getBlockState(pos).getValue(DISTANCE);
+
+            if (distance == 7)
+            {
+                world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
+            }
+            if (distance < 7 && Config.ENABLE_ROTATION.get()) {
+                world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
+            }
+            if (!Config.ENABLE_ROTATION.get() && distance < 7)
+            {
+                world.setBlock(pos, state.setValue(DISTANCE, 7), 4);
+            }
+        }
+        return state;
     }
 
     @Override
