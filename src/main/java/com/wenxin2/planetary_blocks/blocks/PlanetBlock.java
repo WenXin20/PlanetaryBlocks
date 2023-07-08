@@ -21,7 +21,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import org.jetbrains.annotations.NotNull;
 
 public class PlanetBlock extends RotatedPillarBlock
 {
@@ -48,7 +47,6 @@ public class PlanetBlock extends RotatedPillarBlock
         serverWorld.setBlock(pos, updateDistance(state, serverWorld, pos), 3);
     }
 
-    @NotNull
     @Override
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
         int distance = state.getValue(DISTANCE);
@@ -92,9 +90,9 @@ public class PlanetBlock extends RotatedPillarBlock
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState state2, LevelAccessor worldAccessor, BlockPos pos, BlockPos pos2) {
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor worldAccessor, BlockPos pos, BlockPos pos2) {
         int distance = state.getValue(DISTANCE);
-        int i = getDistance(state2) + 1;
+        int i = getDistance(neighborState) + 1;
         if (i != 1 || state.getValue(DISTANCE) != i) {
             worldAccessor.scheduleTick(pos, this, 1);
         }
@@ -176,7 +174,6 @@ public class PlanetBlock extends RotatedPillarBlock
     }
 
     private static int getDistance(BlockState state) {
-
         if (state.is(Blocks.REDSTONE_LAMP) && state.getValue(BlockStateProperties.LIT)) {
             return 0;
         }

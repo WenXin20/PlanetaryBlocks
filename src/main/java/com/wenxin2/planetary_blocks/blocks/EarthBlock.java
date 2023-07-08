@@ -5,15 +5,14 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -26,63 +25,129 @@ import org.jetbrains.annotations.NotNull;
 public class EarthBlock extends HorizontalDirectionalBlock
 {
     public static final EnumProperty<ColumnBlockStates> COLUMN = EnumProperty.create("column", ColumnBlockStates.class);
-    public static final IntegerProperty POWERED = BlockStateProperties.POWER;
+    public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 1, 17);
     public static final BooleanProperty ROTATION = BooleanProperty.create("rotation");
     public static final BooleanProperty NIGHT = BooleanProperty.create("night");
 
     public final boolean spawnParticles;
 
-    public EarthBlock(Properties properties, boolean spawnParticles)
-    {
+    public EarthBlock(Properties properties, boolean spawnParticles) {
         super(properties);
         this.spawnParticles = spawnParticles;
         this.registerDefaultState(this.getStateDefinition().any().setValue(NIGHT, Boolean.FALSE)
-                .setValue(POWERED, 0).setValue(ROTATION, Boolean.FALSE).setValue(COLUMN, ColumnBlockStates.NONE));
+                .setValue(DISTANCE, 17).setValue(ROTATION, Boolean.FALSE).setValue(COLUMN, ColumnBlockStates.NONE));
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder)
-    {
-        stateBuilder.add(COLUMN, FACING, NIGHT, POWERED, ROTATION);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
+        stateBuilder.add(COLUMN, FACING, NIGHT, DISTANCE, ROTATION);
     }
 
-    @NotNull
     @Override
-    @ParametersAreNonnullByDefault
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor world, BlockPos pos, BlockPos neighborPos)
-    {
-        super.updateShape(state, direction, neighborState, world, pos, neighborPos);
+    public void tick(BlockState state, ServerLevel serverWorld, BlockPos pos, RandomSource source) {
+        serverWorld.setBlock(pos, updateDistance(state, serverWorld, pos), 3);
+    }
 
-        Block blockAbove = world.getBlockState(pos.above()).getBlock();
-        Block blockBelow = world.getBlockState(pos.below()).getBlock();
+    @Override
+    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
+        int distance = state.getValue(DISTANCE);
 
-        if (blockAbove == this)
-        {
-            if (blockBelow == this)
-                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE);
-            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM);
+        if (distance == Config.ROTATION_DISTANCE.get() + 1) {
+            world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
         }
-        if (blockBelow == this)
-            return state.setValue(COLUMN, ColumnBlockStates.TOP);
-
-        return state.setValue(COLUMN, ColumnBlockStates.NONE);
+        if (Config.ENABLE_ROTATION.get()) {
+            if (distance < Config.ROTATION_DISTANCE.get() + 1) {
+                world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
+            }
+            if (distance > Config.ROTATION_DISTANCE.get() + 1) {
+                world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
+            }
+        }
+        if (!Config.ENABLE_ROTATION.get() && distance < 17) {
+            world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(DISTANCE, 17), 4);
+        }
     }
 
-    @NotNull
     @Override
     @ParametersAreNonnullByDefault
-    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack)
-    {
-        this.updateRedstone(state, world, pos);
-    }
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighborBlock, BlockPos pos2, boolean rotation) {
+        int distance = state.getValue(DISTANCE);
 
-    @NotNull
-    @Override
-    @ParametersAreNonnullByDefault
-    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighborBlock, BlockPos pos2, boolean rotation)
-    {
-        this.updateRedstone(state, world, pos);
+        if (distance < Config.ROTATION_DISTANCE.get() + 1) {
+            world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
+        }
+        if (Config.ENABLE_ROTATION.get()) {
+            if (distance == Config.ROTATION_DISTANCE.get() + 1) {
+                world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
+            }
+            if (distance < Config.ROTATION_DISTANCE.get() + 1) {
+                world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
+            }
+        }
+        if (!Config.ENABLE_ROTATION.get() && distance < 17) {
+            world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(DISTANCE, 17), 4);
+        }
         super.neighborChanged(state, world, pos, neighborBlock, pos, rotation);
+    }
+
+    @NotNull
+    @Override
+    @ParametersAreNonnullByDefault
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor worldAccessor, BlockPos pos, BlockPos neighborPos) {
+        int distance = state.getValue(DISTANCE);
+        int i = getDistance(neighborState) + 1;
+        if (i != 1 || state.getValue(DISTANCE) != i) {
+            worldAccessor.scheduleTick(pos, this, 1);
+        }
+        super.updateShape(state, direction, neighborState, worldAccessor, pos, neighborPos);
+
+        Block blockAbove = worldAccessor.getBlockState(pos.above()).getBlock();
+        Block blockBelow = worldAccessor.getBlockState(pos.below()).getBlock();
+
+        if (blockAbove == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
+            if (blockBelow == this)
+                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+        }
+        if (blockAbove == this && distance == Config.ROTATION_DISTANCE.get() + 1) {
+            if (blockBelow == this)
+                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
+            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
+        }
+
+        if (blockBelow == this && distance < Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+        if (blockBelow == this && distance == Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
+
+        if (distance < Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+        return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Boolean.FALSE);
+    }
+
+    private static BlockState updateDistance(BlockState state, LevelAccessor world, BlockPos pos) {
+        int i = 17;
+        BlockPos.MutableBlockPos posMutable = new BlockPos.MutableBlockPos();
+
+        for(Direction direction : Direction.values()) {
+            posMutable.setWithOffset(pos, direction);
+            i = Math.min(i, getDistance(world.getBlockState(posMutable)) + 1);
+            if (i == 1) {
+                break;
+            }
+        }
+
+        return state.setValue(DISTANCE, i);
+    }
+
+    private static int getDistance(BlockState state) {
+        if (state.is(Blocks.REDSTONE_LAMP) && state.getValue(BlockStateProperties.LIT)) {
+            return 0;
+        }
+        if (state.getBlock() instanceof EarthBlock) {
+            return state.getValue(DISTANCE);
+        }
+        return Config.ROTATION_DISTANCE.get() + 1;
     }
 
     @NotNull
@@ -102,65 +167,24 @@ public class EarthBlock extends HorizontalDirectionalBlock
         }
     }
 
-    public void updateRedstone(BlockState state, Level world, BlockPos pos)
-    {
-        if (!world.isClientSide)
-        {
-            int power = world.getBestNeighborSignal(pos);
-            world.setBlock(pos, state.setValue(POWERED, Mth.clamp(power, 0, 15)), 1 | 2 | 4);
-            world.scheduleTick(pos, this, 4);
-            this.updateRotation(state, world, pos);
-//            world.playSound(null, pos, SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.BLOCKS, 5.25F, 0.05F);
-        }
-    }
-
-    public void updateRotation(BlockState state, Level world, BlockPos pos)
-    {
-        if (!world.isClientSide)
-        {
-            int bestSignal = world.getBestNeighborSignal(pos);
-            int power = world.getBlockState(pos).getValue(POWERED);
-
-            if (power > 0)
-            {
-                world.scheduleTick(pos, this, 4);
-                world.setBlock(pos, state.setValue(ROTATION, Config.ENABLE_ROTATION.get()).setValue(POWERED, Mth.clamp(bestSignal, 0, 15)), 4);
-            }
-            else {
-                world.scheduleTick(pos, this, 4);
-                world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(POWERED, 0), 4);
-            }
-            if (!Config.ENABLE_ROTATION.get() && world.getBlockState(pos).getValue(ROTATION) == Boolean.TRUE)
-            {
-                world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(POWERED, 0), 4);
-            }
-        }
-    }
-
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context)
     {
+        BlockPos posClicked = context.getClickedPos();
+        Level world = context.getLevel();
         boolean night = false;
-        boolean rotation = false;
+
         if (Config.FOREVER_EARTH_NIGHT.get() || Config.EARTH_NIGHT.get())
         {
             night = Config.FOREVER_EARTH_NIGHT.get();
-            rotation = Config.ENABLE_ROTATION.get();
         }
         else if (Config.EARTH_NIGHT.get())
             context.getLevel().isNight();
         else context.getLevel().hasNeighborSignal(context.getClickedPos());
 
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
-                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(NIGHT, night)
-                .setValue(ROTATION, rotation);
-    }
+        BlockState blockstate = this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
+                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(NIGHT, night).setValue(ROTATION, Boolean.FALSE);
 
-    @NotNull
-    @Override
-    @ParametersAreNonnullByDefault
-    public int getSignal(BlockState state, BlockGetter block, BlockPos pos, Direction side)
-    {
-        return Math.max(0, state.getValue(POWERED) - 1);
+        return updateDistance(blockstate, world, posClicked);
     }
 }
