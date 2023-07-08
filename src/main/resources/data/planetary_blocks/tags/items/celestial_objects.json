@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    { "id": "planetary_blocks:classic_moon", "required": false },
+    { "id": "planetary_blocks:classic_sun", "required": false },
+    { "id": "planetary_blocks:earth_block", "required": false },
+    { "id": "planetary_blocks:mars_block", "required": false },
+    { "id": "planetary_blocks:mercury_block", "required": false },
+    { "id": "planetary_blocks:sun_block", "required": false },
+    { "id": "planetary_blocks:venus_block", "required": false }
+  ]
+}
