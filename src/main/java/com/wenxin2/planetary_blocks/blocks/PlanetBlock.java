@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 public class PlanetBlock extends RotatedPillarBlock
 {
     public static final EnumProperty<ColumnBlockStates> COLUMN = EnumProperty.create("column", ColumnBlockStates.class);
-    public static final IntegerProperty DISTANCE = BlockStateProperties.DISTANCE;
+    public static final IntegerProperty DISTANCE = IntegerProperty.create("distance", 1, 17);
     public static final BooleanProperty ROTATION = BooleanProperty.create("rotation");
 
     public final boolean spawnParticles;
@@ -36,7 +36,7 @@ public class PlanetBlock extends RotatedPillarBlock
         super(properties);
         this.spawnParticles = spawnParticles;
         this.registerDefaultState(this.getStateDefinition().any().setValue(AXIS, direction)
-                .setValue(DISTANCE, 7).setValue(ROTATION, Boolean.FALSE).setValue(COLUMN, ColumnBlockStates.NONE));
+                .setValue(DISTANCE, 17).setValue(ROTATION, Boolean.FALSE).setValue(COLUMN, ColumnBlockStates.NONE));
     }
 
     @Override
@@ -56,18 +56,21 @@ public class PlanetBlock extends RotatedPillarBlock
     {
         int distance = state.getValue(DISTANCE);
 
-        if (distance == 7)
+        if (distance == Config.ROTATION_DISTANCE.get() + 1)
         {
             world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
         }
         if (Config.ENABLE_ROTATION.get()) {
-            if (distance < 7) {
+            if (distance < Config.ROTATION_DISTANCE.get() + 1) {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
             }
+            if (distance > Config.ROTATION_DISTANCE.get() + 1) {
+                world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
+            }
         }
-        if (!Config.ENABLE_ROTATION.get() && distance < 7)
+        if (!Config.ENABLE_ROTATION.get() && distance < 17)
         {
-            world.setBlock(pos, state.setValue(DISTANCE, 7), 4);
+            world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(DISTANCE, 17), 4);
         }
     }
 
@@ -77,18 +80,21 @@ public class PlanetBlock extends RotatedPillarBlock
     {
         int distance = state.getValue(DISTANCE);
 
-        if (distance < 7)
+        if (distance < Config.ROTATION_DISTANCE.get() + 1)
         {
             world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
         }
         if (Config.ENABLE_ROTATION.get()) {
-            if (distance == 7) {
+            if (distance == Config.ROTATION_DISTANCE.get() + 1) {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
             }
+            if (distance < Config.ROTATION_DISTANCE.get() + 1) {
+                world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
+            }
         }
-        if (!Config.ENABLE_ROTATION.get() && distance < 7)
+        if (!Config.ENABLE_ROTATION.get() && distance < 17)
         {
-            world.setBlock(pos, state.setValue(DISTANCE, 7), 4);
+            world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(DISTANCE, 17), 4);
         }
         super.neighborChanged(state, world, pos, neighborBlock, pos, rotation);
     }
@@ -142,7 +148,7 @@ public class PlanetBlock extends RotatedPillarBlock
     }
 
     private static BlockState updateDistance(BlockState state, LevelAccessor world, BlockPos pos) {
-        int i = 7;
+        int i = 17;
         BlockPos.MutableBlockPos posMutable = new BlockPos.MutableBlockPos();
 
         for(Direction direction : Direction.values()) {
@@ -164,30 +170,8 @@ public class PlanetBlock extends RotatedPillarBlock
         if (state.getBlock() instanceof PlanetBlock) {
             return state.getValue(DISTANCE);
         }
-        return 7;
+        return Config.ROTATION_DISTANCE.get() + 1;
     }
-
-//    public BlockState updateRotation(BlockState state, Level world, BlockPos pos)
-//    {
-//        if (!world.isClientSide)
-//        {
-//            int bestSignal = world.getBestNeighborSignal(pos);
-//            int distance = world.getBlockState(pos).getValue(DISTANCE);
-//
-//            if (distance == 7)
-//            {
-//                world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
-//            }
-//            if (distance < 7 && Config.ENABLE_ROTATION.get()) {
-//                world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
-//            }
-//            if (!Config.ENABLE_ROTATION.get() && distance < 7)
-//            {
-//                world.setBlock(pos, state.setValue(DISTANCE, 7), 4);
-//            }
-//        }
-//        return state;
-//    }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {

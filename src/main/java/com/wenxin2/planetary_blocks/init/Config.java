@@ -17,6 +17,7 @@ public class Config
     public static ForgeConfigSpec.BooleanValue EARTH_NIGHT;
     public static ForgeConfigSpec.BooleanValue SUN_BURNING;
     public static ForgeConfigSpec.BooleanValue SUN_PARTICLES;
+    public static ForgeConfigSpec.IntValue ROTATION_DISTANCE;
     public static ForgeConfigSpec.IntValue CLASSIC_MOON_PHASE;
 
     static
@@ -43,6 +44,8 @@ public class Config
                 .define("earth_night", true);
         ENABLE_ROTATION = BUILDER.comment("Enable rotation for planetary blocks. " + "[Default: true]")
                 .define("enable_rotation", true);
+        ROTATION_DISTANCE = BUILDER.comment("Max distance blocks can rotate from a powered podium. " + "[Default: 6]")
+                .defineInRange("rotation_distance", 16, 1, 16);
         FOREVER_EARTH_NIGHT = BUILDER.comment("Night mode for the Earth block is always enabled. " + "[Default: false]")
                 .define("forever_earth_night", false);
         SUN_BURNING = BUILDER.comment("Enable fire damage for the Sun block. " + "[Default: true]")
