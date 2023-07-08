@@ -7,5 +7,10 @@
   "block.planetary_blocks.mars_block": "Mars",
   "block.planetary_blocks.mercury_block": "Mercury",
   "block.planetary_blocks.sun_block": "Sun",
-  "block.planetary_blocks.venus_block": "Venus"
+  "block.planetary_blocks.venus_block": "Venus",
+
+  "item.planetary_blocks.planet_rotator": "Planet Rotator",
+
+  "tooltip.planetary_blocks.rotation": "Toggle Planet Rotation",
+  "tooltip.planetary_blocks.rotation_disabled": "Planet Rotation Disabled"
 }
