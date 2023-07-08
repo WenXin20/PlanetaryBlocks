@@ -50,45 +50,6 @@ public class PlanetBlock extends RotatedPillarBlock
         serverWorld.setBlock(pos, updateDistance(state, serverWorld, pos), 3);
     }
 
-    @NotNull
-    @Override
-    public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack)
-    {
-        int distance = state.getValue(DISTANCE);
-
-        if (distance == 7)
-        {
-            world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE)/*.setValue(DISTANCE, 0)*/, 4);
-        }
-        if (distance < 7 && Config.ENABLE_ROTATION.get()) {
-            world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
-        }
-        if (!Config.ENABLE_ROTATION.get() && distance < 7)
-        {
-            world.setBlock(pos, state.setValue(DISTANCE, 7), 4);
-        }
-    }
-
-    @Override
-    @ParametersAreNonnullByDefault
-    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighborBlock, BlockPos pos2, boolean rotation)
-    {
-        int distance = state.getValue(DISTANCE);
-
-        if (distance == 7)
-        {
-            world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
-        }
-        if (distance < 7 && Config.ENABLE_ROTATION.get()) {
-            world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
-        }
-        if (!Config.ENABLE_ROTATION.get() && distance < 7)
-        {
-            world.setBlock(pos, state.setValue(DISTANCE, 7), 4);
-        }
-        super.neighborChanged(state, world, pos, neighborBlock, pos, rotation);
-    }
-
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState state2, LevelAccessor worldAccessor, BlockPos pos, BlockPos pos2) {
         int i = getDistance(state2) + 1;
@@ -106,6 +67,15 @@ public class PlanetBlock extends RotatedPillarBlock
         boolean axisX = state.getValue(AXIS) == Direction.Axis.X;
         boolean axisY = state.getValue(AXIS) == Direction.Axis.Y;
         boolean axisZ = state.getValue(AXIS) == Direction.Axis.Z;
+
+
+        if (worldAccessor.getBlockState(pos).getValue(DISTANCE) == 7)
+        {
+            return state.setValue(ROTATION, Boolean.FALSE);
+        } else if (worldAccessor.getBlockState(pos).getValue(DISTANCE) < 7)
+        {
+            return state.setValue(ROTATION, Boolean.TRUE);
+        }
 
         if (blockEast == this && axisX)
         {
