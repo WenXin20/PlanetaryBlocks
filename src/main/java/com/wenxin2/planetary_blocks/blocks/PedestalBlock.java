@@ -25,7 +25,7 @@ public class PedestalBlock extends RotatedPillarBlock
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     private static final VoxelShape VOXELS_MAIN =
-            Block.box(0, 8, 0, 16, 16, 16);
+            Block.box(0, 0, 0, 16, 16, 16);
     private static final VoxelShape VOXELS_TOP = Shapes.or(
             Block.box(0, 8, 0, 16, 16, 16),
             Block.box(2, 0, 2, 14, 8, 14)).optimize();
