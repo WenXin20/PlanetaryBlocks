@@ -4,11 +4,15 @@ import com.wenxin2.planetary_blocks.blocks.EarthBlock;
 import com.wenxin2.planetary_blocks.blocks.PlanetBlock;
 import com.wenxin2.planetary_blocks.init.Config;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -20,24 +24,32 @@ import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
 public class RotatorItem extends Item {
-    public RotatorItem (Item.Properties properties) {
+    private final int consumeItemDamage;
+    public RotatorItem (Item.Properties properties, int damage) {
         super(properties);
+        this.consumeItemDamage = damage;
     }
 
     @NotNull
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Player player = context.getPlayer();
+        InteractionHand hand = Objects.requireNonNull(context.getPlayer()).getUsedItemHand();
         Level world = context.getLevel();
         BlockPos pos = context.getClickedPos();
         BlockState state = world.getBlockState(pos);
+        ItemStack item = player.getItemInHand(hand);
 
-        if (!world.isClientSide && player != null && (state.getBlock() instanceof PlanetBlock || state.getBlock() instanceof EarthBlock)) {
-            if (state.hasProperty(PlanetBlock.ROTATION) && Config.ENABLE_ROTATION.get() && Config.ENABLE_PLANET_ROTATOR.get())
+        if ((state.getBlock() instanceof PlanetBlock || state.getBlock() instanceof EarthBlock)) {
+            if (!world.isClientSide && state.hasProperty(PlanetBlock.ROTATION) && Config.ENABLE_ROTATION.get() && Config.ENABLE_PLANET_ROTATOR.get())
             {
                 world.setBlock(pos, state.cycle(PlanetBlock.ROTATION), 4);
+                item.hurtAndBreak(this.consumeItemDamage, player, (h) -> {
+                    h.broadcastBreakEvent(hand);
+                });
                 return InteractionResult.SUCCESS;
             }
+            world.playSound(player, pos, SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.BLOCKS, 0.5F, 0.75F);
         }
         return InteractionResult.FAIL;
     }

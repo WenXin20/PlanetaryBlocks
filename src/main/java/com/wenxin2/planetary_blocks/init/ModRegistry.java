@@ -68,7 +68,7 @@ public class ModRegistry {
                         .requiresCorrectToolForDrops(), Direction.Axis.Y, Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
 
         PLANET_ROTATOR = registerItem("planet_rotator",
-                () -> new RotatorItem(new Item.Properties().tab(PlanetaryBlocks.CREATIVE_TAB)));
+                () -> new RotatorItem(new Item.Properties().durability(128).tab(PlanetaryBlocks.CREATIVE_TAB), 1));
     }
 
     public static RegistryObject<Block> registerBlock(String name, Supplier<? extends Block> block, CreativeModeTab tab)
