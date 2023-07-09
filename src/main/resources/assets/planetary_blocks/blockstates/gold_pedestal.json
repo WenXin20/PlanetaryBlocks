@@ -1,0 +1,55 @@
+{
+  "variants": {
+    "axis=x,column=none": {
+      "model": "planetary_blocks:block/gold_pedestal_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,column=none": {
+      "model": "planetary_blocks:block/gold_pedestal"
+    },
+    "axis=z,column=none": {
+      "model": "planetary_blocks:block/gold_pedestal_horizontal",
+      "x": 90
+    },
+
+    "axis=x,column=top": {
+      "model": "planetary_blocks:block/gold_pedestal_horizontal_top",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,column=top": {
+      "model": "planetary_blocks:block/gold_pedestal_top"
+    },
+    "axis=z,column=top": {
+      "model": "planetary_blocks:block/gold_pedestal_horizontal_top",
+      "x": 90
+    },
+
+    "axis=x,column=middle": {
+      "model": "planetary_blocks:block/gold_pedestal_horizontal_middle",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,column=middle": {
+      "model": "planetary_blocks:block/gold_pedestal_middle"
+    },
+    "axis=z,column=middle": {
+      "model": "planetary_blocks:block/gold_pedestal_horizontal_middle",
+      "x": 90
+    },
+
+    "axis=x,column=bottom": {
+      "model": "planetary_blocks:block/gold_pedestal_horizontal_bottom",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,column=bottom": {
+      "model": "planetary_blocks:block/gold_pedestal_bottom"
+    },
+    "axis=z,column=bottom": {
+      "model": "planetary_blocks:block/gold_pedestal_horizontal_bottom",
+      "x": 90
+    }
+  }
+}

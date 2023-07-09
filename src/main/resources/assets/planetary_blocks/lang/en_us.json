@@ -9,6 +9,8 @@
   "block.planetary_blocks.sun_block": "Sun",
   "block.planetary_blocks.venus_block": "Venus",
 
+  "block.planetary_blocks.gold_pedestal": "Gold Pedestal",
+
   "item.planetary_blocks.planet_rotator": "Planet Rotator",
 
   "tooltip.planetary_blocks.rotation": "Toggle Planet Rotation",

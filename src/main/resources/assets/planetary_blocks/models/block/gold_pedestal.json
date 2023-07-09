@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "planetary_blocks:block/gold_pedestal_end",
+    "side": "planetary_blocks:block/gold_pedestal_side"
+  }
+}

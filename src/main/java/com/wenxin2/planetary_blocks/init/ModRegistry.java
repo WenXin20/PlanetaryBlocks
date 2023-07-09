@@ -4,6 +4,7 @@ import com.wenxin2.planetary_blocks.PlanetaryBlocks;
 import com.wenxin2.planetary_blocks.blocks.ClassicMoonBlock;
 import com.wenxin2.planetary_blocks.blocks.ClassicSunBlock;
 import com.wenxin2.planetary_blocks.blocks.EarthBlock;
+import com.wenxin2.planetary_blocks.blocks.PedestalBlock;
 import com.wenxin2.planetary_blocks.blocks.PlanetBlock;
 import com.wenxin2.planetary_blocks.blocks.SunBlock;
 import com.wenxin2.planetary_blocks.items.RotatorItem;
@@ -34,10 +35,15 @@ public class ModRegistry {
     public static final RegistryObject<Block> SUN;
     public static final RegistryObject<Block> VENUS;
 
+    public static final RegistryObject<Block> GOLD_PEDESTAL;
+
     public static final RegistryObject<Item> PLANET_ROTATOR;
 
     static
     {
+        PLANET_ROTATOR = registerItem("planet_rotator",
+                () -> new RotatorItem(new Item.Properties().durability(128).tab(PlanetaryBlocks.CREATIVE_TAB), 1));
+
         CLASSIC_SUN = registerBlock("classic_sun",
                 () -> new ClassicSunBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
                         .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
@@ -67,8 +73,10 @@ public class ModRegistry {
                         .sound(SoundType.STONE).strength(1.5F, 6.0F)
                         .requiresCorrectToolForDrops(), Direction.Axis.Y, Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
 
-        PLANET_ROTATOR = registerItem("planet_rotator",
-                () -> new RotatorItem(new Item.Properties().durability(128).tab(PlanetaryBlocks.CREATIVE_TAB), 1));
+        GOLD_PEDESTAL = registerBlock("gold_pedestal",
+                () -> new PedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD)
+                        .sound(SoundType.METAL).strength(3.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
     }
 
     public static RegistryObject<Block> registerBlock(String name, Supplier<? extends Block> block, CreativeModeTab tab)

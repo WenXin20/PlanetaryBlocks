@@ -44,6 +44,27 @@ public class EarthBlock extends HorizontalDirectionalBlock
     }
 
     @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context)
+    {
+        BlockPos posClicked = context.getClickedPos();
+        Level world = context.getLevel();
+        boolean night = false;
+
+        if (Config.FOREVER_EARTH_NIGHT.get() || Config.EARTH_NIGHT.get())
+        {
+            night = Config.FOREVER_EARTH_NIGHT.get();
+        }
+        else if (Config.EARTH_NIGHT.get())
+            context.getLevel().isNight();
+        else context.getLevel().hasNeighborSignal(context.getClickedPos());
+
+        BlockState blockstate = this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
+                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(NIGHT, night).setValue(ROTATION, Boolean.FALSE);
+
+        return updateDistance(blockstate, world, posClicked);
+    }
+
+    @Override
     public void tick(BlockState state, ServerLevel serverWorld, BlockPos pos, RandomSource source) {
         serverWorld.setBlock(pos, updateDistance(state, serverWorld, pos), 3);
     }
@@ -141,7 +162,7 @@ public class EarthBlock extends HorizontalDirectionalBlock
     }
 
     private static int getDistance(BlockState state) {
-        if (state.is(Blocks.REDSTONE_LAMP) && state.getValue(BlockStateProperties.LIT)) {
+        if (state.getBlock() instanceof PedestalBlock && state.getValue(BlockStateProperties.POWERED)) {
             return 0;
         }
         if (state.getBlock() instanceof EarthBlock) {
@@ -165,26 +186,5 @@ public class EarthBlock extends HorizontalDirectionalBlock
         {
             world.setBlock(pos, state.setValue(NIGHT, Boolean.TRUE), 3);
         }
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context)
-    {
-        BlockPos posClicked = context.getClickedPos();
-        Level world = context.getLevel();
-        boolean night = false;
-
-        if (Config.FOREVER_EARTH_NIGHT.get() || Config.EARTH_NIGHT.get())
-        {
-            night = Config.FOREVER_EARTH_NIGHT.get();
-        }
-        else if (Config.EARTH_NIGHT.get())
-            context.getLevel().isNight();
-        else context.getLevel().hasNeighborSignal(context.getClickedPos());
-
-        BlockState blockstate = this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite())
-                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(NIGHT, night).setValue(ROTATION, Boolean.FALSE);
-
-        return updateDistance(blockstate, world, posClicked);
     }
 }

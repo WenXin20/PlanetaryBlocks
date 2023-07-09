@@ -1,6 +1,7 @@
 package com.wenxin2.planetary_blocks.blocks;
 
 import com.wenxin2.planetary_blocks.init.Config;
+import com.wenxin2.planetary_blocks.init.ModRegistry;
 import javax.annotation.ParametersAreNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -40,6 +41,16 @@ public class PlanetBlock extends RotatedPillarBlock
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(AXIS, COLUMN, DISTANCE, ROTATION);
+    }
+
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockPos posClicked = context.getClickedPos();
+        Level world = context.getLevel();
+        BlockState blockstate = this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis())
+                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Boolean.FALSE);
+
+        return updateDistance(blockstate, world, posClicked);
     }
 
     @Override
@@ -174,22 +185,12 @@ public class PlanetBlock extends RotatedPillarBlock
     }
 
     private static int getDistance(BlockState state) {
-        if (state.is(Blocks.REDSTONE_LAMP) && state.getValue(BlockStateProperties.LIT)) {
+        if (state.getBlock() instanceof PedestalBlock && state.getValue(BlockStateProperties.POWERED)) {
             return 0;
         }
         if (state.getBlock() instanceof PlanetBlock) {
             return state.getValue(DISTANCE);
         }
         return Config.ROTATION_DISTANCE.get() + 1;
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockPos posClicked = context.getClickedPos();
-        Level world = context.getLevel();
-        BlockState blockstate = this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis())
-                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Boolean.FALSE);
-
-        return updateDistance(blockstate, world, posClicked);
     }
 }
