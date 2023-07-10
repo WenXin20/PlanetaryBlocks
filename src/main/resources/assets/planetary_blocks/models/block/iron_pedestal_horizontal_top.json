@@ -1,0 +1,7 @@
+{
+  "parent": "planetary_blocks:block/pedestal_horizontal_top",
+  "textures": {
+    "end": "planetary_blocks:block/iron_pedestal_end",
+    "side": "planetary_blocks:block/iron_pedestal_side_top"
+  }
+}
