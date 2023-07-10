@@ -6,7 +6,7 @@
       "tag": "forge:ingots/iron"
     },
     "B": {
-      "item": "planetary_blocks:iron_panel"
+      "item": "minecraft:iron_bars"
     }
   },
   "pattern": [
@@ -16,6 +16,6 @@
   ],
   "result": {
     "count": 4,
-    "item": "planetary_blocks:iron_pedestal"
+    "item": "planetary_blocks:iron_bars_pedestal"
   }
 }
