@@ -73,12 +73,11 @@ public class PedestalBlock extends RotatedPillarBlock implements SimpleWaterlogg
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        boolean isColumnNone = context.getLevel().getBlockState(context.getClickedPos()).getValue(COLUMN) == ColumnBlockStates.NONE;
         final FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
 
         return this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis())
                 .setValue(COLUMN, ColumnBlockStates.NONE).setValue(POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos()))
-                .setValue(WATERLOGGED, fluidState.is(FluidTags.WATER) && fluidState.getAmount() == 8 && !isColumnNone);
+                .setValue(WATERLOGGED, fluidState.is(FluidTags.WATER) && fluidState.getAmount() == 8);
     }
 
     // Precise selection box
@@ -159,36 +158,28 @@ public class PedestalBlock extends RotatedPillarBlock implements SimpleWaterlogg
         boolean isAxisY = state.getValue(AXIS) == Direction.Axis.Y;
         boolean isAxisZ = state.getValue(AXIS) == Direction.Axis.Z;
 
-        boolean isEastAxisX = stateEast.getValue(AXIS) == Direction.Axis.X;
-        boolean isWestAxisX = stateWest.getValue(AXIS) == Direction.Axis.X;
-        boolean isAboveAxisY = stateAbove.getValue(AXIS) == Direction.Axis.Y;
-        boolean isBelowAxisY = stateBelow.getValue(AXIS) == Direction.Axis.Y;
-        boolean isNorthAxisZ = stateNorth.getValue(AXIS) == Direction.Axis.Z;
-        boolean isSouthAxisZ = stateSouth.getValue(AXIS) == Direction.Axis.Z;
-
-
-        if (blockEast == this && isAxisX && isEastAxisX) {
-            if (blockWest == this && isWestAxisX)
+        if (blockEast == this && isAxisX && stateEast.getValue(AXIS) == Direction.Axis.X) {
+            if (blockWest == this && stateWest.getValue(AXIS) == Direction.Axis.X)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE);
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM);
         }
-        if (blockWest == this && isAxisX && isWestAxisX)
+        if (blockWest == this && isAxisX && stateWest.getValue(AXIS) == Direction.Axis.X)
             return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
-        if (blockAbove == this && isAxisY && isAboveAxisY) {
-            if (blockBelow == this && isBelowAxisY)
+        if (blockAbove == this && isAxisY && stateAbove.getValue(AXIS) == Direction.Axis.Y) {
+            if (blockBelow == this && stateBelow.getValue(AXIS) == Direction.Axis.Y)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE);
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM);
         }
-        if (blockBelow == this && isAxisY && isBelowAxisY)
+        if (blockBelow == this && isAxisY && stateBelow.getValue(AXIS) == Direction.Axis.Y)
             return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
-        if (blockNorth == this && isAxisZ && isNorthAxisZ) {
-            if (blockSouth == this && isAxisZ && isSouthAxisZ)
+        if (blockNorth == this && isAxisZ && stateNorth.getValue(AXIS) == Direction.Axis.Z) {
+            if (blockSouth == this && isAxisZ && stateSouth.getValue(AXIS) == Direction.Axis.Z)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE);
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM);
         }
-        if (blockSouth == this && isAxisZ && isSouthAxisZ)
+        if (blockSouth == this && isAxisZ && stateSouth.getValue(AXIS) == Direction.Axis.Z)
             return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
         if (state.getValue(WATERLOGGED))
