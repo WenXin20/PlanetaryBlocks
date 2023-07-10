@@ -3,6 +3,7 @@ package com.wenxin2.planetary_blocks.blocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -12,24 +13,25 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.ButtonBlock;
-import net.minecraft.world.level.block.LeverBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class PedestalBlock extends RotatedPillarBlock
+public class PedestalBlock extends RotatedPillarBlock implements SimpleWaterloggedBlock
 {
     public static final EnumProperty<ColumnBlockStates> COLUMN = EnumProperty.create("column", ColumnBlockStates.class);
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
+    private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     private static final VoxelShape VOXELS_MAIN =
             Block.box(0, 0, 0, 16, 16, 16);
@@ -61,18 +63,22 @@ public class PedestalBlock extends RotatedPillarBlock
     public PedestalBlock(Properties properties, Direction.Axis direction) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any().setValue(AXIS, direction).setValue(COLUMN, ColumnBlockStates.NONE)
-                .setValue(POWERED, Boolean.FALSE));
+                .setValue(POWERED, Boolean.FALSE).setValue(WATERLOGGED, Boolean.FALSE));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
-        stateBuilder.add(AXIS, COLUMN, POWERED);
+        stateBuilder.add(AXIS, COLUMN, POWERED, WATERLOGGED);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
+        boolean isColumnNone = context.getLevel().getBlockState(context.getClickedPos()).getValue(COLUMN) == ColumnBlockStates.NONE;
+        final FluidState fluidState = context.getLevel().getFluidState(context.getClickedPos());
+
         return this.defaultBlockState().setValue(AXIS, context.getClickedFace().getAxis())
-                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos()));
+                .setValue(COLUMN, ColumnBlockStates.NONE).setValue(POWERED, context.getLevel().hasNeighborSignal(context.getClickedPos()))
+                .setValue(WATERLOGGED, fluidState.is(FluidTags.WATER) && fluidState.getAmount() == 8 && !isColumnNone);
     }
 
     // Precise selection box
@@ -134,7 +140,7 @@ public class PedestalBlock extends RotatedPillarBlock
     }
 
     @Override
-    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor worldAccessor, BlockPos pos, BlockPos pos2) {
+    public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor worldAccessor, BlockPos pos, BlockPos facingPos) {
         Block blockAbove = worldAccessor.getBlockState(pos.above()).getBlock();
         Block blockBelow = worldAccessor.getBlockState(pos.below()).getBlock();
         Block blockNorth = worldAccessor.getBlockState(pos.north()).getBlock();
@@ -178,6 +184,9 @@ public class PedestalBlock extends RotatedPillarBlock
         if (blockSouth == this && axisZ && stateSouth.getValue(AXIS) == Direction.Axis.Z)
             return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
+        if (state.getValue(WATERLOGGED))
+            worldAccessor.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(worldAccessor));
+
         return state.setValue(COLUMN, ColumnBlockStates.NONE);
     }
 
@@ -191,6 +200,7 @@ public class PedestalBlock extends RotatedPillarBlock
         return false;
     }
 
+    @Override
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos neighborPos, boolean b) {
         if (!world.isClientSide) {
             boolean flag = state.getValue(POWERED);
@@ -204,6 +214,7 @@ public class PedestalBlock extends RotatedPillarBlock
         }
     }
 
+    @Override
     public void tick(BlockState state, ServerLevel serverWorld, BlockPos pos, RandomSource source) {
         if (state.getValue(POWERED) && !serverWorld.hasNeighborSignal(pos)) {
             serverWorld.setBlock(pos, state.setValue(POWERED, Boolean.FALSE), 2);
@@ -211,5 +222,11 @@ public class PedestalBlock extends RotatedPillarBlock
             serverWorld.setBlock(pos, state.setValue(POWERED, Boolean.TRUE), 2);
             System.out.print(state.getValue(POWERED) + " ");
         }
+    }
+
+    @Override
+    public FluidState getFluidState(final BlockState state)
+    {
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 }
