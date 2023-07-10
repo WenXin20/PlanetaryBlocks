@@ -135,15 +135,6 @@ public class PedestalBlock extends RotatedPillarBlock implements SimpleWaterlogg
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (player.isShiftKeyDown()){
-            world.setBlock(pos, state.cycle(POWERED), 4);
-            return InteractionResult.SUCCESS;
-        }
-        return InteractionResult.FAIL;
-    }
-
-    @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor worldAccessor, BlockPos pos, BlockPos facingPos) {
         Block blockAbove = worldAccessor.getBlockState(pos.above()).getBlock();
         Block blockBelow = worldAccessor.getBlockState(pos.below()).getBlock();
