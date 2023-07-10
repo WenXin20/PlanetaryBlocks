@@ -38,6 +38,7 @@ public class ModRegistry {
 
     public static final RegistryObject<Block> GOLD_PEDESTAL;
     public static final RegistryObject<Block> GOLD_PANEL;
+    public static final RegistryObject<Block> IRON_PANEL;
     public static final RegistryObject<Block> IRON_PEDESTAL;
 
     public static final RegistryObject<Item> PLANET_ROTATOR;
@@ -85,6 +86,10 @@ public class ModRegistry {
                         .sound(SoundType.METAL).strength(3.0F, 6.0F)
                         .requiresCorrectToolForDrops().noOcclusion(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
 
+        IRON_PANEL = registerBlock("iron_panel",
+                () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.METAL)
+                        .sound(SoundType.METAL).strength(5.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion()), PlanetaryBlocks.CREATIVE_TAB);
         GOLD_PANEL = registerBlock("gold_panel",
                 () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD)
                         .sound(SoundType.METAL).strength(3.0F, 6.0F)
