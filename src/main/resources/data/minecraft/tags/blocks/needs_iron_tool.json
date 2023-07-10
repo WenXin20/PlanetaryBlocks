@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    { "id": "planetary_blocks:diamond_pedestal", "required": false },
     { "id": "planetary_blocks:gold_panel", "required": false },
     { "id": "planetary_blocks:gold_pedestal", "required": false }
   ]
