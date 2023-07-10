@@ -29,11 +29,27 @@ public class PedestalBlock extends RotatedPillarBlock
     private static final VoxelShape VOXELS_TOP = Shapes.or(
             Block.box(0, 8, 0, 16, 16, 16),
             Block.box(2, 0, 2, 14, 8, 14)).optimize();
+    private static final VoxelShape VOXELS_TOP_X = Shapes.or(
+            Block.box(0, 2, 2, 8, 14, 14),
+                    Block.box(8, 0, 0, 16, 16, 16)).optimize();
+    private static final VoxelShape VOXELS_TOP_Z = Shapes.or(
+            Block.box(0, 0, 0, 16, 16, 8),
+            Block.box(2, 2, 8, 14, 14, 16)).optimize();
     private static final VoxelShape VOXELS_MIDDLE =
             Block.box(2, 0, 2, 14, 16, 14);
+    private static final VoxelShape VOXELS_MIDDLE_X =
+            Block.box(0, 2, 2, 16, 14, 14);
+    private static final VoxelShape VOXELS_MIDDLE_Z =
+            Block.box(2, 2, 0, 14, 14, 16);
     private static final VoxelShape VOXELS_BOTTOM = Shapes.or(
             Block.box(2, 8, 2, 14, 16, 14),
             Block.box(0, 0, 0, 16, 8, 16)).optimize();
+    private static final VoxelShape VOXELS_BOTTOM_X = Shapes.or(
+            Block.box(0, 0, 0, 8, 16, 16),
+            Block.box(8, 2, 2, 16, 14, 14)).optimize();
+    private static final VoxelShape VOXELS_BOTTOM_Z = Shapes.or(
+            Block.box(2, 2, 0, 14, 14, 8),
+            Block.box(0, 0, 8, 16, 16, 16)).optimize();
 
     public PedestalBlock(Properties properties, Direction.Axis direction) {
         super(properties);
@@ -65,12 +81,28 @@ public class PedestalBlock extends RotatedPillarBlock
                     switch (state.getValue(AXIS))
                     {
                         case X:
-                            return VOXELS_TOP;
+                            return VOXELS_TOP_X;
+                        case Z:
+                            return VOXELS_TOP_Z;
                     }
                     return VOXELS_TOP;
                 case MIDDLE:
+                    switch (state.getValue(AXIS))
+                    {
+                        case X:
+                            return VOXELS_MIDDLE_X;
+                        case Z:
+                            return VOXELS_MIDDLE_Z;
+                    }
                     return VOXELS_MIDDLE;
                 case BOTTOM:
+                    switch (state.getValue(AXIS))
+                    {
+                        case X:
+                            return VOXELS_BOTTOM_X;
+                        case Z:
+                            return VOXELS_BOTTOM_Z;
+                    }
                     return VOXELS_BOTTOM;
                 default:
                     return VOXELS_MAIN;

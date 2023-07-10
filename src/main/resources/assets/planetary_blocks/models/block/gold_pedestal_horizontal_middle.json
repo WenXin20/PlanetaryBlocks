@@ -1,0 +1,6 @@
+{
+  "parent": "planetary_blocks:block/pedestal_horizontal_middle",
+  "textures": {
+    "side": "planetary_blocks:block/gold_pedestal_side_middle"
+  }
+}
