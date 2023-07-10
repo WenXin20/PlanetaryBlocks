@@ -36,9 +36,10 @@ public class ModRegistry {
     public static final RegistryObject<Block> SUN;
     public static final RegistryObject<Block> VENUS;
 
+    public static final RegistryObject<Block> DIAMOND_PANEL;
     public static final RegistryObject<Block> DIAMOND_PEDESTAL;
-    public static final RegistryObject<Block> GOLD_PEDESTAL;
     public static final RegistryObject<Block> GOLD_PANEL;
+    public static final RegistryObject<Block> GOLD_PEDESTAL;
     public static final RegistryObject<Block> IRON_BARS_PEDESTAL;
     public static final RegistryObject<Block> IRON_PANEL;
     public static final RegistryObject<Block> IRON_PEDESTAL;
@@ -104,6 +105,10 @@ public class ModRegistry {
         GOLD_PANEL = registerBlock("gold_panel",
                 () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD)
                         .sound(SoundType.METAL).strength(3.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion()), PlanetaryBlocks.CREATIVE_TAB);
+        DIAMOND_PANEL = registerBlock("diamond_panel",
+                () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.DIAMOND)
+                        .sound(SoundType.METAL).strength(5.0F, 6.0F)
                         .requiresCorrectToolForDrops().noOcclusion()), PlanetaryBlocks.CREATIVE_TAB);
     }
 
