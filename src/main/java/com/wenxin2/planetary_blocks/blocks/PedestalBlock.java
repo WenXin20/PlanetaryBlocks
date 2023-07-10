@@ -4,17 +4,24 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ButtonBlock;
+import net.minecraft.world.level.block.LeverBlock;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -110,6 +117,23 @@ public class PedestalBlock extends RotatedPillarBlock
     }
 
     @Override
+    public VoxelShape getBlockSupportShape(BlockState state, BlockGetter blockGetter, BlockPos pos) {
+        if (state.getValue(COLUMN) == ColumnBlockStates.TOP || state.getValue(COLUMN) == ColumnBlockStates.BOTTOM) {
+            return Shapes.block();
+        }
+        return this.getCollisionShape(state, blockGetter, pos, CollisionContext.empty());
+    }
+
+    @Override
+    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (player.isShiftKeyDown()){
+            world.setBlock(pos, state.cycle(POWERED), 4);
+            return InteractionResult.SUCCESS;
+        }
+        return InteractionResult.FAIL;
+    }
+
+    @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor worldAccessor, BlockPos pos, BlockPos pos2) {
         Block blockAbove = worldAccessor.getBlockState(pos.above()).getBlock();
         Block blockBelow = worldAccessor.getBlockState(pos.below()).getBlock();
@@ -159,7 +183,7 @@ public class PedestalBlock extends RotatedPillarBlock
 
     @Override
     public int getSignal(BlockState state, BlockGetter blockGetter, BlockPos pos, Direction direction) {
-        return 1;
+        return 0;
     }
 
     @Override
@@ -173,7 +197,7 @@ public class PedestalBlock extends RotatedPillarBlock
             if (flag != world.hasNeighborSignal(pos)) {
                 if (flag) {
                     world.scheduleTick(pos, this, 4);
-                } else {
+                } else if (world.hasNeighborSignal(pos)) {
                     world.setBlock(pos, state.cycle(POWERED), 2);
                 }
             }
@@ -182,11 +206,10 @@ public class PedestalBlock extends RotatedPillarBlock
 
     public void tick(BlockState state, ServerLevel serverWorld, BlockPos pos, RandomSource source) {
         if (state.getValue(POWERED) && !serverWorld.hasNeighborSignal(pos)) {
-            serverWorld.setBlock(pos, state.cycle(POWERED), 2);
+            serverWorld.setBlock(pos, state.setValue(POWERED, Boolean.FALSE), 2);
+        } else if (serverWorld.hasNeighborSignal(pos)) {
+            serverWorld.setBlock(pos, state.setValue(POWERED, Boolean.TRUE), 2);
+            System.out.print(state.getValue(POWERED) + " ");
         }
-    }
-
-    public boolean isSignalSource(BlockState state) {
-        return false;
     }
 }
