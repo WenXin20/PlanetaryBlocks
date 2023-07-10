@@ -9,6 +9,8 @@
   "block.planetary_blocks.sun_block": "Sun",
   "block.planetary_blocks.venus_block": "Venus",
 
+  "block.planetary_blocks.iron_bars_pedestal": "Iron Bars Pedestal",
+  "block.planetary_blocks.iron_panel": "Iron Panel",
   "block.planetary_blocks.iron_pedestal": "Iron Pedestal",
   "block.planetary_blocks.gold_pedestal": "Gold Pedestal",
   "block.planetary_blocks.gold_panel": "Gold Panel",
