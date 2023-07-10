@@ -33,8 +33,18 @@ public class PedestalBlock extends RotatedPillarBlock implements SimpleWaterlogg
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    private static final VoxelShape VOXELS_MAIN =
-            Block.box(0, 0, 0, 16, 16, 16);
+    private static final VoxelShape VOXELS_MAIN = Shapes.or(
+            Block.box(0, 8, 0, 16, 16, 16),
+            Block.box(2, 6, 2, 14, 8, 14),
+            Block.box(0, 0, 0, 16, 6, 16)).optimize();
+    private static final VoxelShape VOXELS_MAIN_X = Shapes.or(
+            Block.box(8, 0, 0, 16, 16, 16),
+            Block.box(6, 2, 2, 8, 14, 14),
+            Block.box(0, 0, 0, 6, 16, 16)).optimize();
+    private static final VoxelShape VOXELS_MAIN_Z = Shapes.or(
+            Block.box(0, 0, 0, 16, 16, 8),
+            Block.box(2, 2, 8, 14, 14, 10),
+            Block.box(0, 0, 10, 16, 16, 16)).optimize();
     private static final VoxelShape VOXELS_TOP = Shapes.or(
             Block.box(0, 8, 0, 16, 16, 16),
             Block.box(2, 0, 2, 14, 8, 14)).optimize();
@@ -85,45 +95,40 @@ public class PedestalBlock extends RotatedPillarBlock implements SimpleWaterlogg
     public VoxelShape getShape(final BlockState state, final BlockGetter worldIn, final BlockPos pos,
                                final CollisionContext context)
     {
-        if (state.getValue(COLUMN) == ColumnBlockStates.NONE) return VOXELS_MAIN;
-        else
-            switch (state.getValue(COLUMN))
-            {
-                case TOP:
-                    switch (state.getValue(AXIS))
-                    {
-                        case X:
-                            return VOXELS_TOP_X;
-                        case Z:
-                            return VOXELS_TOP_Z;
-                    }
-                    return VOXELS_TOP;
-                case MIDDLE:
-                    switch (state.getValue(AXIS))
-                    {
-                        case X:
-                            return VOXELS_MIDDLE_X;
-                        case Z:
-                            return VOXELS_MIDDLE_Z;
-                    }
-                    return VOXELS_MIDDLE;
-                case BOTTOM:
-                    switch (state.getValue(AXIS))
-                    {
-                        case X:
-                            return VOXELS_BOTTOM_X;
-                        case Z:
-                            return VOXELS_BOTTOM_Z;
-                    }
-                    return VOXELS_BOTTOM;
-                default:
-                    return VOXELS_MAIN;
-            }
+        switch (state.getValue(COLUMN))
+        {
+            case TOP:
+                return switch (state.getValue(AXIS)) {
+                    case X -> VOXELS_TOP_X;
+                    case Z -> VOXELS_TOP_Z;
+                    default -> VOXELS_TOP;
+                };
+            case MIDDLE:
+                return switch (state.getValue(AXIS)) {
+                    case X -> VOXELS_MIDDLE_X;
+                    case Z -> VOXELS_MIDDLE_Z;
+                    default -> VOXELS_MIDDLE;
+                };
+            case BOTTOM:
+                return switch (state.getValue(AXIS)) {
+                    case X -> VOXELS_BOTTOM_X;
+                    case Z -> VOXELS_BOTTOM_Z;
+                    default -> VOXELS_BOTTOM;
+                };
+            case NONE:
+                return switch (state.getValue(AXIS)) {
+                    case X -> VOXELS_MAIN_X;
+                    case Z -> VOXELS_MAIN_Z;
+                    default -> VOXELS_MAIN;
+                };
+            default:
+                return VOXELS_MAIN;
+        }
     }
 
     @Override
     public VoxelShape getBlockSupportShape(BlockState state, BlockGetter blockGetter, BlockPos pos) {
-        if (state.getValue(COLUMN) == ColumnBlockStates.TOP || state.getValue(COLUMN) == ColumnBlockStates.BOTTOM) {
+        if (state.getValue(COLUMN) == ColumnBlockStates.TOP || state.getValue(COLUMN) == ColumnBlockStates.BOTTOM || state.getValue(COLUMN) == ColumnBlockStates.NONE) {
             return Shapes.block();
         }
         return this.getCollisionShape(state, blockGetter, pos, CollisionContext.empty());

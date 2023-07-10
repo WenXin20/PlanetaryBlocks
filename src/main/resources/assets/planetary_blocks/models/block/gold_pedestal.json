@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/cube_column",
+  "parent": "planetary_blocks:block/pedestal",
   "textures": {
     "end": "planetary_blocks:block/gold_pedestal_end",
     "side": "planetary_blocks:block/gold_pedestal_side"
