@@ -118,32 +118,40 @@ public class PedestalBlock extends RotatedPillarBlock
         Block blockEast = worldAccessor.getBlockState(pos.east()).getBlock();
         Block blockWest = worldAccessor.getBlockState(pos.west()).getBlock();
 
+        BlockState stateAbove = worldAccessor.getBlockState(pos.above());
+        BlockState stateBelow = worldAccessor.getBlockState(pos.below());
+        BlockState stateNorth = worldAccessor.getBlockState(pos.north());
+        BlockState stateSouth = worldAccessor.getBlockState(pos.south());
+        BlockState stateEast = worldAccessor.getBlockState(pos.east());
+        BlockState stateWest = worldAccessor.getBlockState(pos.west());
+
         boolean axisX = state.getValue(AXIS) == Direction.Axis.X;
         boolean axisY = state.getValue(AXIS) == Direction.Axis.Y;
         boolean axisZ = state.getValue(AXIS) == Direction.Axis.Z;
 
-        if (blockEast == this && axisX) {
-            if (blockWest == this)
+
+        if (blockEast == this && axisX && stateEast.getValue(AXIS) == Direction.Axis.X) {
+            if (blockWest == this && stateWest.getValue(AXIS) == Direction.Axis.X)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE);
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM);
         }
-        if (blockWest == this && axisX)
+        if (blockWest == this && axisX && stateWest.getValue(AXIS) == Direction.Axis.X)
             return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
-        if (blockAbove == this && axisY) {
-            if (blockBelow == this)
+        if (blockAbove == this && axisY && stateAbove.getValue(AXIS) == Direction.Axis.Y) {
+            if (blockBelow == this && stateBelow.getValue(AXIS) == Direction.Axis.Y)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE);
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM);
         }
-        if (blockBelow == this && axisY)
+        if (blockBelow == this && axisY && stateBelow.getValue(AXIS) == Direction.Axis.Y)
             return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
-        if (blockNorth == this && axisZ) {
-            if (blockSouth == this)
+        if (blockNorth == this && axisZ && stateNorth.getValue(AXIS) == Direction.Axis.Z) {
+            if (blockSouth == this && axisZ && stateSouth.getValue(AXIS) == Direction.Axis.Z)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE);
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM);
         }
-        if (blockSouth == this && axisZ)
+        if (blockSouth == this && axisZ && stateSouth.getValue(AXIS) == Direction.Axis.Z)
             return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
         return state.setValue(COLUMN, ColumnBlockStates.NONE);
@@ -151,37 +159,12 @@ public class PedestalBlock extends RotatedPillarBlock
 
     @Override
     public int getSignal(BlockState state, BlockGetter blockGetter, BlockPos pos, Direction direction) {
-        return state.getValue(POWERED) ? 15 : 0;
+        return 1;
     }
 
     @Override
-    public void onRemove(BlockState state, Level world, BlockPos pos, BlockState neighborState, boolean powered) {
-        if (!powered && !state.is(neighborState.getBlock())) {
-            if (state.getValue(POWERED)) {
-                this.updateNeighbours(state, world, pos);
-            }
-
-            super.onRemove(state, world, pos, neighborState, powered);
-        }
-    }
-
-    private void updateNeighbours(BlockState state, Level world, BlockPos pos) {
-        world.updateNeighborsAt(pos, this);
-
-        if (state.getValue(AXIS) == Direction.Axis.X) {
-            world.updateNeighborsAt(pos.east(), this);
-            world.updateNeighborsAt(pos.west(), this);
-        }
-
-        if (state.getValue(AXIS) == Direction.Axis.Y) {
-            world.updateNeighborsAt(pos.above(), this);
-            world.updateNeighborsAt(pos.below(), this);
-        }
-
-        if (state.getValue(AXIS) == Direction.Axis.X) {
-            world.updateNeighborsAt(pos.north(), this);
-            world.updateNeighborsAt(pos.south(), this);
-        }
+    public boolean isSignalSource(BlockState state) {
+        return false;
     }
 
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos neighborPos, boolean b) {
