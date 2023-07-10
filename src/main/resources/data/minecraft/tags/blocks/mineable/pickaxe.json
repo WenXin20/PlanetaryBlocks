@@ -4,6 +4,7 @@
     { "id": "planetary_blocks:classic_moon", "required":false },
     { "id": "planetary_blocks:classic_sun", "required":false },
     { "id": "planetary_blocks:earth_block", "required":false },
+    { "id": "planetary_blocks:gold_panel", "required":false },
     { "id": "planetary_blocks:gold_pedestal", "required":false },
     { "id": "planetary_blocks:mars_block", "required":false },
     { "id": "planetary_blocks:mercury_block", "required":false },

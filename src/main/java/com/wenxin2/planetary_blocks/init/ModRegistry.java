@@ -16,6 +16,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,6 +37,7 @@ public class ModRegistry {
     public static final RegistryObject<Block> VENUS;
 
     public static final RegistryObject<Block> GOLD_PEDESTAL;
+    public static final RegistryObject<Block> GOLD_PANEL;
 
     public static final RegistryObject<Item> PLANET_ROTATOR;
 
@@ -77,6 +79,11 @@ public class ModRegistry {
                 () -> new PedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD)
                         .sound(SoundType.METAL).strength(3.0F, 6.0F)
                         .requiresCorrectToolForDrops().noOcclusion(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+
+        GOLD_PANEL = registerBlock("gold_panel",
+                () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD)
+                        .sound(SoundType.METAL).strength(3.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion()), PlanetaryBlocks.CREATIVE_TAB);
     }
 
     public static RegistryObject<Block> registerBlock(String name, Supplier<? extends Block> block, CreativeModeTab tab)
