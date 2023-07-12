@@ -31,42 +31,42 @@ public class PedestalBlock extends RotatedPillarBlock implements SimpleWaterlogg
 {
     public static final EnumProperty<ColumnBlockStates> COLUMN = EnumProperty.create("column", ColumnBlockStates.class);
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-    private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    private static final VoxelShape VOXELS_MAIN = Shapes.or(
+    public static final VoxelShape VOXELS_MAIN = Shapes.or(
             Block.box(0, 8, 0, 16, 16, 16),
             Block.box(2, 6, 2, 14, 8, 14),
             Block.box(0, 0, 0, 16, 6, 16)).optimize();
-    private static final VoxelShape VOXELS_MAIN_X = Shapes.or(
+    public static final VoxelShape VOXELS_MAIN_X = Shapes.or(
             Block.box(8, 0, 0, 16, 16, 16),
             Block.box(6, 2, 2, 8, 14, 14),
             Block.box(0, 0, 0, 6, 16, 16)).optimize();
-    private static final VoxelShape VOXELS_MAIN_Z = Shapes.or(
+    public static final VoxelShape VOXELS_MAIN_Z = Shapes.or(
             Block.box(0, 0, 0, 16, 16, 8),
             Block.box(2, 2, 8, 14, 14, 10),
             Block.box(0, 0, 10, 16, 16, 16)).optimize();
-    private static final VoxelShape VOXELS_TOP = Shapes.or(
+    public static final VoxelShape VOXELS_TOP = Shapes.or(
             Block.box(0, 8, 0, 16, 16, 16),
             Block.box(2, 0, 2, 14, 8, 14)).optimize();
-    private static final VoxelShape VOXELS_TOP_X = Shapes.or(
+    public static final VoxelShape VOXELS_TOP_X = Shapes.or(
             Block.box(0, 2, 2, 8, 14, 14),
                     Block.box(8, 0, 0, 16, 16, 16)).optimize();
-    private static final VoxelShape VOXELS_TOP_Z = Shapes.or(
+    public static final VoxelShape VOXELS_TOP_Z = Shapes.or(
             Block.box(0, 0, 0, 16, 16, 8),
             Block.box(2, 2, 8, 14, 14, 16)).optimize();
-    private static final VoxelShape VOXELS_MIDDLE =
+    public static final VoxelShape VOXELS_MIDDLE =
             Block.box(2, 0, 2, 14, 16, 14);
-    private static final VoxelShape VOXELS_MIDDLE_X =
+    public static final VoxelShape VOXELS_MIDDLE_X =
             Block.box(0, 2, 2, 16, 14, 14);
-    private static final VoxelShape VOXELS_MIDDLE_Z =
+    public static final VoxelShape VOXELS_MIDDLE_Z =
             Block.box(2, 2, 0, 14, 14, 16);
-    private static final VoxelShape VOXELS_BOTTOM = Shapes.or(
+    public static final VoxelShape VOXELS_BOTTOM = Shapes.or(
             Block.box(2, 8, 2, 14, 16, 14),
             Block.box(0, 0, 0, 16, 8, 16)).optimize();
-    private static final VoxelShape VOXELS_BOTTOM_X = Shapes.or(
+    public static final VoxelShape VOXELS_BOTTOM_X = Shapes.or(
             Block.box(0, 0, 0, 8, 16, 16),
             Block.box(8, 2, 2, 16, 14, 14)).optimize();
-    private static final VoxelShape VOXELS_BOTTOM_Z = Shapes.or(
+    public static final VoxelShape VOXELS_BOTTOM_Z = Shapes.or(
             Block.box(2, 2, 0, 14, 14, 8),
             Block.box(0, 0, 8, 16, 16, 16)).optimize();
 
@@ -154,28 +154,28 @@ public class PedestalBlock extends RotatedPillarBlock implements SimpleWaterlogg
         boolean isAxisY = state.getValue(AXIS) == Direction.Axis.Y;
         boolean isAxisZ = state.getValue(AXIS) == Direction.Axis.Z;
 
-        if (blockEast == this && isAxisX && stateEast.getValue(AXIS) == Direction.Axis.X) {
-            if (blockWest == this && stateWest.getValue(AXIS) == Direction.Axis.X)
+        if (blockEast instanceof PedestalBlock && isAxisX && stateEast.getValue(AXIS) == Direction.Axis.X) {
+            if (blockWest instanceof PedestalBlock && stateWest.getValue(AXIS) == Direction.Axis.X)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE);
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM);
         }
-        if (blockWest == this && isAxisX && stateWest.getValue(AXIS) == Direction.Axis.X)
+        if (blockWest instanceof PedestalBlock && isAxisX && stateWest.getValue(AXIS) == Direction.Axis.X)
             return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
-        if (blockAbove == this && isAxisY && stateAbove.getValue(AXIS) == Direction.Axis.Y) {
-            if (blockBelow == this && stateBelow.getValue(AXIS) == Direction.Axis.Y)
+        if (blockAbove instanceof PedestalBlock && isAxisY && stateAbove.getValue(AXIS) == Direction.Axis.Y) {
+            if (blockBelow instanceof PedestalBlock && stateBelow.getValue(AXIS) == Direction.Axis.Y)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE);
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM);
         }
-        if (blockBelow == this && isAxisY && stateBelow.getValue(AXIS) == Direction.Axis.Y)
+        if (blockBelow instanceof PedestalBlock && isAxisY && stateBelow.getValue(AXIS) == Direction.Axis.Y)
             return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
-        if (blockNorth == this && isAxisZ && stateNorth.getValue(AXIS) == Direction.Axis.Z) {
-            if (blockSouth == this && isAxisZ && stateSouth.getValue(AXIS) == Direction.Axis.Z)
+        if (blockNorth instanceof PedestalBlock && isAxisZ && stateNorth.getValue(AXIS) == Direction.Axis.Z) {
+            if (blockSouth instanceof PedestalBlock && stateSouth.getValue(AXIS) == Direction.Axis.Z)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE);
             return state.setValue(COLUMN, ColumnBlockStates.BOTTOM);
         }
-        if (blockSouth == this && isAxisZ && stateSouth.getValue(AXIS) == Direction.Axis.Z)
+        if (blockSouth instanceof PedestalBlock && isAxisZ && stateSouth.getValue(AXIS) == Direction.Axis.Z)
             return state.setValue(COLUMN, ColumnBlockStates.TOP);
 
         if (state.getValue(WATERLOGGED))
