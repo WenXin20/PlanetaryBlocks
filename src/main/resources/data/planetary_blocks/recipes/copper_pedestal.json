@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "copper_pedestal",
+  "key": {
+    "C": {
+      "tag": "forge:ingots/copper"
+    }
+  },
+  "pattern": [
+    "CCC",
+    " C ",
+    "CCC"
+  ],
+  "result": {
+    "count": 4,
+    "item": "planetary_blocks:copper_pedestal"
+  }
+}

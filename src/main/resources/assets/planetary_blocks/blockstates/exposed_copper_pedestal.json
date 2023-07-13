@@ -1,0 +1,47 @@
+{
+  "variants": {
+    "axis=x,column=none": {
+      "model": "planetary_blocks:block/exposed_copper_pedestal_horizontal",
+      "y": 90
+    },
+    "axis=y,column=none": {
+      "model": "planetary_blocks:block/exposed_copper_pedestal"
+    },
+    "axis=z,column=none": {
+      "model": "planetary_blocks:block/exposed_copper_pedestal_horizontal"
+    },
+
+    "axis=x,column=top": {
+      "model": "planetary_blocks:block/exposed_copper_pedestal_horizontal_top",
+      "y": 90
+    },
+    "axis=y,column=top": {
+      "model": "planetary_blocks:block/exposed_copper_pedestal_top"
+    },
+    "axis=z,column=top": {
+      "model": "planetary_blocks:block/exposed_copper_pedestal_horizontal_top"
+    },
+
+    "axis=x,column=middle": {
+      "model": "planetary_blocks:block/exposed_copper_pedestal_horizontal_middle",
+      "y": 90
+    },
+    "axis=y,column=middle": {
+      "model": "planetary_blocks:block/exposed_copper_pedestal_middle"
+    },
+    "axis=z,column=middle": {
+      "model": "planetary_blocks:block/exposed_copper_pedestal_horizontal_middle"
+    },
+
+    "axis=x,column=bottom": {
+      "model": "planetary_blocks:block/exposed_copper_pedestal_horizontal_bottom",
+      "y": 90
+    },
+    "axis=y,column=bottom": {
+      "model": "planetary_blocks:block/exposed_copper_pedestal_bottom"
+    },
+    "axis=z,column=bottom": {
+      "model": "planetary_blocks:block/exposed_copper_pedestal_horizontal_bottom"
+    }
+  }
+}

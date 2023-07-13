@@ -1,0 +1,7 @@
+{
+  "parent": "planetary_blocks:block/pedestal_horizontal_top",
+  "textures": {
+    "end": "planetary_blocks:block/weathered_copper_pedestal_end",
+    "side": "planetary_blocks:block/weathered_copper_pedestal_side_top"
+  }
+}

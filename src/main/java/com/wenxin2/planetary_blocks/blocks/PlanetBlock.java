@@ -90,7 +90,7 @@ public class PlanetBlock extends RotatedPillarBlock
             if (distance == Config.ROTATION_DISTANCE.get() + 1) {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
             }
-            if (distance < Config.ROTATION_DISTANCE.get() + 1) {
+            if (distance < Config.ROTATION_DISTANCE.get()) {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
             }
         }

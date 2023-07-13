@@ -9,13 +9,21 @@
   "block.planetary_blocks.sun_block": "Sun",
   "block.planetary_blocks.venus_block": "Venus",
 
+  "block.planetary_blocks.copper_panel": "Copper Panel",
+  "block.planetary_blocks.copper_pedestal": "Copper Pedestal",
   "block.planetary_blocks.diamond_panel": "Diamond Panel",
   "block.planetary_blocks.diamond_pedestal": "Diamond Pedestal",
+  "block.planetary_blocks.exposed_copper_panel": "Exposed Copper Panel",
+  "block.planetary_blocks.exposed_copper_pedestal": "Exposed Copper Pedestal",
   "block.planetary_blocks.gold_panel": "Gold Panel",
   "block.planetary_blocks.gold_pedestal": "Gold Pedestal",
   "block.planetary_blocks.iron_bars_pedestal": "Iron Bars Pedestal",
   "block.planetary_blocks.iron_panel": "Iron Panel",
   "block.planetary_blocks.iron_pedestal": "Iron Pedestal",
+  "block.planetary_blocks.oxidized_copper_panel": "Oxidized Copper Panel",
+  "block.planetary_blocks.oxidized_copper_pedestal": "Oxidized Copper Pedestal",
+  "block.planetary_blocks.weathered_copper_panel": "Weathered Copper Panel",
+  "block.planetary_blocks.weathered_copper_pedestal": "Weathered Copper Pedestal",
 
   "item.planetary_blocks.planet_rotator": "Planet Rotator",
 

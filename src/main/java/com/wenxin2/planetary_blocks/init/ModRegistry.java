@@ -1,5 +1,10 @@
 package com.wenxin2.planetary_blocks.init;
 
+import com.google.common.base.Suppliers;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.ImmutableBiMap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.wenxin2.planetary_blocks.PlanetaryBlocks;
 import com.wenxin2.planetary_blocks.blocks.ClassicMoonBlock;
 import com.wenxin2.planetary_blocks.blocks.ClassicSunBlock;
@@ -7,10 +12,15 @@ import com.wenxin2.planetary_blocks.blocks.EarthBlock;
 import com.wenxin2.planetary_blocks.blocks.PedestalBlock;
 import com.wenxin2.planetary_blocks.blocks.PlanetBlock;
 import com.wenxin2.planetary_blocks.blocks.SunBlock;
+import com.wenxin2.planetary_blocks.blocks.WeatheringPedestalBlock;
 import com.wenxin2.planetary_blocks.items.RotatorItem;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -18,12 +28,20 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
+
+import static net.minecraft.world.level.block.Blocks.COPPER_BLOCK;
+import static net.minecraft.world.level.block.Blocks.EXPOSED_COPPER;
+import static net.minecraft.world.level.block.Blocks.OXIDIZED_COPPER;
+import static net.minecraft.world.level.block.Blocks.WEATHERED_COPPER;
 
 @Mod.EventBusSubscriber(modid = PlanetaryBlocks.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModRegistry {
@@ -36,13 +54,17 @@ public class ModRegistry {
     public static final RegistryObject<Block> SUN;
     public static final RegistryObject<Block> VENUS;
 
+    public static final RegistryObject<Block> COPPER_PEDESTAL;
     public static final RegistryObject<Block> DIAMOND_PANEL;
     public static final RegistryObject<Block> DIAMOND_PEDESTAL;
+    public static final RegistryObject<Block> EXPOSED_COPPER_PEDESTAL;
     public static final RegistryObject<Block> GOLD_PANEL;
     public static final RegistryObject<Block> GOLD_PEDESTAL;
     public static final RegistryObject<Block> IRON_BARS_PEDESTAL;
     public static final RegistryObject<Block> IRON_PANEL;
     public static final RegistryObject<Block> IRON_PEDESTAL;
+    public static final RegistryObject<Block> OXIDIZED_COPPER_PEDESTAL;
+    public static final RegistryObject<Block> WEATHERED_COPPER_PEDESTAL;
 
     public static final RegistryObject<Item> PLANET_ROTATOR;
 
@@ -97,6 +119,26 @@ public class ModRegistry {
                 () -> new PedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.DIAMOND)
                         .sound(SoundType.METAL).strength(5.0F, 6.0F)
                         .requiresCorrectToolForDrops().noOcclusion(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+        COPPER_PEDESTAL = registerBlock("copper_pedestal",
+                () -> new WeatheringPedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE)
+                        .sound(SoundType.COPPER).strength(3.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion(), COPPER_BLOCK.defaultBlockState(),
+                        WeatheringCopper.WeatherState.UNAFFECTED, Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+        EXPOSED_COPPER_PEDESTAL = registerBlock("exposed_copper_pedestal",
+                () -> new WeatheringPedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.TERRACOTTA_LIGHT_GRAY)
+                        .sound(SoundType.COPPER).strength(3.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion(), EXPOSED_COPPER.defaultBlockState(),
+                        WeatheringCopper.WeatherState.EXPOSED, Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+        WEATHERED_COPPER_PEDESTAL = registerBlock("weathered_copper_pedestal",
+                () -> new WeatheringPedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_STEM)
+                        .sound(SoundType.COPPER).strength(3.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion(), WEATHERED_COPPER.defaultBlockState(),
+                        WeatheringCopper.WeatherState.WEATHERED, Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+        OXIDIZED_COPPER_PEDESTAL = registerBlock("oxidized_copper_pedestal",
+                () -> new WeatheringPedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_NYLIUM)
+                        .sound(SoundType.COPPER).strength(3.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion(), OXIDIZED_COPPER.defaultBlockState(),
+                        WeatheringCopper.WeatherState.OXIDIZED, Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
 
         IRON_PANEL = registerBlock("iron_panel",
                 () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.METAL)
