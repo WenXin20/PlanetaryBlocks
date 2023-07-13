@@ -70,6 +70,16 @@ public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWate
     }
 
     @Override
+    public void randomTick(BlockState state, ServerLevel serverWorld, BlockPos pos, RandomSource source) {
+        this.onRandomTick(state, serverWorld, pos, source);
+    }
+
+    @Override
+    public boolean isRandomlyTicking(BlockState state) {
+        return getNext(state).isPresent();
+    }
+
+    @Override
     public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (player.getItemInHand(hand).getItem() instanceof HoneycombItem) {
             return getWaxed(state).map((stateWaxable) -> {
