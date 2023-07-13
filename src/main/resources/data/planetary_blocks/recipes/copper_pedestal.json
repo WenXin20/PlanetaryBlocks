@@ -3,19 +3,16 @@
   "group": "copper_pedestal",
   "key": {
     "C": {
-      "item": "minecraft:cut_copper_slab"
-    },
-    "B": {
-      "item": "minecraft:copper_block"
+      "tag": "forge:ingots/copper"
     }
   },
   "pattern": [
     "CCC",
-    " B ",
+    " C ",
     "CCC"
   ],
   "result": {
-    "count": 8,
+    "count": 4,
     "item": "planetary_blocks:copper_pedestal"
   }
 }
