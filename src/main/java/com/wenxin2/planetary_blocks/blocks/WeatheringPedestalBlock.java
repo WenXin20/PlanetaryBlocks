@@ -44,6 +44,7 @@ public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWate
                 .put(ModRegistry.WEATHERED_COPPER_PEDESTAL.get(), ModRegistry.OXIDIZED_COPPER_PEDESTAL.get())
                 .build();
     });
+
     public static final Supplier<BiMap<Block, Block>> PREVIOUS_BY_BLOCK = Suppliers.memoize(() -> {
         return NEXT_BY_BLOCK.get().inverse();
     });
@@ -56,6 +57,7 @@ public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWate
                 .put(ModRegistry.WEATHERED_COPPER_PEDESTAL.get(), ModRegistry.OXIDIZED_COPPER_PEDESTAL.get())
                 .build();
     });
+
     public static final Supplier<BiMap<Block, Block>> UNWAXED_BY_BLOCK = Suppliers.memoize(() -> {
         return WAXABLES.get().inverse();
     });
@@ -85,51 +87,26 @@ public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWate
         }
 
         if (player.getItemInHand(hand).getItem() instanceof AxeItem) {
-            Optional<BlockState> finalState = Optional.empty();
-            Optional<BlockState> previous = getPreviousState(state);
-            if (previous.isPresent()) {
+            Optional<BlockState> finalOxidation = Optional.empty();
+            Optional<BlockState> previousOxidation = getPreviousOxidationState(state);
+            if (getPreviousOxidationState(state).isPresent()) {
                 world.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 world.levelEvent(player, LevelEvent.PARTICLES_SCRAPE, pos, 0);
-                finalState = previous;
+                finalOxidation = previousOxidation;
             }
-            Optional<BlockState> previousWaxed = Optional.ofNullable(WAX_OFF_BY_BLOCK.get().get(state.getBlock())).map((blockState) -> blockState.withPropertiesOf(state));
+            Optional<BlockState> previousWaxed = getWaxOffState(state);
             if (previousWaxed.isPresent()) {
                 world.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 world.levelEvent(player, LevelEvent.PARTICLES_WAX_OFF, pos, 0);
-                finalState = previousWaxed;
+                finalOxidation = previousWaxed;
             }
-            if (finalState.isPresent()) {
-                world.setBlock(pos, finalState.get(), 11);
+            if (finalOxidation.isPresent()) {
+                world.setBlock(pos, finalOxidation.get(), 11);
                 player.getItemInHand(hand).hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
-                player.swing(hand);
+                return  InteractionResult.SUCCESS;
             }
-            return  InteractionResult.SUCCESS;
-//            return getWeathered(state).map((stateWeathered) -> {
-//                ItemStack itemstack = player.getItemInHand(hand);
-//                if (player instanceof ServerPlayer) {
-//                    CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, pos, itemstack);
-//                }
-//
-//                ToolActions.AXE_SCRAPE;
-//                world.setBlock(pos, stateWeathered, 11);
-//                world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, stateWeathered));
-//                world.levelEvent(player, 3003, pos, 0);
-//                return InteractionResult.sidedSuccess(world.isClientSide);
-//            }).orElse(InteractionResult.PASS);
         }
         return InteractionResult.FAIL;
-    }
-
-    public static BlockState getToolModifiedState(ToolAction toolAction, BlockState state) {
-        if (ToolActions.AXE_SCRAPE == toolAction) return getPrevious(state).orElse(null);
-        if (ToolActions.AXE_WAX_OFF == toolAction) return getUnWaxed(state).orElse(null);
-        return null;
-    }
-
-    public static Optional<BlockState> getWeathered(BlockState state) {
-        return Optional.ofNullable(NEXT_BY_BLOCK.get().get(state.getBlock())).map((block) -> {
-            return block.withPropertiesOf(state);
-        });
     }
 
     static Optional<Block> getPrevious(Block block) {
@@ -145,61 +122,21 @@ public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWate
         });
     }
 
-    static Optional<Block> getUnWaxed(Block block) {
-        return Optional.ofNullable(UNWAXED_BY_BLOCK.get().get(block));
-    }
-    static Optional<BlockState> getUnWaxed(BlockState state) {
-        return getUnWaxed(state.getBlock()).map((block) -> block.withPropertiesOf(state));
+    @Override
+    public Optional<BlockState> getNext(BlockState state) {
+        return Optional.ofNullable(NEXT_BY_BLOCK.get().get(state.getBlock())).map((block) -> block.withPropertiesOf(state));
     }
 
-    @Override
-    public void randomTick(BlockState state, ServerLevel serverWorld, BlockPos pos, RandomSource source) {
-        this.onRandomTick(state, serverWorld, pos, source);
+    public static Optional<BlockState> getWaxOffState(BlockState state) {
+        return Optional.ofNullable(WAX_OFF_BY_BLOCK.get().get(state.getBlock())).map((block) -> block.withPropertiesOf(state));
     }
 
-    @Override
-    public boolean isRandomlyTicking(BlockState state) {
-        return WeatheringCopper.getNext(state.getBlock()).isPresent();
+    public static Optional<BlockState> getPreviousOxidationState(BlockState state) {
+        return Optional.ofNullable(PREVIOUS_BY_BLOCK.get().get(state.getBlock())).map((block) -> block.withPropertiesOf(state));
     }
 
     @Override
     public WeatheringCopper.WeatherState getAge() {
         return this.weatherState;
     }
-
-    @Override
-    public Optional<BlockState> getNext(BlockState state) {
-        return Optional.ofNullable(NEXT_BY_BLOCK.get().get(state.getBlock())).map((block) -> block.withPropertiesOf(state));
-    }
-
-    public static Optional<BlockState> getPreviousState(BlockState state) {
-        return Optional.ofNullable(PREVIOUS_BY_BLOCK.get().get(state.getBlock())).map((block) -> block.withPropertiesOf(state));
-    }
-
-    public static Block getFirst(Block baseBlock) {
-        Block block = baseBlock;
-
-        for(Block block1 = PREVIOUS_BY_BLOCK.get().get(block); block1 != null; block1 = PREVIOUS_BY_BLOCK.get().get(block1)) {
-            block = block1;
-        }
-
-        return block;
-    }
-
-    public static BlockState getFirst(BlockState state) {
-        return getFirst(state.getBlock()).withPropertiesOf(state);
-    }
-
-//    @Nullable
-//    @Override
-//    public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
-//        BlockState a = IWeatheringCopper.getToolModifiedState(toolAction, state);
-//        if (a != null) return a;
-//        return super.getToolModifiedState(state, context, toolAction, simulate);
-//    }
-//
-//    @Override
-//    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-//        return IWeatheringCopper.onUse(state, level, pos, player, hand);
-//    }
 }
