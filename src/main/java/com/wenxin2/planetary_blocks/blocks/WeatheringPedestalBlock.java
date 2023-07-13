@@ -31,6 +31,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 
+import static net.minecraft.world.item.HoneycombItem.WAX_OFF_BY_BLOCK;
+
 public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWaterloggedBlock, WeatheringCopper
 {
     private final WeatheringCopper.WeatherState weatherState;
@@ -82,7 +84,26 @@ public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWate
             }).orElse(InteractionResult.PASS);
         }
 
-//        if (player.getItemInHand(hand).getItem() instanceof AxeItem) {
+        if (player.getItemInHand(hand).getItem() instanceof AxeItem) {
+            Optional<BlockState> finalState = Optional.empty();
+            Optional<BlockState> previous = getPreviousState(state);
+            if (previous.isPresent()) {
+                world.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                world.levelEvent(player, LevelEvent.PARTICLES_SCRAPE, pos, 0);
+                finalState = previous;
+            }
+            Optional<BlockState> previousWaxed = Optional.ofNullable(WAX_OFF_BY_BLOCK.get().get(state.getBlock())).map((blockState) -> blockState.withPropertiesOf(state));
+            if (previousWaxed.isPresent()) {
+                world.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                world.levelEvent(player, LevelEvent.PARTICLES_WAX_OFF, pos, 0);
+                finalState = previousWaxed;
+            }
+            if (finalState.isPresent()) {
+                world.setBlock(pos, finalState.get(), 11);
+                player.getItemInHand(hand).hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
+                player.swing(hand);
+            }
+            return  InteractionResult.SUCCESS;
 //            return getWeathered(state).map((stateWeathered) -> {
 //                ItemStack itemstack = player.getItemInHand(hand);
 //                if (player instanceof ServerPlayer) {
@@ -95,7 +116,7 @@ public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWate
 //                world.levelEvent(player, 3003, pos, 0);
 //                return InteractionResult.sidedSuccess(world.isClientSide);
 //            }).orElse(InteractionResult.PASS);
-//        }
+        }
         return InteractionResult.FAIL;
     }
 
@@ -142,6 +163,11 @@ public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWate
     }
 
     @Override
+    public WeatheringCopper.WeatherState getAge() {
+        return this.weatherState;
+    }
+
+    @Override
     public Optional<BlockState> getNext(BlockState state) {
         return Optional.ofNullable(NEXT_BY_BLOCK.get().get(state.getBlock())).map((block) -> block.withPropertiesOf(state));
     }
@@ -162,11 +188,6 @@ public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWate
 
     public static BlockState getFirst(BlockState state) {
         return getFirst(state.getBlock()).withPropertiesOf(state);
-    }
-
-    @Override
-    public WeatheringCopper.WeatherState getAge() {
-        return this.weatherState;
     }
 
 //    @Nullable

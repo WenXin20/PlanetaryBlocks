@@ -3,10 +3,10 @@
   "group": "copper_pedestal",
   "key": {
     "C": {
-      "item": "minecraft:cut_copper_slab"
+      "item": "minecraft:exposed_cut_copper_slab"
     },
     "B": {
-      "item": "minecraft:copper_block"
+      "item": "minecraft:exposed_copper"
     }
   },
   "pattern": [
@@ -16,6 +16,6 @@
   ],
   "result": {
     "count": 8,
-    "item": "planetary_blocks:copper_pedestal"
+    "item": "planetary_blocks:exposed_copper_pedestal"
   }
 }
