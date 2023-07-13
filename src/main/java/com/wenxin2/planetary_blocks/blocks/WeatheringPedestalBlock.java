@@ -28,10 +28,6 @@ import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.common.ToolAction;
-import net.minecraftforge.common.ToolActions;
-
-import static net.minecraft.world.item.HoneycombItem.WAX_OFF_BY_BLOCK;
 
 public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWaterloggedBlock, WeatheringCopper
 {
@@ -58,11 +54,11 @@ public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWate
                 .build();
     });
 
-    public static final Supplier<BiMap<Block, Block>> UNWAXED_BY_BLOCK = Suppliers.memoize(() -> {
+    public static final Supplier<BiMap<Block, Block>> WAX_OFF_BY_BLOCK = Suppliers.memoize(() -> {
         return WAXABLES.get().inverse();
     });
 
-    public WeatheringPedestalBlock(Properties properties, BlockState state, WeatheringCopper.WeatherState weatherState, Direction.Axis direction) {
+    public WeatheringPedestalBlock(Properties properties, WeatheringCopper.WeatherState weatherState, Direction.Axis direction) {
         super(properties, direction);
         this.weatherState = weatherState;
         this.registerDefaultState(this.getStateDefinition().any().setValue(AXIS, direction).setValue(COLUMN, ColumnBlockStates.NONE)
@@ -121,9 +117,6 @@ public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWate
 
     static Optional<Block> getPrevious(Block block) {
         return Optional.ofNullable(PREVIOUS_BY_BLOCK.get().get(block));
-    }
-    static Optional<BlockState> getPrevious(BlockState stateIn) {
-        return getPrevious(stateIn.getBlock()).map((block) -> block.withPropertiesOf(stateIn));
     }
 
     public static Optional<BlockState> getWaxed(BlockState state) {
