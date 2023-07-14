@@ -54,6 +54,10 @@ public class ModRegistry {
     public static final RegistryObject<Block> OXIDIZED_COPPER_PEDESTAL;
     public static final RegistryObject<Block> WEATHERED_COPPER_PANEL;
     public static final RegistryObject<Block> WEATHERED_COPPER_PEDESTAL;
+    public static final RegistryObject<Block> WAXED_COPPER_PANEL;
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_PANEL;
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_PANEL;
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_PANEL;
     public static final RegistryObject<Block> WAXED_COPPER_PEDESTAL;
     public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_PEDESTAL;
     public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_PEDESTAL;
@@ -173,6 +177,22 @@ public class ModRegistry {
                 () -> new OxidizablePanelBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_NYLIUM)
                         .sound(SoundType.COPPER).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion(),
                         WeatheringCopper.WeatherState.OXIDIZED), PlanetaryBlocks.CREATIVE_TAB);
+        WAXED_COPPER_PANEL = registerBlock("waxed_copper_panel",
+                () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE)
+                        .sound(SoundType.COPPER).strength(3.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion()), PlanetaryBlocks.CREATIVE_TAB);
+        WAXED_EXPOSED_COPPER_PANEL = registerBlock("waxed_exposed_copper_panel",
+                () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.TERRACOTTA_LIGHT_GRAY)
+                        .sound(SoundType.COPPER).strength(3.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion()), PlanetaryBlocks.CREATIVE_TAB);
+        WAXED_WEATHERED_COPPER_PANEL = registerBlock("waxed_weathered_copper_panel",
+                () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_STEM)
+                        .sound(SoundType.COPPER).strength(3.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion()), PlanetaryBlocks.CREATIVE_TAB);
+        WAXED_OXIDIZED_COPPER_PANEL = registerBlock("waxed_oxidized_copper_panel",
+                () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_NYLIUM)
+                        .sound(SoundType.COPPER).strength(3.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion()), PlanetaryBlocks.CREATIVE_TAB);
     }
 
     public static RegistryObject<Block> registerBlock(String name, Supplier<? extends Block> block, CreativeModeTab tab)

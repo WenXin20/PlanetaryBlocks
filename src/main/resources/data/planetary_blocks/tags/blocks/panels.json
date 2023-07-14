@@ -7,6 +7,10 @@
     { "id": "planetary_blocks:gold_panel", "required": false },
     { "id": "planetary_blocks:iron_panel", "required": false },
     { "id": "planetary_blocks:oxidized_copper_panel", "required": false },
+    { "id": "planetary_blocks:waxed_copper_panel", "required": false },
+    { "id": "planetary_blocks:waxed_exposed_copper_panel", "required": false },
+    { "id": "planetary_blocks:waxed_oxidized_copper_panel", "required": false },
+    { "id": "planetary_blocks:waxed_weathered_copper_panel", "required": false },
     { "id": "planetary_blocks:weathered_copper_panel", "required": false }
   ]
 }

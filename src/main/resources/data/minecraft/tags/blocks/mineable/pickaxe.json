@@ -23,8 +23,11 @@
     { "id": "planetary_blocks:venus_block", "required":false },
     { "id": "planetary_blocks:waxed_copper_panel", "required": false },
     { "id": "planetary_blocks:waxed_copper_pedestal", "required": false },
+    { "id": "planetary_blocks:waxed_exposed_copper_panel", "required": false },
     { "id": "planetary_blocks:waxed_exposed_copper_pedestal", "required": false },
+    { "id": "planetary_blocks:waxed_oxidized_copper_panel", "required": false },
     { "id": "planetary_blocks:waxed_oxidized_copper_pedestal", "required": false },
+    { "id": "planetary_blocks:waxed_weathered_copper_panel", "required": false },
     { "id": "planetary_blocks:waxed_weathered_copper_pedestal", "required": false },
     { "id": "planetary_blocks:weathered_copper_panel", "required": false },
     { "id": "planetary_blocks:weathered_copper_pedestal", "required": false }

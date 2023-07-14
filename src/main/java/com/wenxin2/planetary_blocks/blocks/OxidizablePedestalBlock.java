@@ -29,7 +29,7 @@ public class OxidizablePedestalBlock extends PedestalBlock implements SimpleWate
 
     @Override
     public boolean isRandomlyTicking(BlockState state) {
-        return getNext(state).isPresent();
+        return OxidationMappings.getNext(state.getBlock()).isPresent();
     }
 
     @Override

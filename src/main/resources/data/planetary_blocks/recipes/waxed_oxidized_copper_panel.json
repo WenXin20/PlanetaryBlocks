@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "waxed_copper_panel",
+  "ingredients": [
+    {
+      "item": "planetary_blocks:oxidized_copper_panel"
+    },
+    {
+      "item": "minecraft:honeycomb"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "planetary_blocks:waxed_oxidized_copper_panel"
+  }
+}

@@ -35,6 +35,10 @@ public interface OxidationMappings extends ChangeOverTimeBlock<WeatheringCopper.
                 .put(ModRegistry.EXPOSED_COPPER_PEDESTAL.get(), ModRegistry.WAXED_EXPOSED_COPPER_PEDESTAL.get())
                 .put(ModRegistry.OXIDIZED_COPPER_PEDESTAL.get(), ModRegistry.WAXED_OXIDIZED_COPPER_PEDESTAL.get())
                 .put(ModRegistry.WEATHERED_COPPER_PEDESTAL.get(), ModRegistry.WAXED_WEATHERED_COPPER_PEDESTAL.get())
+                .put(ModRegistry.COPPER_PANEL.get(), ModRegistry.WAXED_COPPER_PANEL.get())
+                .put(ModRegistry.EXPOSED_COPPER_PANEL.get(), ModRegistry.WAXED_EXPOSED_COPPER_PANEL.get())
+                .put(ModRegistry.WEATHERED_COPPER_PANEL.get(), ModRegistry.WAXED_WEATHERED_COPPER_PANEL.get())
+                .put(ModRegistry.OXIDIZED_COPPER_PANEL.get(), ModRegistry.WAXED_OXIDIZED_COPPER_PANEL.get())
                 .build();
     });
 
@@ -82,12 +86,5 @@ public interface OxidationMappings extends ChangeOverTimeBlock<WeatheringCopper.
 
     static Optional<BlockState> getPreviousOxidationState(BlockState state) {
         return Optional.ofNullable(PREVIOUS_BY_BLOCK.get().get(state.getBlock())).map((block) -> block.withPropertiesOf(state));
-    }
-
-    public static enum WeatherState {
-        UNAFFECTED,
-        EXPOSED,
-        WEATHERED,
-        OXIDIZED;
     }
 }

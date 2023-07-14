@@ -1,5 +1,6 @@
 package com.wenxin2.planetary_blocks.mixin;
 
+import com.wenxin2.planetary_blocks.blocks.OxidizablePanelBlock;
 import com.wenxin2.planetary_blocks.blocks.OxidizablePedestalBlock;
 import com.wenxin2.planetary_blocks.utils.OxidationMappings;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class MixinLightningBolt {
     private static void randomStepCleaningCopper(Level world, BlockPos pos, CallbackInfoReturnable<Optional<BlockPos>> cir) {
         for(BlockPos posRandomCube : BlockPos.randomInCube(world.random, 10, pos, 1)) {
             BlockState state = world.getBlockState(posRandomCube);
-            if (state.getBlock() instanceof WeatheringCopper || state.getBlock() instanceof OxidizablePedestalBlock) {
+            if (state.getBlock() instanceof WeatheringCopper || state.getBlock() instanceof OxidizablePedestalBlock || state.getBlock() instanceof OxidizablePanelBlock) {
                 OxidationMappings.getPrevious(state).ifPresent((statePrevious) -> {
                     world.setBlockAndUpdate(posRandomCube, statePrevious);
                     System.out.print("Pedestal Strike ");
@@ -55,7 +56,7 @@ public class MixinLightningBolt {
             stateRelative = state;
         }
 
-        if (stateRelative.getBlock() instanceof WeatheringCopper || stateRelative.getBlock() instanceof OxidizablePedestalBlock) {
+        if (stateRelative.getBlock() instanceof WeatheringCopper || stateRelative.getBlock() instanceof OxidizablePedestalBlock || state.getBlock() instanceof OxidizablePanelBlock) {
             world.setBlockAndUpdate(posRelative, WeatheringCopper.getFirst(world.getBlockState(posRelative)));
             world.setBlockAndUpdate(posRelative, OxidationMappings.getFirst(world.getBlockState(posRelative)));
             BlockPos.MutableBlockPos posMutable = pos.mutable();
