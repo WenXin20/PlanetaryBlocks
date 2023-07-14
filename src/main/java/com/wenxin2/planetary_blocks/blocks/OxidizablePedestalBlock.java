@@ -84,7 +84,9 @@ public class OxidizablePedestalBlock extends PedestalBlock implements SimpleWate
                     CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, pos, itemstack);
                 }
 
-                itemstack.shrink(1);
+                if (!player.isCreative()) {
+                    itemstack.shrink(1);
+                }
                 world.setBlock(pos, stateWaxable, 11);
                 world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, stateWaxable));
                 world.levelEvent(player, 3003, pos, 0);
