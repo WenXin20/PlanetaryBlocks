@@ -98,7 +98,7 @@ public class EarthBlock extends HorizontalDirectionalBlock
             world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
         }
         if (Config.ENABLE_ROTATION.get()) {
-            if (distance == Config.ROTATION_DISTANCE.get() + 1) {
+            if (distance > Config.ROTATION_DISTANCE.get()) {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
             }
             if (distance < Config.ROTATION_DISTANCE.get() + 1) {
