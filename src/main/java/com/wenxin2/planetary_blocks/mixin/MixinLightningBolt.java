@@ -1,6 +1,7 @@
 package com.wenxin2.planetary_blocks.mixin;
 
 import com.wenxin2.planetary_blocks.blocks.OxidizablePedestalBlock;
+import com.wenxin2.planetary_blocks.utils.OxidationMappings;
 import java.util.Optional;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LightningBolt;
@@ -23,7 +24,7 @@ public class MixinLightningBolt {
         for(BlockPos posRandomCube : BlockPos.randomInCube(world.random, 10, pos, 1)) {
             BlockState state = world.getBlockState(posRandomCube);
             if (state.getBlock() instanceof WeatheringCopper || state.getBlock() instanceof OxidizablePedestalBlock) {
-                OxidizablePedestalBlock.getPrevious(state).ifPresent((statePrevious) -> {
+                OxidationMappings.getPrevious(state).ifPresent((statePrevious) -> {
                     world.setBlockAndUpdate(posRandomCube, statePrevious);
                     System.out.print("Pedestal Strike ");
                 });
@@ -56,7 +57,7 @@ public class MixinLightningBolt {
 
         if (stateRelative.getBlock() instanceof WeatheringCopper || stateRelative.getBlock() instanceof OxidizablePedestalBlock) {
             world.setBlockAndUpdate(posRelative, WeatheringCopper.getFirst(world.getBlockState(posRelative)));
-            world.setBlockAndUpdate(posRelative, OxidizablePedestalBlock.getFirst(world.getBlockState(posRelative)));
+            world.setBlockAndUpdate(posRelative, OxidationMappings.getFirst(world.getBlockState(posRelative)));
             BlockPos.MutableBlockPos posMutable = pos.mutable();
             int i = world.random.nextInt(3) + 3;
 

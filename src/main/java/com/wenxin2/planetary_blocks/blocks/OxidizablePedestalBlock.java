@@ -32,49 +32,6 @@ public class OxidizablePedestalBlock extends PedestalBlock implements SimpleWate
         return getNext(state).isPresent();
     }
 
-    public static Optional<Block> getPrevious(Block block) {
-        return Optional.ofNullable(OxidationMappings.PREVIOUS_BY_BLOCK.get().get(block));
-    }
-
-    public static Optional<BlockState> getPrevious(BlockState state) {
-        return getPrevious(state.getBlock()).map((block) -> {
-            return block.withPropertiesOf(state);
-        });
-    }
-
-    public static Block getFirst(Block block2) {
-        Block block = block2;
-
-        for(Block block1 = OxidationMappings.PREVIOUS_BY_BLOCK.get().get(block2); block1 != null; block1 = OxidationMappings.PREVIOUS_BY_BLOCK.get().get(block1)) {
-            block = block1;
-        }
-
-        return block;
-    }
-
-    public static BlockState getFirst(BlockState state) {
-        return getFirst(state.getBlock()).withPropertiesOf(state);
-    }
-
-    public static Optional<BlockState> getWaxables(BlockState state) {
-        return Optional.ofNullable(OxidationMappings.WAXABLES.get().get(state.getBlock())).map((block) -> {
-            return block.withPropertiesOf(state);
-        });
-    }
-
-    @Override
-    public Optional<BlockState> getNext(BlockState state) {
-        return Optional.ofNullable(OxidationMappings.NEXT_BY_BLOCK.get().get(state.getBlock())).map((block) -> block.withPropertiesOf(state));
-    }
-
-    public static Optional<BlockState> getWaxOffState(BlockState state) {
-        return Optional.ofNullable(OxidationMappings.WAX_OFF_BY_BLOCK.get().get(state.getBlock())).map((blockState) -> blockState.withPropertiesOf(state));
-    }
-
-    public static Optional<BlockState> getPreviousOxidationState(BlockState state) {
-        return Optional.ofNullable(OxidationMappings.PREVIOUS_BY_BLOCK.get().get(state.getBlock())).map((block) -> block.withPropertiesOf(state));
-    }
-
     @Override
     public WeatheringCopper.WeatherState getAge() {
         return this.weatherState;

@@ -1,6 +1,7 @@
 package com.wenxin2.planetary_blocks.events;
 
 import com.wenxin2.planetary_blocks.blocks.OxidizablePedestalBlock;
+import com.wenxin2.planetary_blocks.utils.OxidationMappings;
 import java.util.Optional;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -29,7 +30,7 @@ public class RightClickEvents {
         BlockState state = world.getBlockState(pos);
 
         if (player.getItemInHand(hand).getItem() instanceof HoneycombItem) {
-            Optional<BlockState> waxable = OxidizablePedestalBlock.getWaxables(state);
+            Optional<BlockState> waxable = OxidationMappings.getWaxables(state);
             if (waxable.isPresent()) {
                 ItemStack itemstack = player.getItemInHand(hand);
                 if (player instanceof ServerPlayer) {
@@ -48,13 +49,13 @@ public class RightClickEvents {
 
         if (player.getItemInHand(hand).getItem() instanceof AxeItem) {
             Optional<BlockState> finalOxidation = Optional.empty();
-            Optional<BlockState> previousOxidation = OxidizablePedestalBlock.getPreviousOxidationState(state);
-            if (OxidizablePedestalBlock.getPreviousOxidationState(state).isPresent()) {
+            Optional<BlockState> previousOxidation = OxidationMappings.getPreviousOxidationState(state);
+            if (OxidationMappings.getPreviousOxidationState(state).isPresent()) {
                 world.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 world.levelEvent(player, LevelEvent.PARTICLES_SCRAPE, pos, 0);
                 finalOxidation = previousOxidation;
             }
-            Optional<BlockState> previousWaxed = OxidizablePedestalBlock.getWaxOffState(state);
+            Optional<BlockState> previousWaxed = OxidationMappings.getWaxOffState(state);
             if (previousWaxed.isPresent()) {
                 world.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
                 world.levelEvent(player, LevelEvent.PARTICLES_WAX_OFF, pos, 0);
