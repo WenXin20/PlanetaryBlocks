@@ -117,8 +117,28 @@ public class OxidizablePedestalBlock extends PedestalBlock implements SimpleWate
         return InteractionResult.FAIL;
     }
 
-    static Optional<Block> getPrevious(Block block) {
+    public static Optional<Block> getPrevious(Block block) {
         return Optional.ofNullable(PREVIOUS_BY_BLOCK.get().get(block));
+    }
+
+    public static Optional<BlockState> getPrevious(BlockState state) {
+        return getPrevious(state.getBlock()).map((block) -> {
+            return block.withPropertiesOf(state);
+        });
+    }
+
+    public static Block getFirst(Block block2) {
+        Block block = block2;
+
+        for(Block block1 = PREVIOUS_BY_BLOCK.get().get(block2); block1 != null; block1 = PREVIOUS_BY_BLOCK.get().get(block1)) {
+            block = block1;
+        }
+
+        return block;
+    }
+
+    public static BlockState getFirst(BlockState state) {
+        return getFirst(state.getBlock()).withPropertiesOf(state);
     }
 
     public static Optional<BlockState> getWaxed(BlockState state) {
