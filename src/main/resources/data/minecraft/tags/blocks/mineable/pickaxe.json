@@ -3,10 +3,12 @@
   "values": [
     { "id": "planetary_blocks:classic_moon", "required":false },
     { "id": "planetary_blocks:classic_sun", "required":false },
+    { "id": "planetary_blocks:copper_panel", "required": false },
     { "id": "planetary_blocks:copper_pedestal", "required": false },
     { "id": "planetary_blocks:diamond_panel", "required":false },
     { "id": "planetary_blocks:diamond_pedestal", "required":false },
     { "id": "planetary_blocks:earth_block", "required":false },
+    { "id": "planetary_blocks:exposed_copper_panel", "required": false },
     { "id": "planetary_blocks:exposed_copper_pedestal", "required": false },
     { "id": "planetary_blocks:gold_panel", "required":false },
     { "id": "planetary_blocks:gold_pedestal", "required":false },
@@ -15,6 +17,7 @@
     { "id": "planetary_blocks:iron_pedestal", "required":false },
     { "id": "planetary_blocks:mars_block", "required":false },
     { "id": "planetary_blocks:mercury_block", "required":false },
+    { "id": "planetary_blocks:oxidized_copper_panel", "required": false },
     { "id": "planetary_blocks:oxidized_copper_pedestal", "required": false },
     { "id": "planetary_blocks:sun_block", "required":false },
     { "id": "planetary_blocks:venus_block", "required":false },
@@ -23,6 +26,7 @@
     { "id": "planetary_blocks:waxed_exposed_copper_pedestal", "required": false },
     { "id": "planetary_blocks:waxed_oxidized_copper_pedestal", "required": false },
     { "id": "planetary_blocks:waxed_weathered_copper_pedestal", "required": false },
+    { "id": "planetary_blocks:weathered_copper_panel", "required": false },
     { "id": "planetary_blocks:weathered_copper_pedestal", "required": false }
   ]
 }

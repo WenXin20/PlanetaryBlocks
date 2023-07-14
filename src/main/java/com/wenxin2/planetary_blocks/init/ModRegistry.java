@@ -4,6 +4,7 @@ import com.wenxin2.planetary_blocks.PlanetaryBlocks;
 import com.wenxin2.planetary_blocks.blocks.ClassicMoonBlock;
 import com.wenxin2.planetary_blocks.blocks.ClassicSunBlock;
 import com.wenxin2.planetary_blocks.blocks.EarthBlock;
+import com.wenxin2.planetary_blocks.blocks.OxidizablePanelBlock;
 import com.wenxin2.planetary_blocks.blocks.PedestalBlock;
 import com.wenxin2.planetary_blocks.blocks.PlanetBlock;
 import com.wenxin2.planetary_blocks.blocks.SunBlock;
@@ -38,16 +39,20 @@ public class ModRegistry {
     public static final RegistryObject<Block> SUN;
     public static final RegistryObject<Block> VENUS;
 
+    public static final RegistryObject<Block> COPPER_PANEL;
     public static final RegistryObject<Block> COPPER_PEDESTAL;
     public static final RegistryObject<Block> DIAMOND_PANEL;
     public static final RegistryObject<Block> DIAMOND_PEDESTAL;
+    public static final RegistryObject<Block> EXPOSED_COPPER_PANEL;
     public static final RegistryObject<Block> EXPOSED_COPPER_PEDESTAL;
     public static final RegistryObject<Block> GOLD_PANEL;
     public static final RegistryObject<Block> GOLD_PEDESTAL;
     public static final RegistryObject<Block> IRON_BARS_PEDESTAL;
     public static final RegistryObject<Block> IRON_PANEL;
     public static final RegistryObject<Block> IRON_PEDESTAL;
+    public static final RegistryObject<Block> OXIDIZED_COPPER_PANEL;
     public static final RegistryObject<Block> OXIDIZED_COPPER_PEDESTAL;
+    public static final RegistryObject<Block> WEATHERED_COPPER_PANEL;
     public static final RegistryObject<Block> WEATHERED_COPPER_PEDESTAL;
     public static final RegistryObject<Block> WAXED_COPPER_PEDESTAL;
     public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_PEDESTAL;
@@ -152,6 +157,22 @@ public class ModRegistry {
                 () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.DIAMOND)
                         .sound(SoundType.METAL).strength(5.0F, 6.0F)
                         .requiresCorrectToolForDrops().noOcclusion()), PlanetaryBlocks.CREATIVE_TAB);
+        COPPER_PANEL = registerBlock("copper_panel",
+                () -> new OxidizablePanelBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE)
+                        .sound(SoundType.COPPER).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion(),
+                        WeatheringCopper.WeatherState.UNAFFECTED), PlanetaryBlocks.CREATIVE_TAB);
+        EXPOSED_COPPER_PANEL = registerBlock("exposed_copper_panel",
+                () -> new OxidizablePanelBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.TERRACOTTA_LIGHT_GRAY)
+                        .sound(SoundType.COPPER).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion(),
+                        WeatheringCopper.WeatherState.EXPOSED), PlanetaryBlocks.CREATIVE_TAB);
+        WEATHERED_COPPER_PANEL = registerBlock("weathered_copper_panel",
+                () -> new OxidizablePanelBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_STEM)
+                        .sound(SoundType.COPPER).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion(),
+                        WeatheringCopper.WeatherState.WEATHERED), PlanetaryBlocks.CREATIVE_TAB);
+        OXIDIZED_COPPER_PANEL = registerBlock("oxidized_copper_panel",
+                () -> new OxidizablePanelBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_NYLIUM)
+                        .sound(SoundType.COPPER).strength(3.0F, 6.0F).requiresCorrectToolForDrops().noOcclusion(),
+                        WeatheringCopper.WeatherState.OXIDIZED), PlanetaryBlocks.CREATIVE_TAB);
     }
 
     public static RegistryObject<Block> registerBlock(String name, Supplier<? extends Block> block, CreativeModeTab tab)
