@@ -162,7 +162,7 @@ public class EarthBlock extends HorizontalDirectionalBlock
     }
 
     private static int getDistance(BlockState state) {
-        if (state.getBlock() instanceof PedestalBlock && state.getValue(BlockStateProperties.POWERED)) {
+        if (state.getBlock() instanceof PedestalBlock && !state.getValue(BlockStateProperties.POWERED)) {
             return 0;
         }
         if (state.getBlock() instanceof EarthBlock) {
