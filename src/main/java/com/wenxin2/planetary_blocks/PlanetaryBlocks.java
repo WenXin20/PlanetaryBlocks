@@ -1,6 +1,7 @@
 package com.wenxin2.planetary_blocks;
 
 import com.mojang.logging.LogUtils;
+import com.wenxin2.planetary_blocks.events.RightClickEvents;
 import com.wenxin2.planetary_blocks.init.Config;
 import com.wenxin2.planetary_blocks.init.ModRegistry;
 import com.wenxin2.planetary_blocks.paintings.PaintingsInit;
@@ -57,5 +58,6 @@ public class PlanetaryBlocks
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        MinecraftForge.EVENT_BUS.register(new RightClickEvents());
     }
 }

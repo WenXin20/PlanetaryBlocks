@@ -6,28 +6,14 @@ import com.google.common.collect.ImmutableBiMap;
 import com.wenxin2.planetary_blocks.init.ModRegistry;
 import java.util.Optional;
 import java.util.function.Supplier;
-import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.HoneycombItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.BlockHitResult;
 
 public class OxidizablePedestalBlock extends PedestalBlock implements SimpleWaterloggedBlock, WeatheringCopper
 {
@@ -76,48 +62,6 @@ public class OxidizablePedestalBlock extends PedestalBlock implements SimpleWate
         return getNext(state).isPresent();
     }
 
-    @Override
-    public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (player.getItemInHand(hand).getItem() instanceof HoneycombItem) {
-            return getWaxed(state).map((stateWaxable) -> {
-                ItemStack itemstack = player.getItemInHand(hand);
-                if (player instanceof ServerPlayer) {
-                    CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer)player, pos, itemstack);
-                }
-
-                if (!player.isCreative()) {
-                    itemstack.shrink(1);
-                }
-                world.setBlock(pos, stateWaxable, 11);
-                world.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(player, stateWaxable));
-                world.levelEvent(player, 3003, pos, 0);
-                return InteractionResult.sidedSuccess(world.isClientSide);
-            }).orElse(InteractionResult.PASS);
-        }
-
-        if (player.getItemInHand(hand).getItem() instanceof AxeItem) {
-            Optional<BlockState> finalOxidation = Optional.empty();
-            Optional<BlockState> previousOxidation = getPreviousOxidationState(state);
-            if (getPreviousOxidationState(state).isPresent()) {
-                world.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
-                world.levelEvent(player, LevelEvent.PARTICLES_SCRAPE, pos, 0);
-                finalOxidation = previousOxidation;
-            }
-            Optional<BlockState> previousWaxed = getWaxOffState(state);
-            if (previousWaxed.isPresent()) {
-                world.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
-                world.levelEvent(player, LevelEvent.PARTICLES_WAX_OFF, pos, 0);
-                finalOxidation = previousWaxed;
-            }
-            if (finalOxidation.isPresent()) {
-                world.setBlock(pos, finalOxidation.get(), 11);
-                player.getItemInHand(hand).hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
-                return  InteractionResult.SUCCESS;
-            }
-        }
-        return InteractionResult.FAIL;
-    }
-
     public static Optional<Block> getPrevious(Block block) {
         return Optional.ofNullable(PREVIOUS_BY_BLOCK.get().get(block));
     }
@@ -142,7 +86,7 @@ public class OxidizablePedestalBlock extends PedestalBlock implements SimpleWate
         return getFirst(state.getBlock()).withPropertiesOf(state);
     }
 
-    public static Optional<BlockState> getWaxed(BlockState state) {
+    public static Optional<BlockState> getWaxables(BlockState state) {
         return Optional.ofNullable(WAXABLES.get().get(state.getBlock())).map((block) -> {
             return block.withPropertiesOf(state);
         });
