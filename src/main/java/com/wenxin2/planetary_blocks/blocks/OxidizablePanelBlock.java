@@ -1,8 +1,8 @@
 package com.wenxin2.planetary_blocks.blocks;
 
 import com.wenxin2.planetary_blocks.utils.OxidationMappings;
+import java.util.Optional;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.IronBarsBlock;
@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class OxidizablePanelBlock extends IronBarsBlock implements SimpleWaterloggedBlock, OxidationMappings
+public class OxidizablePanelBlock extends IronBarsBlock implements SimpleWaterloggedBlock, WeatheringCopper
 {
     private final WeatherState weatherState;
 
@@ -27,11 +27,16 @@ public class OxidizablePanelBlock extends IronBarsBlock implements SimpleWaterlo
 
     @Override
     public boolean isRandomlyTicking(BlockState state) {
-        return OxidationMappings.getNext(state.getBlock()).isPresent();
+        return getNext(state).isPresent();
     }
 
     @Override
     public WeatherState getAge() {
         return this.weatherState;
+    }
+
+    @Override
+    public Optional<BlockState> getNext(BlockState state) {
+        return Optional.ofNullable(OxidationMappings.NEXT_BY_BLOCK.get().get(state.getBlock())).map((block) -> block.withPropertiesOf(state));
     }
 }

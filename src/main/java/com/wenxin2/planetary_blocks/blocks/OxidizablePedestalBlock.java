@@ -6,7 +6,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.WeatheringCopper;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,11 +28,16 @@ public class OxidizablePedestalBlock extends PedestalBlock implements SimpleWate
 
     @Override
     public boolean isRandomlyTicking(BlockState state) {
-        return OxidationMappings.getNext(state.getBlock()).isPresent();
+        return getNext(state).isPresent();
     }
 
     @Override
     public WeatheringCopper.WeatherState getAge() {
         return this.weatherState;
+    }
+
+    @Override
+    public Optional<BlockState> getNext(BlockState state) {
+        return Optional.ofNullable(OxidationMappings.NEXT_BY_BLOCK.get().get(state.getBlock())).map((block) -> block.withPropertiesOf(state));
     }
 }
