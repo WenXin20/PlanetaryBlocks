@@ -48,9 +48,10 @@ public class OxidizablePedestalBlock extends PedestalBlock implements SimpleWate
     public static Supplier<BiMap<Block, Block>> WAXABLES = Suppliers.memoize(() ->
     {
         return ImmutableBiMap.<Block, Block>builder()
-                .put(ModRegistry.COPPER_PEDESTAL.get(), ModRegistry.EXPOSED_COPPER_PEDESTAL.get())
-                .put(ModRegistry.EXPOSED_COPPER_PEDESTAL.get(), ModRegistry.WEATHERED_COPPER_PEDESTAL.get())
-                .put(ModRegistry.WEATHERED_COPPER_PEDESTAL.get(), ModRegistry.OXIDIZED_COPPER_PEDESTAL.get())
+                .put(ModRegistry.COPPER_PEDESTAL.get(), ModRegistry.WAXED_COPPER_PEDESTAL.get())
+                .put(ModRegistry.EXPOSED_COPPER_PEDESTAL.get(), ModRegistry.WAXED_EXPOSED_COPPER_PEDESTAL.get())
+                .put(ModRegistry.OXIDIZED_COPPER_PEDESTAL.get(), ModRegistry.WAXED_OXIDIZED_COPPER_PEDESTAL.get())
+                .put(ModRegistry.WEATHERED_COPPER_PEDESTAL.get(), ModRegistry.WAXED_WEATHERED_COPPER_PEDESTAL.get())
                 .build();
     });
 
@@ -104,7 +105,7 @@ public class OxidizablePedestalBlock extends PedestalBlock implements SimpleWate
             }
             Optional<BlockState> previousWaxed = getWaxOffState(state);
             if (previousWaxed.isPresent()) {
-                world.playSound(player, pos, SoundEvents.AXE_SCRAPE, SoundSource.BLOCKS, 1.0F, 1.0F);
+                world.playSound(player, pos, SoundEvents.AXE_WAX_OFF, SoundSource.BLOCKS, 1.0F, 1.0F);
                 world.levelEvent(player, LevelEvent.PARTICLES_WAX_OFF, pos, 0);
                 finalOxidation = previousWaxed;
             }
@@ -153,7 +154,7 @@ public class OxidizablePedestalBlock extends PedestalBlock implements SimpleWate
     }
 
     public static Optional<BlockState> getWaxOffState(BlockState state) {
-        return Optional.ofNullable(WAX_OFF_BY_BLOCK.get().get(state.getBlock())).map((block) -> block.withPropertiesOf(state));
+        return Optional.ofNullable(WAX_OFF_BY_BLOCK.get().get(state.getBlock())).map((blockState) -> blockState.withPropertiesOf(state));
     }
 
     public static Optional<BlockState> getPreviousOxidationState(BlockState state) {

@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LightningBolt.class)
-public abstract class MixinLightningBolt {
+public class MixinLightningBolt {
 
     @Inject(at = @At("HEAD"), method = "randomStepCleaningCopper", cancellable = true)
     private static void randomStepCleaningCopper(Level world, BlockPos pos, CallbackInfoReturnable<Optional<BlockPos>> cir) {

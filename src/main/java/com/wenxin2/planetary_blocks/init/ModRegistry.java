@@ -49,6 +49,10 @@ public class ModRegistry {
     public static final RegistryObject<Block> IRON_PEDESTAL;
     public static final RegistryObject<Block> OXIDIZED_COPPER_PEDESTAL;
     public static final RegistryObject<Block> WEATHERED_COPPER_PEDESTAL;
+    public static final RegistryObject<Block> WAXED_COPPER_PEDESTAL;
+    public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_PEDESTAL;
+    public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_PEDESTAL;
+    public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_PEDESTAL;
 
     public static final RegistryObject<Item> PLANET_ROTATOR;
 
@@ -122,6 +126,18 @@ public class ModRegistry {
                 () -> new OxidizablePedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_NYLIUM)
                         .sound(SoundType.COPPER).strength(3.0F, 6.0F)
                         .requiresCorrectToolForDrops().noOcclusion(), WeatheringCopper.WeatherState.OXIDIZED,
+                        Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+        WAXED_COPPER_PEDESTAL = registerBlock("waxed_copper_pedestal",
+                () -> new PedestalBlock(BlockBehaviour.Properties.copy(COPPER_PEDESTAL.get()),
+                        Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+        WAXED_EXPOSED_COPPER_PEDESTAL = registerBlock("waxed_exposed_copper_pedestal",
+                () -> new PedestalBlock(BlockBehaviour.Properties.copy(EXPOSED_COPPER_PEDESTAL.get()),
+                        Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+        WAXED_WEATHERED_COPPER_PEDESTAL = registerBlock("waxed_weathered_copper_pedestal",
+                () -> new PedestalBlock(BlockBehaviour.Properties.copy(WEATHERED_COPPER_PEDESTAL.get()),
+                        Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+        WAXED_OXIDIZED_COPPER_PEDESTAL = registerBlock("waxed_oxidized_copper_pedestal",
+                () -> new PedestalBlock(BlockBehaviour.Properties.copy(OXIDIZED_COPPER_PEDESTAL.get()),
                         Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
 
         IRON_PANEL = registerBlock("iron_panel",

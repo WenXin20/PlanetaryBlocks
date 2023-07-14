@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "waxed_copper_pedestal",
+  "ingredients": [
+    {
+      "item": "planetary_blocks:weathered_copper_pedestal"
+    },
+    {
+      "item": "minecraft:honeycomb"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "item": "planetary_blocks:waxed_weathered_copper_pedestal"
+  }
+}
