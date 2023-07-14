@@ -7,7 +7,7 @@ import com.wenxin2.planetary_blocks.blocks.EarthBlock;
 import com.wenxin2.planetary_blocks.blocks.PedestalBlock;
 import com.wenxin2.planetary_blocks.blocks.PlanetBlock;
 import com.wenxin2.planetary_blocks.blocks.SunBlock;
-import com.wenxin2.planetary_blocks.blocks.WeatheringPedestalBlock;
+import com.wenxin2.planetary_blocks.blocks.OxidizablePedestalBlock;
 import com.wenxin2.planetary_blocks.items.RotatorItem;
 import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
@@ -104,22 +104,22 @@ public class ModRegistry {
                         .sound(SoundType.METAL).strength(5.0F, 6.0F)
                         .requiresCorrectToolForDrops().noOcclusion(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         COPPER_PEDESTAL = registerBlock("copper_pedestal",
-                () -> new WeatheringPedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE)
+                () -> new OxidizablePedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE)
                         .sound(SoundType.COPPER).strength(3.0F, 6.0F)
                         .requiresCorrectToolForDrops().noOcclusion(), WeatheringCopper.WeatherState.UNAFFECTED,
                         Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         EXPOSED_COPPER_PEDESTAL = registerBlock("exposed_copper_pedestal",
-                () -> new WeatheringPedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.TERRACOTTA_LIGHT_GRAY)
+                () -> new OxidizablePedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.TERRACOTTA_LIGHT_GRAY)
                         .sound(SoundType.COPPER).strength(3.0F, 6.0F)
                         .requiresCorrectToolForDrops().noOcclusion(), WeatheringCopper.WeatherState.EXPOSED,
                         Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         WEATHERED_COPPER_PEDESTAL = registerBlock("weathered_copper_pedestal",
-                () -> new WeatheringPedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_STEM)
+                () -> new OxidizablePedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_STEM)
                         .sound(SoundType.COPPER).strength(3.0F, 6.0F)
                         .requiresCorrectToolForDrops().noOcclusion(), WeatheringCopper.WeatherState.WEATHERED,
                         Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         OXIDIZED_COPPER_PEDESTAL = registerBlock("oxidized_copper_pedestal",
-                () -> new WeatheringPedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_NYLIUM)
+                () -> new OxidizablePedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_NYLIUM)
                         .sound(SoundType.COPPER).strength(3.0F, 6.0F)
                         .requiresCorrectToolForDrops().noOcclusion(), WeatheringCopper.WeatherState.OXIDIZED,
                         Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);

@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWaterloggedBlock, WeatheringCopper
+public class OxidizablePedestalBlock extends PedestalBlock implements SimpleWaterloggedBlock, WeatheringCopper
 {
     private final WeatheringCopper.WeatherState weatherState;
     public static Supplier<BiMap<Block, Block>> NEXT_BY_BLOCK = Suppliers.memoize(() ->
@@ -58,7 +58,7 @@ public class WeatheringPedestalBlock extends PedestalBlock implements SimpleWate
         return WAXABLES.get().inverse();
     });
 
-    public WeatheringPedestalBlock(Properties properties, WeatheringCopper.WeatherState weatherState, Direction.Axis direction) {
+    public OxidizablePedestalBlock(Properties properties, WeatheringCopper.WeatherState weatherState, Direction.Axis direction) {
         super(properties, direction);
         this.weatherState = weatherState;
         this.registerDefaultState(this.getStateDefinition().any().setValue(AXIS, direction).setValue(COLUMN, ColumnBlockStates.NONE)
