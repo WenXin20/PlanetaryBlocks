@@ -55,10 +55,9 @@ public class ModRegistry {
     public static final RegistryObject<Block> IRON_BARS_PEDESTAL;
     public static final RegistryObject<Block> IRON_PANEL;
     public static final RegistryObject<Block> IRON_PEDESTAL;
+    public static final RegistryObject<Block> NETHERITE_PEDESTAL;
     public static final RegistryObject<Block> OXIDIZED_COPPER_PANEL;
     public static final RegistryObject<Block> OXIDIZED_COPPER_PEDESTAL;
-    public static final RegistryObject<Block> WEATHERED_COPPER_PANEL;
-    public static final RegistryObject<Block> WEATHERED_COPPER_PEDESTAL;
     public static final RegistryObject<Block> WAXED_COPPER_PANEL;
     public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_PANEL;
     public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_PANEL;
@@ -67,6 +66,8 @@ public class ModRegistry {
     public static final RegistryObject<Block> WAXED_EXPOSED_COPPER_PEDESTAL;
     public static final RegistryObject<Block> WAXED_OXIDIZED_COPPER_PEDESTAL;
     public static final RegistryObject<Block> WAXED_WEATHERED_COPPER_PEDESTAL;
+    public static final RegistryObject<Block> WEATHERED_COPPER_PANEL;
+    public static final RegistryObject<Block> WEATHERED_COPPER_PEDESTAL;
 
     public static final RegistryObject<Item> PLANET_ROTATOR;
 
@@ -132,6 +133,10 @@ public class ModRegistry {
         DIAMOND_PEDESTAL = registerBlock("diamond_pedestal",
                 () -> new PedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.DIAMOND)
                         .sound(SoundType.METAL).strength(5.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+        NETHERITE_PEDESTAL = registerBlock("netherite_pedestal",
+                () -> new PedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK)
+                        .sound(SoundType.NETHERITE_BLOCK).strength(50.0F, 1200.0F)
                         .requiresCorrectToolForDrops().noOcclusion(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         COPPER_PEDESTAL = registerBlock("copper_pedestal",
                 () -> new OxidizablePedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE)

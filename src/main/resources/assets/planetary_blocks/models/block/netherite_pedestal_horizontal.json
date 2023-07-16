@@ -1,0 +1,7 @@
+{
+  "parent": "planetary_blocks:block/pedestal_horizontal",
+  "textures": {
+    "end": "planetary_blocks:block/netherite_pedestal_end",
+    "side": "planetary_blocks:block/netherite_pedestal_side"
+  }
+}

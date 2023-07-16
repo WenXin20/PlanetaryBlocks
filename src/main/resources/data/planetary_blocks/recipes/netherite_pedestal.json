@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing",
+  "group": "netherite_pedestal",
+  "addition": {
+    "tag": "forge:ingots/netherite"
+  },
+  "base": {
+    "item": "planetary_blocks:diamond_pedestal"
+  },
+  "result": {
+    "item": "planetary_blocks:netherite_pedestal"
+  }
+}
