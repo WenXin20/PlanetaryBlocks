@@ -110,7 +110,7 @@ public class ModRegistry {
                         .sound(SoundType.STONE).strength(1.0F, 3.0F)
                         .requiresCorrectToolForDrops()), PlanetaryBlocks.CREATIVE_TAB);
         DARK_SIDE_MOON = registerBlock("dark_side_moon",
-                () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)
+                () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY)
                         .sound(SoundType.STONE).strength(1.0F, 3.0F)
                         .requiresCorrectToolForDrops()), PlanetaryBlocks.CREATIVE_TAB);
         MARS = registerBlock("mars_block",
