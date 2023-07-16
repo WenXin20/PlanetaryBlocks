@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    { "id": "planetary_blocks:classic_moon", "required": false }
+    { "id": "planetary_blocks:classic_moon", "required": false },
+    { "id": "planetary_blocks:moon_block", "required": false }
   ]
 }

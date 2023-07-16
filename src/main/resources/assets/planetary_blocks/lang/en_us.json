@@ -6,6 +6,7 @@
   "block.planetary_blocks.earth_block": "Earth",
   "block.planetary_blocks.mars_block": "Mars",
   "block.planetary_blocks.mercury_block": "Mercury",
+  "block.planetary_blocks.moon_block": "Moon",
   "block.planetary_blocks.sun_block": "Sun",
   "block.planetary_blocks.venus_block": "Venus",
 

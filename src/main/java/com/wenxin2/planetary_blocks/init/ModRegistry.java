@@ -4,6 +4,7 @@ import com.wenxin2.planetary_blocks.PlanetaryBlocks;
 import com.wenxin2.planetary_blocks.blocks.ClassicMoonBlock;
 import com.wenxin2.planetary_blocks.blocks.ClassicSunBlock;
 import com.wenxin2.planetary_blocks.blocks.EarthBlock;
+import com.wenxin2.planetary_blocks.blocks.MoonBlock;
 import com.wenxin2.planetary_blocks.blocks.OxidizablePanelBlock;
 import com.wenxin2.planetary_blocks.blocks.PedestalBlock;
 import com.wenxin2.planetary_blocks.blocks.PlanetBlock;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.WeatheringCopper;
@@ -36,6 +38,7 @@ public class ModRegistry {
     public static final RegistryObject<Block> EARTH;
     public static final RegistryObject<Block> MARS;
     public static final RegistryObject<Block> MERCURY;
+    public static final RegistryObject<Block> MOON;
     public static final RegistryObject<Block> SUN;
     public static final RegistryObject<Block> VENUS;
 
@@ -93,6 +96,10 @@ public class ModRegistry {
         EARTH = registerBlock("earth_block",
                 () -> new EarthBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_BLUE)
                         .sound(SoundType.STONE).strength(1.5F, 6.0F).randomTicks()
+                        .requiresCorrectToolForDrops(), Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
+        MOON = registerBlock("moon_block",
+                () -> new MoonBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)
+                        .sound(SoundType.STONE).strength(1.0F, 3.0F)
                         .requiresCorrectToolForDrops(), Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
         MARS = registerBlock("mars_block",
                 () -> new PlanetBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_ORANGE)

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "planetary_blocks:block/moon"
+    },
+    "facing=east": {
+      "model": "planetary_blocks:block/moon",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "planetary_blocks:block/moon",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "planetary_blocks:block/moon",
+      "y": 270
+    }
+  }
+}
