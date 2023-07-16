@@ -121,42 +121,42 @@ public class ModRegistry {
         IRON_BARS_PEDESTAL = registerBlock("iron_bars_pedestal",
                 () -> new PedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.METAL)
                         .sound(SoundType.METAL).strength(5.0F, 6.0F)
-                        .requiresCorrectToolForDrops().noOcclusion(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+                        .requiresCorrectToolForDrops(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         IRON_PEDESTAL = registerBlock("iron_pedestal",
                 () -> new PedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.METAL)
                         .sound(SoundType.METAL).strength(5.0F, 6.0F)
-                        .requiresCorrectToolForDrops().noOcclusion(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+                        .requiresCorrectToolForDrops(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         GOLD_PEDESTAL = registerBlock("gold_pedestal",
                 () -> new PedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.GOLD)
                         .sound(SoundType.METAL).strength(3.0F, 6.0F)
-                        .requiresCorrectToolForDrops().noOcclusion(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+                        .requiresCorrectToolForDrops(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         DIAMOND_PEDESTAL = registerBlock("diamond_pedestal",
                 () -> new PedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.DIAMOND)
                         .sound(SoundType.METAL).strength(5.0F, 6.0F)
-                        .requiresCorrectToolForDrops().noOcclusion(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+                        .requiresCorrectToolForDrops(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         NETHERITE_PEDESTAL = registerBlock("netherite_pedestal",
                 () -> new PedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK)
                         .sound(SoundType.NETHERITE_BLOCK).strength(50.0F, 1200.0F)
-                        .requiresCorrectToolForDrops().noOcclusion(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
+                        .requiresCorrectToolForDrops(), Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         COPPER_PEDESTAL = registerBlock("copper_pedestal",
                 () -> new OxidizablePedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE)
                         .sound(SoundType.COPPER).strength(3.0F, 6.0F)
-                        .requiresCorrectToolForDrops().noOcclusion(), WeatheringCopper.WeatherState.UNAFFECTED,
+                        .requiresCorrectToolForDrops(), WeatheringCopper.WeatherState.UNAFFECTED,
                         Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         EXPOSED_COPPER_PEDESTAL = registerBlock("exposed_copper_pedestal",
                 () -> new OxidizablePedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.TERRACOTTA_LIGHT_GRAY)
                         .sound(SoundType.COPPER).strength(3.0F, 6.0F)
-                        .requiresCorrectToolForDrops().noOcclusion(), WeatheringCopper.WeatherState.EXPOSED,
+                        .requiresCorrectToolForDrops(), WeatheringCopper.WeatherState.EXPOSED,
                         Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         WEATHERED_COPPER_PEDESTAL = registerBlock("weathered_copper_pedestal",
                 () -> new OxidizablePedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_STEM)
                         .sound(SoundType.COPPER).strength(3.0F, 6.0F)
-                        .requiresCorrectToolForDrops().noOcclusion(), WeatheringCopper.WeatherState.WEATHERED,
+                        .requiresCorrectToolForDrops(), WeatheringCopper.WeatherState.WEATHERED,
                         Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         OXIDIZED_COPPER_PEDESTAL = registerBlock("oxidized_copper_pedestal",
                 () -> new OxidizablePedestalBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.WARPED_NYLIUM)
                         .sound(SoundType.COPPER).strength(3.0F, 6.0F)
-                        .requiresCorrectToolForDrops().noOcclusion(), WeatheringCopper.WeatherState.OXIDIZED,
+                        .requiresCorrectToolForDrops(), WeatheringCopper.WeatherState.OXIDIZED,
                         Direction.Axis.Y), PlanetaryBlocks.CREATIVE_TAB);
         WAXED_COPPER_PEDESTAL = registerBlock("waxed_copper_pedestal",
                 () -> new PedestalBlock(BlockBehaviour.Properties.copy(COPPER_PEDESTAL.get()),
