@@ -8,6 +8,7 @@
     "item": "planetary_blocks:diamond_panel"
   },
   "result": {
-    "item": "planetary_blocks:netherite_panel"
+    "item": "planetary_blocks:netherite_panel",
+    "count": 2
   }
 }
