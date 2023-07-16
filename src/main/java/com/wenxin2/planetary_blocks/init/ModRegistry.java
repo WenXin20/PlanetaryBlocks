@@ -55,6 +55,7 @@ public class ModRegistry {
     public static final RegistryObject<Block> IRON_BARS_PEDESTAL;
     public static final RegistryObject<Block> IRON_PANEL;
     public static final RegistryObject<Block> IRON_PEDESTAL;
+    public static final RegistryObject<Block> NETHERITE_PANEL;
     public static final RegistryObject<Block> NETHERITE_PEDESTAL;
     public static final RegistryObject<Block> OXIDIZED_COPPER_PANEL;
     public static final RegistryObject<Block> OXIDIZED_COPPER_PEDESTAL;
@@ -182,6 +183,10 @@ public class ModRegistry {
         DIAMOND_PANEL = registerBlock("diamond_panel",
                 () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.DIAMOND)
                         .sound(SoundType.METAL).strength(5.0F, 6.0F)
+                        .requiresCorrectToolForDrops().noOcclusion()), PlanetaryBlocks.CREATIVE_TAB);
+        NETHERITE_PANEL = registerBlock("netherite_panel",
+                () -> new IronBarsBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_BLACK)
+                        .sound(SoundType.METAL).strength(50.0F, 1200.0F)
                         .requiresCorrectToolForDrops().noOcclusion()), PlanetaryBlocks.CREATIVE_TAB);
         COPPER_PANEL = registerBlock("copper_panel",
                 () -> new OxidizablePanelBlock(BlockBehaviour.Properties.of(Material.METAL, MaterialColor.COLOR_ORANGE)

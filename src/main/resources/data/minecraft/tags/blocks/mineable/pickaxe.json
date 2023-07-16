@@ -20,6 +20,7 @@
     { "id": "planetary_blocks:mars_block", "required":false },
     { "id": "planetary_blocks:mercury_block", "required":false },
     { "id": "planetary_blocks:moon_block", "required":false },
+    { "id": "planetary_blocks:netherite_panel", "required":false },
     { "id": "planetary_blocks:netherite_pedestal", "required":false },
     { "id": "planetary_blocks:oxidized_copper_panel", "required": false },
     { "id": "planetary_blocks:oxidized_copper_pedestal", "required": false },

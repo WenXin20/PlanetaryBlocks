@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    { "id": "planetary_blocks:netherite_panel", "required": false },
     { "id": "planetary_blocks:netherite_pedestal", "required": false }
   ]
 }

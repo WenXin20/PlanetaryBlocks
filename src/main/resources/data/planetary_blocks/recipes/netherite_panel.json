@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing",
+  "group": "netherite_panel",
+  "addition": {
+    "tag": "forge:ingots/netherite"
+  },
+  "base": {
+    "item": "planetary_blocks:diamond_panel"
+  },
+  "result": {
+    "item": "planetary_blocks:netherite_panel"
+  }
+}
