@@ -10,12 +10,12 @@
     }
   },
   "pattern": [
-    "XXO",
-    "XXO",
-    "XXO"
+    "XXX",
+    "XOX",
+    "XXX"
   ],
   "result": {
     "count": 8,
-    "item": "planetary_blocks:moon_block"
+    "item": "planetary_blocks:light_side_moon"
   }
 }

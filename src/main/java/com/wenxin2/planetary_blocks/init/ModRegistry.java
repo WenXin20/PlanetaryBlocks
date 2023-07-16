@@ -35,7 +35,9 @@ public class ModRegistry {
 
     public static final RegistryObject<Block> CLASSIC_MOON;
     public static final RegistryObject<Block> CLASSIC_SUN;
+    public static final RegistryObject<Block> DARK_SIDE_MOON;
     public static final RegistryObject<Block> EARTH;
+    public static final RegistryObject<Block> LIGHT_SIDE_MOON;
     public static final RegistryObject<Block> MARS;
     public static final RegistryObject<Block> MERCURY;
     public static final RegistryObject<Block> MOON;
@@ -101,6 +103,14 @@ public class ModRegistry {
                 () -> new MoonBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)
                         .sound(SoundType.STONE).strength(1.0F, 3.0F)
                         .requiresCorrectToolForDrops(), Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
+        LIGHT_SIDE_MOON = registerBlock("light_side_moon",
+                () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)
+                        .sound(SoundType.STONE).strength(1.0F, 3.0F)
+                        .requiresCorrectToolForDrops()), PlanetaryBlocks.CREATIVE_TAB);
+        DARK_SIDE_MOON = registerBlock("dark_side_moon",
+                () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)
+                        .sound(SoundType.STONE).strength(1.0F, 3.0F)
+                        .requiresCorrectToolForDrops()), PlanetaryBlocks.CREATIVE_TAB);
         MARS = registerBlock("mars_block",
                 () -> new PlanetBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_ORANGE)
                         .sound(SoundType.STONE).strength(1.5F, 6.0F)

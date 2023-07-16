@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "planetary_blocks:block/dark_side_moon"
+    }
+  }
+}

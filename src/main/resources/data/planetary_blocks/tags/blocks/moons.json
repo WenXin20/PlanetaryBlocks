@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     { "id": "planetary_blocks:classic_moon", "required": false },
+    { "id": "planetary_blocks:dark_side_moon", "required": false },
+    { "id": "planetary_blocks:light_side_moon", "required": false },
     { "id": "planetary_blocks:moon_block", "required": false }
   ]
 }

@@ -3,7 +3,9 @@
 
   "block.planetary_blocks.classic_moon": "Classic Moon",
   "block.planetary_blocks.classic_sun": "Classic Sun",
+  "block.planetary_blocks.dark_side_moon": "Moon's Dark Side",
   "block.planetary_blocks.earth_block": "Earth",
+  "block.planetary_blocks.light_side_moon": "Moon's Light Side",
   "block.planetary_blocks.mars_block": "Mars",
   "block.planetary_blocks.mercury_block": "Mercury",
   "block.planetary_blocks.moon_block": "Moon",
