@@ -41,9 +41,9 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.2.3'
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     // Imports
-    implementation fg.deobf("curse.maven:jei-238222:4615177")
+    implementation fg.deobf("curse.maven:jei-${jei_version}")
 }
 
 mixin {
