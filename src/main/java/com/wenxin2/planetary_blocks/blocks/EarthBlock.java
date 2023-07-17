@@ -121,6 +121,25 @@ public class EarthBlock extends HorizontalDirectionalBlock
         Block block = worldAccessor.getBlockState(pos).getBlock();
         Block blockAbove = worldAccessor.getBlockState(pos.above()).getBlock();
         Block blockBelow = worldAccessor.getBlockState(pos.below()).getBlock();
+        Block blockNorth = worldAccessor.getBlockState(pos.north()).getBlock();
+        Block blockSouth = worldAccessor.getBlockState(pos.south()).getBlock();
+        Block blockEast = worldAccessor.getBlockState(pos.east()).getBlock();
+        Block blockWest = worldAccessor.getBlockState(pos.west()).getBlock();
+
+        if (blockEast == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
+            if (blockWest == this)
+                return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
+            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
+        }
+        if (blockEast == this && distance == Config.ROTATION_DISTANCE.get() + 1) {
+            if (blockWest == this)
+                return state.setValue(ROTATION, Boolean.FALSE);
+            return state.setValue(ROTATION, Boolean.FALSE);
+        }
+        if (blockWest == this && distance < Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
+        if (blockWest == this && distance == Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(ROTATION, Boolean.FALSE);
 
         if (blockAbove == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
             if (blockBelow == this)
@@ -137,6 +156,21 @@ public class EarthBlock extends HorizontalDirectionalBlock
             return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Config.ENABLE_ROTATION.get());
         if (blockBelow == this && distance == Config.ROTATION_DISTANCE.get() + 1)
             return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
+
+        if (blockNorth == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
+            if (blockSouth == this)
+                return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
+            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
+        }
+        if (blockNorth == this && distance == Config.ROTATION_DISTANCE.get() + 1) {
+            if (blockSouth == this)
+                return state.setValue(ROTATION, Boolean.FALSE);
+            return state.setValue(ROTATION, Boolean.FALSE);
+        }
+        if (blockSouth == this && distance < Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
+        if (blockSouth == this && distance == Config.ROTATION_DISTANCE.get() + 1)
+            return state.setValue(ROTATION, Boolean.FALSE);
 
         if (block == this && distance >= Config.ROTATION_DISTANCE.get() + 1) {
             return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
@@ -165,7 +199,7 @@ public class EarthBlock extends HorizontalDirectionalBlock
     }
 
     private static int getDistance(BlockState state) {
-        if (state.getBlock() instanceof PedestalBlock && !state.getValue(BlockStateProperties.POWERED)) {
+        if (state.getBlock() instanceof PedestalBlock && state.getValue(BlockStateProperties.POWERED)) {
             return 0;
         }
         if (state.getBlock() instanceof EarthBlock) {
