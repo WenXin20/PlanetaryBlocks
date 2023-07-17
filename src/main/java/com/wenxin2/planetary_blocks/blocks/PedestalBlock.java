@@ -198,6 +198,7 @@ public class PedestalBlock extends RotatedPillarBlock implements SimpleWaterlogg
                 if (flag) {
                     world.scheduleTick(pos, this, 4);
                 } else if (world.hasNeighborSignal(pos)) {
+                    world.scheduleTick(pos, this, 4);
                     world.setBlock(pos, state.cycle(POWERED), 2);
                 }
             }
@@ -210,7 +211,6 @@ public class PedestalBlock extends RotatedPillarBlock implements SimpleWaterlogg
             serverWorld.setBlock(pos, state.setValue(POWERED, Boolean.FALSE), 2);
         } else if (serverWorld.hasNeighborSignal(pos)) {
             serverWorld.setBlock(pos, state.setValue(POWERED, Boolean.TRUE), 2);
-            System.out.print(state.getValue(POWERED) + " ");
         }
     }
 
