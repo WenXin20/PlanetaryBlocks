@@ -98,7 +98,7 @@ public class PlanetBlock extends RotatedPillarBlock
 
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor worldAccessor, BlockPos pos, BlockPos pos2) {
-        int distance = state.getValue(DISTANCE);
+        int distance = worldAccessor.getBlockState(pos).getValue(DISTANCE);
         int i = getDistance(neighborState) + 1;
         if (i != 1 || state.getValue(DISTANCE) != i) {
             worldAccessor.scheduleTick(pos, this, 1);
@@ -115,14 +115,7 @@ public class PlanetBlock extends RotatedPillarBlock
         boolean axisX = state.getValue(AXIS) == Direction.Axis.X;
         boolean axisY = state.getValue(AXIS) == Direction.Axis.Y;
         boolean axisZ = state.getValue(AXIS) == Direction.Axis.Z;
-        
-        if (!Config.ENABLE_ROTATION.get() && distance < 17) {
-            return state.setValue(ROTATION, Boolean.FALSE).setValue(DISTANCE, 17);
-        }
 
-        if (block == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
-            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        }
         if (blockEast == this && axisX && distance < Config.ROTATION_DISTANCE.get() + 1) {
             if (blockWest == this)
                 return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
@@ -167,6 +160,12 @@ public class PlanetBlock extends RotatedPillarBlock
             return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Config.ENABLE_ROTATION.get());
         if (blockSouth == this && axisZ && distance == Config.ROTATION_DISTANCE.get() + 1)
             return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
+
+        if (block == this && distance >= Config.ROTATION_DISTANCE.get() + 1) {
+            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
+        } else if (block == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
+            return state.setValue(ROTATION, Boolean.FALSE);
+        }
 
         if (distance < Config.ROTATION_DISTANCE.get() + 1)
             return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Config.ENABLE_ROTATION.get());

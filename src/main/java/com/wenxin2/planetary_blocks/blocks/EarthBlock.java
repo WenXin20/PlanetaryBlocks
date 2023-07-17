@@ -111,13 +111,14 @@ public class EarthBlock extends HorizontalDirectionalBlock
     @Override
     @ParametersAreNonnullByDefault
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor worldAccessor, BlockPos pos, BlockPos neighborPos) {
-        int distance = state.getValue(DISTANCE);
+        int distance = worldAccessor.getBlockState(pos).getValue(DISTANCE);
         int i = getDistance(neighborState) + 1;
         if (i != 1 || state.getValue(DISTANCE) != i) {
             worldAccessor.scheduleTick(pos, this, 1);
         }
         super.updateShape(state, direction, neighborState, worldAccessor, pos, neighborPos);
 
+        Block block = worldAccessor.getBlockState(pos).getBlock();
         Block blockAbove = worldAccessor.getBlockState(pos.above()).getBlock();
         Block blockBelow = worldAccessor.getBlockState(pos.below()).getBlock();
 
@@ -136,6 +137,12 @@ public class EarthBlock extends HorizontalDirectionalBlock
             return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Config.ENABLE_ROTATION.get());
         if (blockBelow == this && distance == Config.ROTATION_DISTANCE.get() + 1)
             return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
+
+        if (block == this && distance >= Config.ROTATION_DISTANCE.get() + 1) {
+            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
+        } else if (block == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
+            return state.setValue(ROTATION, Boolean.FALSE);
+        }
 
         if (distance < Config.ROTATION_DISTANCE.get() + 1)
             return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
