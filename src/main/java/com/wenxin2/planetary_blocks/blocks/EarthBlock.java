@@ -71,16 +71,16 @@ public class EarthBlock extends HorizontalDirectionalBlock
 
     @Override
     public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity entity, ItemStack stack) {
-        int distance = state.getValue(DISTANCE);
+        int distance = world.getBlockState(pos).getValue(DISTANCE);
 
         if (distance == Config.ROTATION_DISTANCE.get() + 1) {
             world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
         }
         if (Config.ENABLE_ROTATION.get()) {
-            if (distance < Config.ROTATION_DISTANCE.get() + 1) {
+            if (distance <= Config.ROTATION_DISTANCE.get()) {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
             }
-            if (distance > Config.ROTATION_DISTANCE.get() + 1) {
+            if (distance > Config.ROTATION_DISTANCE.get()) {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
             }
         }
@@ -92,16 +92,12 @@ public class EarthBlock extends HorizontalDirectionalBlock
     @Override
     @ParametersAreNonnullByDefault
     public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighborBlock, BlockPos pos2, boolean rotation) {
-        int distance = state.getValue(DISTANCE);
-
-        if (distance < Config.ROTATION_DISTANCE.get() + 1) {
-            world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
-        }
+        int distance = world.getBlockState(pos).getValue(DISTANCE);
         if (Config.ENABLE_ROTATION.get()) {
-            if (distance > Config.ROTATION_DISTANCE.get()) {
+            if (distance > Config.ROTATION_DISTANCE.get() && neighborBlock == this) {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
             }
-            if (distance < Config.ROTATION_DISTANCE.get() + 1) {
+            if (distance <= Config.ROTATION_DISTANCE.get() && neighborBlock == this) {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
             }
         }

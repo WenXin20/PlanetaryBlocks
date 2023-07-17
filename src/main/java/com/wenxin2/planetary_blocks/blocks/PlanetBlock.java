@@ -115,18 +115,7 @@ public class PlanetBlock extends RotatedPillarBlock
         boolean axisX = state.getValue(AXIS) == Direction.Axis.X;
         boolean axisY = state.getValue(AXIS) == Direction.Axis.Y;
         boolean axisZ = state.getValue(AXIS) == Direction.Axis.Z;
-
-//        if (Config.ENABLE_ROTATION.get() && distance < Config.ROTATION_DISTANCE.get() + 1) {
-//            return state.setValue(ROTATION, Boolean.FALSE);
-//        }
-//        if (Config.ENABLE_ROTATION.get()) {
-//            if (distance < Config.ROTATION_DISTANCE.get() + 1) {
-//                return state.setValue(ROTATION, Boolean.TRUE);
-//            }
-//            if (distance > Config.ROTATION_DISTANCE.get() + 1) {
-//                return state.setValue(ROTATION, Boolean.FALSE);
-//            }
-//        }
+        
         if (!Config.ENABLE_ROTATION.get() && distance < 17) {
             return state.setValue(ROTATION, Boolean.FALSE).setValue(DISTANCE, 17);
         }
