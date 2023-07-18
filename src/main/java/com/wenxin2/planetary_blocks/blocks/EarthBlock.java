@@ -91,105 +91,72 @@ public class EarthBlock extends HorizontalDirectionalBlock
 
     @Override
     @ParametersAreNonnullByDefault
-    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighborBlock, BlockPos pos2, boolean rotation) {
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block blockNeighbor, BlockPos posNeighbor, boolean rotation) {
         int distance = world.getBlockState(pos).getValue(DISTANCE);
         if (Config.ENABLE_ROTATION.get()) {
-            if (distance > Config.ROTATION_DISTANCE.get() && neighborBlock == this) {
+            if (distance > Config.ROTATION_DISTANCE.get() && blockNeighbor == this) {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
             }
-            if (distance <= Config.ROTATION_DISTANCE.get() && neighborBlock == this) {
+            if (distance <= Config.ROTATION_DISTANCE.get() && blockNeighbor == this) {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
             }
         }
         if (!Config.ENABLE_ROTATION.get() && distance < 17) {
             world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(DISTANCE, 17), 4);
         }
-        super.neighborChanged(state, world, pos, neighborBlock, pos, rotation);
+        super.neighborChanged(state, world, pos, blockNeighbor, pos, rotation);
     }
 
-    @NotNull
     @Override
-    @ParametersAreNonnullByDefault
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor worldAccessor, BlockPos pos, BlockPos neighborPos) {
         int distance = worldAccessor.getBlockState(pos).getValue(DISTANCE);
-        int i = getDistance(neighborState) + 1;
+        int i = getDistance(neighborState);
         if (i != 1 || state.getValue(DISTANCE) != i) {
             worldAccessor.scheduleTick(pos, this, 1);
         }
-        super.updateShape(state, direction, neighborState, worldAccessor, pos, neighborPos);
 
-        Block block = worldAccessor.getBlockState(pos).getBlock();
         Block blockAbove = worldAccessor.getBlockState(pos.above()).getBlock();
         Block blockBelow = worldAccessor.getBlockState(pos.below()).getBlock();
-        Block blockNorth = worldAccessor.getBlockState(pos.north()).getBlock();
-        Block blockSouth = worldAccessor.getBlockState(pos.south()).getBlock();
-        Block blockEast = worldAccessor.getBlockState(pos.east()).getBlock();
-        Block blockWest = worldAccessor.getBlockState(pos.west()).getBlock();
 
-        if (blockEast == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
-            if (blockWest == this)
-                return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
-            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        }
-        if (blockEast == this && distance == Config.ROTATION_DISTANCE.get() + 1) {
-            if (blockWest == this)
-                return state.setValue(ROTATION, Boolean.FALSE);
-            return state.setValue(ROTATION, Boolean.FALSE);
-        }
-        if (blockWest == this && distance < Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        if (blockWest == this && distance == Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(ROTATION, Boolean.FALSE);
-
-        if (blockAbove == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
+        if (distance < Config.ROTATION_DISTANCE.get() + 1) {
+            if (blockAbove == this) {
+                if (blockBelow == this)
+                    return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+                return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+            }
             if (blockBelow == this)
-                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
-            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+                return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Config.ENABLE_ROTATION.get());
         }
-        if (blockAbove == this && distance == Config.ROTATION_DISTANCE.get() + 1) {
+
+        if (distance == Config.ROTATION_DISTANCE.get() + 1) {
+            if (blockAbove == this) {
+                if (blockBelow == this)
+                    return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
+                return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
+            }
             if (blockBelow == this)
-                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
-            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
+                return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
         }
 
-        if (blockBelow == this && distance < Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        if (blockBelow == this && distance == Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
-
-        if (blockNorth == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
-            if (blockSouth == this)
-                return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
+        if (distance < Config.ROTATION_DISTANCE.get() + 1) {
             return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
         }
-        if (blockNorth == this && distance == Config.ROTATION_DISTANCE.get() + 1) {
-            if (blockSouth == this)
-                return state.setValue(ROTATION, Boolean.FALSE);
-            return state.setValue(ROTATION, Boolean.FALSE);
-        }
-        if (blockSouth == this && distance < Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        if (blockSouth == this && distance == Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(ROTATION, Boolean.FALSE);
-
-        if (block == this && distance >= Config.ROTATION_DISTANCE.get() + 1) {
-            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        } else if (block == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
+        if (distance == Config.ROTATION_DISTANCE.get() + 1) {
             return state.setValue(ROTATION, Boolean.FALSE);
         }
 
         if (distance < Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
         return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Boolean.FALSE);
     }
 
-    private static BlockState updateDistance(BlockState state, LevelAccessor world, BlockPos pos) {
+    private static BlockState updateDistance(BlockState state, LevelAccessor worldAccessor, BlockPos pos) {
         int i = 17;
         BlockPos.MutableBlockPos posMutable = new BlockPos.MutableBlockPos();
 
         for(Direction direction : Direction.values()) {
             posMutable.setWithOffset(pos, direction);
-            i = Math.min(i, getDistance(world.getBlockState(posMutable)) + 1);
+            i = Math.min(i, getDistance(worldAccessor.getBlockState(posMutable)) + 1);
             if (i == 1) {
                 break;
             }

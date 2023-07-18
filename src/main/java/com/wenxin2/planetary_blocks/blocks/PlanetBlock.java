@@ -99,7 +99,7 @@ public class PlanetBlock extends RotatedPillarBlock
     @Override
     public BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor worldAccessor, BlockPos pos, BlockPos pos2) {
         int distance = worldAccessor.getBlockState(pos).getValue(DISTANCE);
-        int i = getDistance(neighborState) + 1;
+        int i = getDistance(neighborState);
         if (i != 1 || state.getValue(DISTANCE) != i) {
             worldAccessor.scheduleTick(pos, this, 1);
         }
@@ -161,9 +161,9 @@ public class PlanetBlock extends RotatedPillarBlock
         if (blockSouth == this && axisZ && distance == Config.ROTATION_DISTANCE.get() + 1)
             return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
 
-        if (block == this && distance >= Config.ROTATION_DISTANCE.get() + 1) {
+        if (block == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
             return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        } else if (block == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
+        } else if (block == this && distance == Config.ROTATION_DISTANCE.get() + 1) {
             return state.setValue(ROTATION, Boolean.FALSE);
         }
 
