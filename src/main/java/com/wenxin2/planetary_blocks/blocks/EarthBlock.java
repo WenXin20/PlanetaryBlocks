@@ -126,6 +126,10 @@ public class EarthBlock extends HorizontalDirectionalBlock
             }
             if (blockBelow == this)
                 return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+            if (!state.getValue(ROTATION)) {
+                return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+            }
+            return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
         }
 
         if (distance == Config.ROTATION_DISTANCE.get() + 1) {
@@ -136,17 +140,11 @@ public class EarthBlock extends HorizontalDirectionalBlock
             }
             if (blockBelow == this)
                 return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
+            if (state.getValue(ROTATION)) {
+                return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Boolean.FALSE);
+            }
+            return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Boolean.FALSE);
         }
-
-        if (distance < Config.ROTATION_DISTANCE.get() + 1) {
-            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        }
-        if (distance == Config.ROTATION_DISTANCE.get() + 1) {
-            return state.setValue(ROTATION, Boolean.FALSE);
-        }
-
-        if (distance < Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
         return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Boolean.FALSE);
     }
 
