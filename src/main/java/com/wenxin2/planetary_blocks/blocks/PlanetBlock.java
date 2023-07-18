@@ -104,7 +104,6 @@ public class PlanetBlock extends RotatedPillarBlock
             worldAccessor.scheduleTick(pos, this, 1);
         }
 
-        Block block = worldAccessor.getBlockState(pos).getBlock();
         Block blockAbove = worldAccessor.getBlockState(pos.above()).getBlock();
         Block blockBelow = worldAccessor.getBlockState(pos.below()).getBlock();
         Block blockNorth = worldAccessor.getBlockState(pos.north()).getBlock();
@@ -116,59 +115,74 @@ public class PlanetBlock extends RotatedPillarBlock
         boolean axisY = state.getValue(AXIS) == Direction.Axis.Y;
         boolean axisZ = state.getValue(AXIS) == Direction.Axis.Z;
 
-        if (blockEast == this && axisX && distance < Config.ROTATION_DISTANCE.get() + 1) {
-            if (blockWest == this)
-                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
-            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        }
-        if (blockEast == this && axisX && distance == Config.ROTATION_DISTANCE.get() + 1) {
-            if (blockWest == this)
-                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
-            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
-        }
-        if (blockWest == this && axisX && distance < Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        if (blockWest == this && axisX && distance == Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
+        if (distance < Config.ROTATION_DISTANCE.get() + 1) {
+            if (axisX) {
+                if (blockEast == this) {
+                    if (blockWest == this)
+                        return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+                    return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+                }
+                if (blockWest == this && distance < Config.ROTATION_DISTANCE.get() + 1)
+                    return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+            }
 
-        if (blockAbove == this && axisY && distance < Config.ROTATION_DISTANCE.get() + 1) {
-            if (blockBelow == this)
-                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
-            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        }
-        if (blockAbove == this && axisY && distance == Config.ROTATION_DISTANCE.get() + 1) {
-            if (blockBelow == this)
-                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
-            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
-        }
-        if (blockBelow == this && axisY && distance < Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        if (blockBelow == this && axisY && distance == Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
+            if (axisY) {
+                if (blockAbove == this) {
+                    if (blockBelow == this)
+                        return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+                    return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+                }
+                if (blockBelow == this)
+                    return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+            }
 
-        if (blockNorth == this && axisZ && distance < Config.ROTATION_DISTANCE.get() + 1) {
-            if (blockSouth == this)
-                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
-            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        }
-        if (blockNorth == this && axisZ && distance == Config.ROTATION_DISTANCE.get() + 1) {
-            if (blockSouth == this)
-                return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
-            return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
-        }
-        if (blockSouth == this && axisZ && distance < Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        if (blockSouth == this && axisZ && distance == Config.ROTATION_DISTANCE.get() + 1)
-            return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
-
-        if (block == this && distance < Config.ROTATION_DISTANCE.get() + 1) {
-            return state.setValue(ROTATION, Config.ENABLE_ROTATION.get());
-        } else if (block == this && distance == Config.ROTATION_DISTANCE.get() + 1) {
-            return state.setValue(ROTATION, Boolean.FALSE);
-        }
-
-        if (distance < Config.ROTATION_DISTANCE.get() + 1)
+            if (axisZ) {
+                if (blockNorth == this) {
+                    if (blockSouth == this)
+                        return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+                    return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+                }
+                if (blockSouth == this)
+                    return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+            }
             return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Config.ENABLE_ROTATION.get());
+        }
+
+        if (distance == Config.ROTATION_DISTANCE.get() + 1) {
+            if (axisX) {
+                if (blockEast == this) {
+                    if (blockWest == this)
+                        return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
+                    return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
+                }
+
+                if (blockWest == this)
+                    return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
+            }
+
+            if (axisY) {
+                if (blockAbove == this) {
+                    if (blockBelow == this)
+                        return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
+                    return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
+                }
+
+                if (blockBelow == this)
+                    return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
+            }
+
+            if (axisZ) {
+                if (blockNorth == this) {
+                    if (blockSouth == this)
+                        return state.setValue(COLUMN, ColumnBlockStates.MIDDLE).setValue(ROTATION, Boolean.FALSE);
+                    return state.setValue(COLUMN, ColumnBlockStates.BOTTOM).setValue(ROTATION, Boolean.FALSE);
+                }
+
+                if (blockSouth == this)
+                    return state.setValue(COLUMN, ColumnBlockStates.TOP).setValue(ROTATION, Boolean.FALSE);
+            }
+            return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Boolean.FALSE);
+        }
         return state.setValue(COLUMN, ColumnBlockStates.NONE).setValue(ROTATION, Boolean.FALSE);
     }
 
