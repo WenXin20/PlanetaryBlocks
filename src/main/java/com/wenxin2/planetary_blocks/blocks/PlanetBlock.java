@@ -80,20 +80,20 @@ public class PlanetBlock extends RotatedPillarBlock
 
     @Override
     @ParametersAreNonnullByDefault
-    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block neighborBlock, BlockPos pos2, boolean rotation) {
+    public void neighborChanged(BlockState state, Level world, BlockPos pos, Block blockNeighbor, BlockPos posNeighbor, boolean rotation) {
         int distance = world.getBlockState(pos).getValue(DISTANCE);
         if (Config.ENABLE_ROTATION.get()) {
-            if (distance > Config.ROTATION_DISTANCE.get() && neighborBlock == this) {
+            if (distance > Config.ROTATION_DISTANCE.get() && blockNeighbor == this) {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.TRUE), 4);
             }
-            if (distance <= Config.ROTATION_DISTANCE.get() && neighborBlock == this) {
+            if (distance <= Config.ROTATION_DISTANCE.get() && blockNeighbor == this) {
                 world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE), 4);
             }
         }
         if (!Config.ENABLE_ROTATION.get() && distance < 17) {
             world.setBlock(pos, state.setValue(ROTATION, Boolean.FALSE).setValue(DISTANCE, 17), 4);
         }
-        super.neighborChanged(state, world, pos, neighborBlock, pos, rotation);
+        super.neighborChanged(state, world, pos, blockNeighbor, pos, rotation);
     }
 
     @Override
