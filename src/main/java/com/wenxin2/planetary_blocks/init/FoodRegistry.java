@@ -10,6 +10,7 @@ public class FoodRegistry {
     static
     {
         MOON = (new FoodProperties.Builder()).nutrition(4).saturationMod(0.5F)
-                .effect(new MobEffectInstance(MobEffects.SLOW_FALLING, 300, 0), 1.0F).alwaysEat().build();
+                .effect(new MobEffectInstance(MobEffects.SLOW_FALLING, 300, 0), 1.0F)
+                .effect(new MobEffectInstance(MobEffects.HARM, 1, 0), 1.0F).alwaysEat().build();
     }
 }
