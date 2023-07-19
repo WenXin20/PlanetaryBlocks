@@ -40,6 +40,10 @@ repositories {
     }
 }
 
+version = '0.02'
+group = 'com.wenxin2.planetary_blocks'
+archivesBaseName = 'planetary_blocks'
+
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     // Imports
@@ -49,10 +53,6 @@ dependencies {
 mixin {
     add sourceSets.main, "main.refmap.json"
 }
-
-version = '0.01'
-group = 'com.wenxin2.planetary_blocks'
-archivesBaseName = 'planetary_blocks'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
