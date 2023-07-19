@@ -1,6 +1,6 @@
 {
   "criteria": {
-    "sun_block": {
+    "inventory_changed": {
       "conditions": {
         "item": {
           "items": [
@@ -20,7 +20,7 @@
     "frame": "challenge",
     "hidden": false,
     "icon": {
-      "item": "planetary_blocks:sun_block"
+      "item": "planetary_blocks:planet_rotator"
     },
     "show_toast": false,
     "title": {
@@ -29,10 +29,7 @@
   },
   "requirements": [
     [
-      "sun_block"
+      "inventory_changed"
     ]
-  ],
-  "rewards": {
-    "experience": 100
-  }
+  ]
 }

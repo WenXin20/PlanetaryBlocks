@@ -18,7 +18,7 @@
     "frame": "challenge",
     "hidden": true,
     "icon": {
-      "item": "planetary_blocks:moon_block"
+      "item": "planetary_blocks:light_side_moon"
     },
     "show_toast": true,
     "title": {

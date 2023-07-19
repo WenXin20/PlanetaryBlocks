@@ -1,5 +1,5 @@
 {
-  "parent": "planetary_blocks:planetary_blocks/root",
+  "parent": "planetary_blocks:planetary_blocks/obtain_sun",
   "criteria": {
     "classic_sun": {
       "conditions": {

@@ -1,5 +1,5 @@
 {
-  "parent": "planetary_blocks:planetary_blocks/classic_sun",
+  "parent": "planetary_blocks:planetary_blocks/obtain_moon",
   "criteria": {
     "classic_moon": {
       "conditions": {

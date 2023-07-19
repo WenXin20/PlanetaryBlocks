@@ -1,12 +1,12 @@
 {
-  "parent": "planetary_blocks:planetary_blocks/obtain_sun",
+  "parent": "planetary_blocks:planetary_blocks/root",
   "criteria": {
-    "mercury": {
+    "sun": {
       "conditions": {
         "items": [
           {
             "items": [
-              "planetary_blocks:mercury_block"
+              "planetary_blocks:sun_block"
             ]
           }
         ]
@@ -17,24 +17,24 @@
   "display": {
     "announce_to_chat": true,
     "description": {
-      "translate": "advancements.planetary_blocks.obtain_mercury.description"
+      "translate": "advancements.planetary_blocks.obtain_sun.description"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "planetary_blocks:mercury_block"
+      "item": "planetary_blocks:sun_block"
     },
     "show_toast": true,
     "title": {
-      "translate": "advancements.planetary_blocks.obtain_mercury.title"
+      "translate": "advancements.planetary_blocks.obtain_sun.title"
     }
   },
   "requirements": [
     [
-      "mercury"
+      "sun"
     ]
   ],
   "rewards": {
-    "experience": 150
+    "experience": 300
   }
 }

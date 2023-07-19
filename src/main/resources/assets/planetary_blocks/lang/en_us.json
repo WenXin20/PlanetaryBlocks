@@ -1,7 +1,7 @@
 {
   "itemGroup.planetary_blocks": "Planetary Blocks",
 
-  "advancements.planetary_blocks.moon_cheese.description": "The Moon is edible??",
+  "advancements.planetary_blocks.moon_cheese.description": "The Moon is edible!?",
   "advancements.planetary_blocks.moon_cheese.title": "Moon Cheese",
   "advancements.planetary_blocks.obtain_classic_moon.description": "The Minecraft Moon",
   "advancements.planetary_blocks.obtain_classic_moon.title": "The Classic Moon",
@@ -17,8 +17,10 @@
   "advancements.planetary_blocks.obtain_moon.title": "The Moon",
   "advancements.planetary_blocks.obtain_venus.description": "The twin of Earth",
   "advancements.planetary_blocks.obtain_venus.title": "Venus",
-  "advancements.planetary_blocks.root.description": "The source of all life",
-  "advancements.planetary_blocks.root.title": "The Sun",
+  "advancements.planetary_blocks.obtain_sun.description": "The source of all life",
+  "advancements.planetary_blocks.obtain_sun.title": "The Sun",
+  "advancements.planetary_blocks.root.description": "The solar system",
+  "advancements.planetary_blocks.root.title": "Planetary Blocks",
 
   "block.planetary_blocks.classic_moon": "Classic Moon",
   "block.planetary_blocks.classic_sun": "Classic Sun",
