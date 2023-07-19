@@ -6,20 +6,20 @@ import com.wenxin2.planetary_blocks.blocks.ClassicSunBlock;
 import com.wenxin2.planetary_blocks.blocks.EarthBlock;
 import com.wenxin2.planetary_blocks.blocks.MoonBlock;
 import com.wenxin2.planetary_blocks.blocks.OxidizablePanelBlock;
+import com.wenxin2.planetary_blocks.blocks.OxidizablePedestalBlock;
 import com.wenxin2.planetary_blocks.blocks.PedestalBlock;
 import com.wenxin2.planetary_blocks.blocks.PlanetBlock;
 import com.wenxin2.planetary_blocks.blocks.SunBlock;
-import com.wenxin2.planetary_blocks.blocks.OxidizablePedestalBlock;
 import com.wenxin2.planetary_blocks.items.RotatorItem;
 import java.util.function.Supplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.WeatheringCopper;
@@ -101,18 +101,18 @@ public class ModRegistry {
                 () -> new EarthBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_BLUE)
                         .sound(SoundType.STONE).strength(1.5F, 6.0F).randomTicks()
                         .requiresCorrectToolForDrops(), Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
-        MOON = registerBlock("moon_block",
+        MOON = registerFoodBlock("moon_block",
                 () -> new MoonBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)
                         .sound(SoundType.STONE).strength(1.0F, 3.0F)
-                        .requiresCorrectToolForDrops(), Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
-        LIGHT_SIDE_MOON = registerBlock("light_side_moon",
+                        .requiresCorrectToolForDrops(), Boolean.FALSE), FoodRegistry.MOON, PlanetaryBlocks.CREATIVE_TAB);
+        LIGHT_SIDE_MOON = registerFoodBlock("light_side_moon",
                 () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_LIGHT_GRAY)
                         .sound(SoundType.STONE).strength(1.0F, 3.0F)
-                        .requiresCorrectToolForDrops()), PlanetaryBlocks.CREATIVE_TAB);
-        DARK_SIDE_MOON = registerBlock("dark_side_moon",
+                        .requiresCorrectToolForDrops()), FoodRegistry.MOON, PlanetaryBlocks.CREATIVE_TAB);
+        DARK_SIDE_MOON = registerFoodBlock("dark_side_moon",
                 () -> new Block(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_GRAY)
                         .sound(SoundType.STONE).strength(1.0F, 3.0F)
-                        .requiresCorrectToolForDrops()), PlanetaryBlocks.CREATIVE_TAB);
+                        .requiresCorrectToolForDrops()), FoodRegistry.MOON, PlanetaryBlocks.CREATIVE_TAB);
         MARS = registerBlock("mars_block",
                 () -> new PlanetBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_ORANGE)
                         .sound(SoundType.STONE).strength(1.5F, 6.0F)
@@ -226,6 +226,13 @@ public class ModRegistry {
     {
         RegistryObject<Block> blocks = PlanetaryBlocks.BLOCKS.register(name, block);
         PlanetaryBlocks.ITEMS.register(name, () -> new BlockItem(blocks.get(), new Item.Properties().tab(tab)));
+        return blocks;
+    }
+
+    public static RegistryObject<Block> registerFoodBlock(String name, Supplier<? extends Block> block, FoodProperties foodProperties, CreativeModeTab tab)
+    {
+        RegistryObject<Block> blocks = PlanetaryBlocks.BLOCKS.register(name, block);
+        PlanetaryBlocks.ITEMS.register(name, () -> new BlockItem(blocks.get(), new Item.Properties().tab(tab).food(foodProperties)));
         return blocks;
     }
 
