@@ -1,0 +1,40 @@
+{
+  "parent": "planetary_blocks:planetary_blocks/obtain_earth",
+  "criteria": {
+    "mars": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "planetary_blocks:mars_block"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.planetary_blocks.obtain_mars.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "planetary_blocks:mars_block"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.planetary_blocks.obtain_mars.title"
+    }
+  },
+  "requirements": [
+    [
+      "mars"
+    ]
+  ],
+  "rewards": {
+    "experience": 300
+  }
+}

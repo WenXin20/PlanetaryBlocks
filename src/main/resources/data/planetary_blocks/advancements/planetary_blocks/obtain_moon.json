@@ -1,0 +1,38 @@
+{
+  "parent": "planetary_blocks:planetary_blocks/obtain_earth",
+  "criteria": {
+    "moon": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "planetary_blocks:moons"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.planetary_blocks.obtain_moon.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "planetary_blocks:moon_block"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.planetary_blocks.obtain_moon.title"
+    }
+  },
+  "requirements": [
+    [
+      "moon"
+    ]
+  ],
+  "rewards": {
+    "experience": 250
+  }
+}

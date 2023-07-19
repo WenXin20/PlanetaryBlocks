@@ -1,0 +1,40 @@
+{
+  "parent": "planetary_blocks:planetary_blocks/root",
+  "criteria": {
+    "classic_sun": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "planetary_blocks:classic_sun"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.planetary_blocks.obtain_classic_sun.description"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "planetary_blocks:classic_sun"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.planetary_blocks.obtain_classic_sun.title"
+    }
+  },
+  "requirements": [
+    [
+      "classic_sun"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  }
+}

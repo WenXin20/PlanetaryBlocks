@@ -1,0 +1,40 @@
+{
+  "parent": "planetary_blocks:planetary_blocks/classic_sun",
+  "criteria": {
+    "classic_moon": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "planetary_blocks:classic_moon"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.planetary_blocks.obtain_classic_moon.description"
+    },
+    "frame": "task",
+    "hidden": true,
+    "icon": {
+      "item": "planetary_blocks:classic_moon"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.planetary_blocks.obtain_classic_moon.title"
+    }
+  },
+  "requirements": [
+    [
+      "classic_moon"
+    ]
+  ],
+  "rewards": {
+    "experience": 200
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "parent": "planetary_blocks:planetary_blocks/obtain_venus",
+  "criteria": {
+    "earth": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "planetary_blocks:earth_block"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.planetary_blocks.obtain_earth.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "planetary_blocks:earth_block"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.planetary_blocks.obtain_earth.title"
+    }
+  },
+  "requirements": [
+    [
+      "earth"
+    ]
+  ],
+  "rewards": {
+    "experience": 250
+  }
+}

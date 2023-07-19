@@ -1,0 +1,36 @@
+{
+  "parent": "planetary_blocks:planetary_blocks/obtain_moon",
+  "criteria": {
+    "consume_moon": {
+      "conditions": {
+        "item": {
+          "tag": "planetary_blocks:moons"
+        }
+      },
+      "trigger": "minecraft:consume_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.planetary_blocks.moon_cheese.description"
+    },
+    "frame": "challenge",
+    "hidden": true,
+    "icon": {
+      "item": "planetary_blocks:moon_block"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.planetary_blocks.moon_cheese.title"
+    }
+  },
+  "requirements": [
+    [
+      "consume_moon"
+    ]
+  ],
+  "rewards": {
+    "experience": 350
+  }
+}

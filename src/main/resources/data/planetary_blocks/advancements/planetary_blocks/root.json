@@ -1,0 +1,38 @@
+{
+  "criteria": {
+    "sun_block": {
+      "conditions": {
+        "item": {
+          "items": [
+            "planetary_blocks:sun_block"
+          ]
+        }
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "planetary_blocks:textures/gui/advancements/backgrounds/planetary_blocks.png",
+    "description": {
+      "translate": "advancements.planetary_blocks.root.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "planetary_blocks:sun_block"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.planetary_blocks.root.title"
+    }
+  },
+  "requirements": [
+    [
+      "sun_block"
+    ]
+  ],
+  "rewards": {
+    "experience": 100
+  }
+}
