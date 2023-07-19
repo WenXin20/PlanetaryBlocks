@@ -81,10 +81,10 @@ public class ModRegistry {
                 () -> new ClassicSunBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
                         .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
                         .requiresCorrectToolForDrops().emissiveRendering(ModRegistry::always), Boolean.TRUE), PlanetaryBlocks.CREATIVE_TAB);
-        CLASSIC_MOON = registerBlock("classic_moon",
+        CLASSIC_MOON = registerFoodBlock("classic_moon",
                 () -> new ClassicMoonBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.SNOW)
                         .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 3).randomTicks()
-                        .requiresCorrectToolForDrops(), Boolean.FALSE), PlanetaryBlocks.CREATIVE_TAB);
+                        .requiresCorrectToolForDrops(), Boolean.FALSE), FoodRegistry.MOON, PlanetaryBlocks.CREATIVE_TAB);
         SUN = registerBlock("sun_block",
                 () -> new SunBlock(BlockBehaviour.Properties.of(Material.STONE, MaterialColor.COLOR_YELLOW)
                         .sound(SoundType.STONE).strength(3.5F, 100.0F).lightLevel(s -> 15)
