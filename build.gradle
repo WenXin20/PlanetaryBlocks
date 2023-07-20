@@ -40,7 +40,7 @@ repositories {
     }
 }
 
-version = '0.03'
+version = "${minecraft_version}-${jar_version}"
 group = 'com.wenxin2.planetary_blocks'
 archivesBaseName = 'planetary_blocks'
 
