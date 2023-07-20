@@ -12,7 +12,7 @@ issueTrackerURL="https://github.com/WenXin20/PlanetaryBlocks/issues"
   # The modid of the mod
   modId="planetary_blocks"
   # The version number of the mod
-  version="${file.jarVersion}"
+  version="${minecraft_version}-${jar_version}"
    # A display name for the mod
   displayName="Planetary Blocks"
   # A URL for the "homepage" for this mod, displayed in the mod UI

@@ -40,7 +40,7 @@ repositories {
     }
 }
 
-version = '0.02'
+version = '0.03'
 group = 'com.wenxin2.planetary_blocks'
 archivesBaseName = 'planetary_blocks'
 
@@ -141,13 +141,20 @@ jar {
     manifest {
         attributes([
                 "Specification-Title"     : "planetary_blocks",
-                "Specification-Vendor"    : "planetary_blockssareus",
+                "Specification-Vendor"    : "planetary_blocks_vendor",
                 "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : "planetary_blockssareus",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Implementation-Vendor"   : "planetary_blocks_vendor",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs": "planetary_blocks.mixins.json"
         ])
+    }
+}
+
+processResources {
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand project.properties
     }
 }
 
