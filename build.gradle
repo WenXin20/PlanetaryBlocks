@@ -46,12 +46,14 @@ archivesBaseName = 'planetary_blocks'
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
     // Imports
     implementation fg.deobf("curse.maven:jei-${jei_version}")
 }
 
 mixin {
-    add sourceSets.main, "main.refmap.json"
+    add sourceSets.main, "planetary_blocks.refmap.json"
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
@@ -71,6 +73,7 @@ minecraft {
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', 'planetary_blocks'
+            arg "-mixin.config=planetary_blocks.mixins.json"
 
             mods {
                 planetary_blocks {
@@ -81,12 +84,10 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-
             property 'forge.logging.markers', 'REGISTRIES'
-
             property 'forge.logging.console.level', 'debug'
-
             property 'forge.enabledGameTestNamespaces', 'planetary_blocks'
+            arg "-mixin.config=planetary_blocks.mixins.json"
 
             mods {
                 planetary_blocks {
